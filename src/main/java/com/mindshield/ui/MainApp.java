@@ -1,24 +1,28 @@
 package com.mindshield.ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    @Override // İşte eksik olan sihirli kelime bu kanka!
-    public void start(Stage primaryStage) {
-        // Ekranın ortasına bir yazı koyalım
-        Label label = new Label("MindShield Projesine Hos Geldiniz!");
-        StackPane root = new StackPane();
-        root.getChildren().add(label);
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // 1. FXML dosyasını yükle (resources klasöründen çeker)
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+        
+        Parent root = loader.load();
 
-        // Pencere ayarları
-        Scene scene = new Scene(root, 400, 300);
-        primaryStage.setTitle("MindShield - Anonim Destek");
+        // 2. Sahneyi (Scene) oluştur
+        Scene scene = new Scene(root);
+
+        // 3. Pencere ayarları
+        primaryStage.setTitle("MindShield - Anonim Giriş");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false); // Tasarımın bozulmaması için pencereyi sabitleyebilirsin
         primaryStage.show();
     }
 
