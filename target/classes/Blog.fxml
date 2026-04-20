@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="560.0" prefWidth="620.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.BlogController">
+   <children>
+      <VBox prefHeight="560.0" prefWidth="620.0" spacing="20.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Text styleClass="title-text" style="-fx-font-size: 24;" text="Uzman Blogları" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnWrite" mnemonicParsing="false" style="-fx-background-color: #4CAF50;" text="+ Yeni Yazı Yaz" />
+               </children>
+            </HBox>
+            
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+               <content>
+                  <VBox fx:id="blogContainer" spacing="15.0">
+                     <children>
+                        <!-- Sample Card -->
+                        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 20;">
+                           <children>
+                              <Text style="-fx-font-weight: bold; -fx-font-size: 18;" text="Stresle Baş Etme Yolları" />
+                              <Text style="-fx-fill: #666;" text="Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler..." />
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <Label text="Dr. Ayşe Yılmaz" textFill="#1a237e" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 20;">
+                           <children>
+                              <Text style="-fx-font-weight: bold; -fx-font-size: 18;" text="Anksiyete ve Sosyal Fobi" />
+                              <Text style="-fx-fill: #666;" text="Sosyal ortamlarda rahat hissetmek için uygulayabileceğiniz egzersizler." />
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <Label text="Kli. Psk. Mehmet Can" textFill="#1a237e" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
