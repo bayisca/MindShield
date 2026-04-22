@@ -4,45 +4,59 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="560.0" prefWidth="620.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SettingsController">
+<AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SettingsController">
    <children>
-      <VBox prefHeight="560.0" prefWidth="620.0" spacing="25.0">
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
-         <children>
-            <Text styleClass="title-text" style="-fx-font-size: 24;" text="Profil ve Ayarlar" />
-            
-            <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
+      <ScrollPane fitToWidth="true" prefHeight="560.0" prefWidth="620.0" styleClass="scroll-pane">
+         <content>
+            <VBox spacing="25.0">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Persona Bilgilerini Güncelle" />
+                  <Text styleClass="title-text" text="Profil ve Ayarlar" />
                   
-                  <VBox spacing="5.0">
+                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
                      <children>
-                        <Label text="Yeni Persona Adı:" textFill="#666" />
-                        <TextField fx:id="newPersonaName" prefHeight="40.0" promptText="Yeni adınızı girin" />
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Persona Bilgilerini Güncelle" />
+                        
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label styleClass="subtitle-text" text="Yeni Persona Adı:" />
+                              <TextField fx:id="newPersonaName" prefHeight="40.0" promptText="Yeni adınızı girin" />
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label styleClass="subtitle-text" text="Yeni Şifre:" />
+                              <PasswordField fx:id="newPassword" prefHeight="40.0" promptText="Yeni şifrenizi girin" />
+                           </children>
+                        </VBox>
+                        
+                        <Button onAction="#saveSettings" prefHeight="45.0" text="Değişiklikleri Kaydet" />
                      </children>
                   </VBox>
                   
-                  <VBox spacing="5.0">
+                  <!-- YAZILARIM BÖLÜMÜ -->
+                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
                      <children>
-                        <Label text="Yeni Şifre:" textFill="#666" />
-                        <PasswordField fx:id="newPassword" prefHeight="40.0" promptText="Yeni şifrenizi girin" />
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Blog Yazılarım" />
+                        <VBox fx:id="myPostsContainer" spacing="10.0">
+                           <!-- Java tarafından doldurulacak -->
+                        </VBox>
                      </children>
                   </VBox>
                   
-                  <Button onAction="#saveSettings" prefHeight="45.0" text="Değişiklikleri Kaydet" />
+                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
+                     <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Gizlilik ve Güvenlik" />
+                        <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
+                        <CheckBox text="Verilerimi yerel diskte şifrele" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
-            
-            <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
-               <children>
-                  <Label style="-fx-font-weight: bold;" text="Gizlilik ve Güvenlik" />
-                  <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
-                  <CheckBox text="Verilerimi yerel diskte şifrele" />
-               </children>
-            </VBox>
-         </children>
-      </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

@@ -23,7 +23,7 @@ public class LoginController {
 
         if (user != null && user.getPassword().equals(pass)) {
             System.out.println("Giriş başarılı! Hoş geldin: " + persona);
-            DashboardController.setCurrentUserRole(user.getRole());
+            DashboardController.setCurrentUser(user);
             switchToDashboard();
         } else {
             System.out.println("Hata: Persona veya şifre geçersiz.");

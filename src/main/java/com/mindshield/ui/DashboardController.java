@@ -12,14 +12,24 @@ public class DashboardController {
     @FXML
     private StackPane contentArea;
 
-    private static UserRole currentUserRole = UserRole.CLIENT; 
+    private static com.mindshield.models.BaseUser currentUser;
+    private static DashboardController instance;
 
-    public static void setCurrentUserRole(UserRole role) {
-        currentUserRole = role;
+    public static void setCurrentUser(com.mindshield.models.BaseUser user) {
+        currentUser = user;
+    }
+
+    public static com.mindshield.models.BaseUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public static DashboardController getInstance() {
+        return instance;
     }
 
     @FXML
     public void initialize() {
+        instance = this;
         System.out.println("MindShield Dashboard hazır!");
         showBlog(); 
     }
@@ -37,7 +47,7 @@ public class DashboardController {
 
             if (fxmlFile.equals("/Blog.fxml")) {
                 BlogController bc = loader.getController();
-                if (currentUserRole == UserRole.CLIENT) {
+                if (currentUser != null && currentUser.getRole() == UserRole.CLIENT) {
                     bc.hideWriteButton();
                 }
             }
@@ -48,7 +58,39 @@ public class DashboardController {
         }
     }
 
-    @FXML private void showBlog() { loadView("/Blog.fxml"); }
+    public void showBlogDetail(com.mindshield.models.BlogPost post) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/BlogDetail.fxml"));
+            Parent view = loader.load();
+            
+            BlogDetailController controller = loader.getController();
+            controller.setPost(post);
+            
+            contentArea.getChildren().setAll(view);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showBlogWrite() {
+        loadView("/BlogWrite.fxml");
+    }
+
+    public void showBlogEdit(com.mindshield.models.BlogPost post) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/BlogWrite.fxml"));
+            Parent view = loader.load();
+            
+            BlogWriteController controller = loader.getController();
+            controller.setEditPost(post);
+            
+            contentArea.getChildren().setAll(view);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML public void showBlog() { loadView("/Blog.fxml"); }
     @FXML private void showMessages() { loadView("/Messages.fxml"); }
     @FXML private void showProfile() { loadView("/Settings.fxml"); }
 }

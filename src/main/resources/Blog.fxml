@@ -19,34 +19,11 @@
                </children>
             </HBox>
             
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
                <content>
                   <VBox fx:id="blogContainer" spacing="15.0">
                      <children>
-                        <!-- Sample Card -->
-                        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 20;">
-                           <children>
-                              <Text style="-fx-font-weight: bold; -fx-font-size: 18;" text="Stresle Baş Etme Yolları" />
-                              <Text style="-fx-fill: #666;" text="Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler..." />
-                              <HBox alignment="CENTER_RIGHT">
-                                 <children>
-                                    <Label text="Dr. Ayşe Yılmaz" textFill="#1a237e" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        
-                        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 20;">
-                           <children>
-                              <Text style="-fx-font-weight: bold; -fx-font-size: 18;" text="Anksiyete ve Sosyal Fobi" />
-                              <Text style="-fx-fill: #666;" text="Sosyal ortamlarda rahat hissetmek için uygulayabileceğiniz egzersizler." />
-                              <HBox alignment="CENTER_RIGHT">
-                                 <children>
-                                    <Label text="Kli. Psk. Mehmet Can" textFill="#1a237e" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                        <!-- Blog yazıları dinamik olarak eklenecek -->
                      </children>
                   </VBox>
                </content>
