@@ -9,7 +9,7 @@ public class Counselor extends BaseUser{
     private double rating;
 
     public Counselor(String persona, String id, String password, String specialization) {
-        super(persona, id, password, UserRole.COUNSELOR);
+        super(persona, password, UserRole.COUNSELOR);
         this.specialization = specialization;
         this.isApproved = false; // By default, counselors need admin approval
         this.rating = 0.0;

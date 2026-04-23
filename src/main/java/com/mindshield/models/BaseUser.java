@@ -16,4 +16,8 @@ public class BaseUser {
     public String getPersona() { return persona; }
     public String getPassword() { return password; }
     public UserRole getRole() { return role; }
+
+    public void login() {
+        System.out.println("User logged in");
+    }
 }
