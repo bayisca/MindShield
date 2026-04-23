@@ -2,7 +2,7 @@ package com.mindshield.models;
 
 import com.mindshield.ui.UserRole;
 
-public class BaseUser {
+public abstract class BaseUser {
     private String persona;
     private String password;
     private UserRole role;
@@ -17,7 +17,5 @@ public class BaseUser {
     public String getPassword() { return password; }
     public UserRole getRole() { return role; }
 
-    public void login() {
-        System.out.println("User logged in");
-    }
+    public abstract void login();
 }

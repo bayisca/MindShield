@@ -1,0 +1,188 @@
+/* 
+    MindShield Modern Indigo Design System
+    Premium UI Styles
+*/
+
+.root {
+    /* Primary brand colors */
+    -fx-primary: #3f51b5; /* Indigo 500 */
+    -fx-primary-dark: #303f9f; /* Indigo 700 */
+    -fx-primary-light: #c5cae9; /* Indigo 100 */
+    
+    /* Semantic colors */
+    -fx-success: #4caf50;
+    -fx-danger: #f44336;
+    -fx-warning: #ff9800;
+    
+    /* Backgrounds */
+    -fx-bg-main: #f5f7fb;
+    -fx-bg-card: #ffffff;
+    -fx-bg-sidebar: #ffffff;
+    
+    /* Text colors */
+    -fx-text-title: #1a237e;
+    -fx-text-main: #333333;
+    -fx-text-muted: #757575;
+}
+
+/* Global resets */
+.main-container {
+    -fx-background-color: -fx-bg-main;
+}
+
+.label {
+    -fx-text-fill: -fx-text-main;
+}
+
+/* Typography */
+.title-text {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
+    -fx-fill: -fx-text-title;
+}
+
+.subtitle-text {
+    -fx-font-size: 14px;
+    -fx-fill: -fx-text-muted;
+}
+
+/* Inputs */
+.text-field, .password-field, .text-area {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 1.5;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(63, 81, 181, 0.2), 10, 0, 0, 4);
+}
+
+.button:hover {
+    -fx-background-color: -fx-primary-dark;
+}
+
+.button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-primary;
+    -fx-border-radius: 8;
+    -fx-text-fill: -fx-primary;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #f0f2ff;
+}
+
+.btn-danger {
+    -fx-background-color: -fx-danger;
+}
+
+/* Cards */
+.card {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 15, 0, 0, 5);
+}
+
+.card-clickable:hover {
+    -fx-background-color: #fafafa;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 0, 8);
+    -fx-cursor: hand;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
+}
+
+.side-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #555;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 15px;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8;
+    -fx-margin: 5 10;
+}
+
+.side-button:hover {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: -fx-primary;
+}
+
+.side-button-active {
+    -fx-background-color: #e8eaf6;
+    -fx-text-fill: -fx-primary;
+    -fx-font-weight: bold;
+}
+
+/* ScrollPane */
+/* Custom Scrollbar */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #cbd5e0;
+    -fx-background-radius: 10;
+}
+
+.scroll-bar:vertical .thumb:hover, .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -fx-primary;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+.check-box {
+    -fx-text-fill: -fx-text-main;
+}
+
+.check-box .text {
+    -fx-fill: -fx-text-main;
+}
+
+.radio-button {
+    -fx-text-fill: -fx-text-main;
+}
+
+.radio-button .text {
+    -fx-fill: -fx-text-main;
+}

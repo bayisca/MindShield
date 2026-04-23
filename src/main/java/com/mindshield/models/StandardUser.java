@@ -23,5 +23,11 @@ public class StandardUser extends BaseUser {
     public void askQuestion(String question) {
         // Danışmanlara soru sorma yeteneği
     }
+
+    @Override
+    public void login() {
+        // Implement login logic for StandardUser
+        // Placeholder implementation
+    }
     
 }

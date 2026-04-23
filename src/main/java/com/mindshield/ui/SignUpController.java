@@ -24,7 +24,15 @@ public class SignUpController {
 
         if (!persona.isEmpty() && !pass.isEmpty()) {
             // BaseUser modelini kullanarak kaydet
-            com.mindshield.models.BaseUser newUser = new com.mindshield.models.BaseUser(persona, pass, role);
+            String id = java.util.UUID.randomUUID().toString();
+            com.mindshield.models.BaseUser newUser;
+            
+            if (role == UserRole.COUNSELOR) {
+                newUser = new com.mindshield.models.Counselor(persona, id, pass, "Awaiting Approval");
+            } else {
+                newUser = new com.mindshield.models.StandardUser(persona, id, pass, role);
+            }
+            
             MainApp.userDatabase.put(persona, newUser);
             System.out.println("Yeni Persona Kaydedildi: " + persona + " (" + role + ")");
             

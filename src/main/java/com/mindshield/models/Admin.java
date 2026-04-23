@@ -48,7 +48,6 @@ public class Admin extends BaseUser {
 
     @Override
     public void login() {
-        super.login();
         System.out.println("Yetki Seviyesi: SİSTEM YÖNETİCİSİ");
     }
 

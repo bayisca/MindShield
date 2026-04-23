@@ -15,6 +15,15 @@ public class Counselor extends BaseUser{
         this.rating = 0.0;
     }
 
+    @Override
+    public void login() {
+        if (isApproved) {
+            System.out.println("Giriş Başarılı: Danışman hesabı onaylanmış.");
+        } else {
+            System.out.println("Giriş Beklemede: Danışman hesabı henüz onaylanmamış.");
+        }
+    }
+
     public boolean isApproved() {
         return isApproved;
     }
