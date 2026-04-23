@@ -15,7 +15,7 @@ public class MainApp extends Application {
 
     static {
         // Default admin (Counselor)
-        com.mindshield.models.BaseUser admin = new com.mindshield.models.BaseUser("admin", "admin123", UserRole.COUNSELOR);
+        com.mindshield.models.BaseUser admin = new com.mindshield.models.Counselor("admin", "admin-001", "admin123", "General Wellness");
         userDatabase.put("admin", admin);
 
         // Sample Blog Posts
