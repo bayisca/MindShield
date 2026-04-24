@@ -32,6 +32,18 @@ public class Counselor extends BaseUser{
         this.isApproved = approved;
     }
 
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     public void publishArticle(String title, String body) {
         // Danışman makale yayınlama yeteneği
     }

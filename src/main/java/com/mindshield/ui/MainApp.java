@@ -6,22 +6,30 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import com.mindshield.models.BaseUser;
+import com.mindshield.models.BlogPost;
+import com.mindshield.models.Counselor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainApp extends Application {
 
-    public static java.util.Map<String, com.mindshield.models.BaseUser> userDatabase = new java.util.HashMap<>();
-    public static java.util.List<com.mindshield.models.BlogPost> blogPosts = new java.util.ArrayList<>();
-    public static java.util.Map<String, String> chatDatabase = new java.util.HashMap<>();
+    public static Map<String, BaseUser> userDatabase = new HashMap<>();
+    public static List<BlogPost> blogPosts = new ArrayList<>();
+    public static Map<String, String> chatDatabase = new HashMap<>();
 
     static {
         // Default admin (Counselor)
-        com.mindshield.models.BaseUser admin = new com.mindshield.models.Counselor("admin", "admin-001", "admin123", "General Wellness");
+        BaseUser admin = new Counselor("admin", "admin-001", "admin123", "General Wellness");
         userDatabase.put("admin", admin);
 
         // Sample Blog Posts
-        blogPosts.add(new com.mindshield.models.BlogPost(admin, "Stresle Baş Etme Yolları", "Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler ve günlük egzersizler..."));
-        blogPosts.add(new com.mindshield.models.BlogPost(admin, "Anksiyete ve Sosyal Fobi", "Sosyal ortamlarda rahat hissetmek için uygulayabileceğiniz bilişsel davranışçı teknikler."));
+        blogPosts.add(new BlogPost(admin, "Stresle Baş Etme Yolları", "Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler ve günlük egzersizler..."));
+        blogPosts.add(new BlogPost(admin, "Anksiyete ve Sosyal Fobi", "Sosyal ortamlarda rahat hissetmek için uygulayabileceğiniz bilişsel davranışçı teknikler."));
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {

@@ -2,7 +2,7 @@ package com.mindshield.ui;
 
 import com.mindshield.models.BaseUser;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;

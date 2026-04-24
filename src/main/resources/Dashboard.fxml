@@ -29,7 +29,7 @@
                   
                   <Region VBox.vgrow="ALWAYS" />
                   
-                  <Button maxWidth="Infinity" onAction="#showProfile" styleClass="side-button" text="🚪 Çıkış Yap" />
+                  <Button maxWidth="Infinity" onAction="#handleLogout" styleClass="side-button" text="🚪 Çıkış Yap" />
                </children>
             </VBox>
             

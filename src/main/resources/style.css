@@ -27,6 +27,7 @@
 
 /* Global resets */
 .main-container {
+    background-color: -fx-bg-main;
     -fx-background-color: -fx-bg-main;
 }
 
@@ -36,45 +37,64 @@
 
 /* Typography */
 .title-text {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: bold;
     -fx-font-weight: bold;
+    font-size: 28px;
     -fx-font-size: 28px;
+    fill: -fx-text-title;
     -fx-fill: -fx-text-title;
 }
 
 .subtitle-text {
+    font-size: 14px;
     -fx-font-size: 14px;
+    fill: -fx-text-muted;
     -fx-fill: -fx-text-muted;
 }
 
 /* Inputs */
 .text-field, .password-field, .text-area {
+    background-color: white;
     -fx-background-color: white;
     -fx-background-radius: 8;
+    border-color: #dee2e6;
     -fx-border-color: #dee2e6;
+    border-radius: 8;
     -fx-border-radius: 8;
+    padding: 10 12;
     -fx-padding: 10 12;
+    font-size: 14px;
     -fx-font-size: 14px;
 }
 
 .text-field:focused, .password-field:focused, .text-area:focused {
+    border-color: -fx-primary;
     -fx-border-color: -fx-primary;
+    border-width: 1.5;
     -fx-border-width: 1.5;
 }
 
 /* Buttons */
 .button {
+    background-color: -fx-primary;
     -fx-background-color: -fx-primary;
     -fx-text-fill: white;
     -fx-background-radius: 8;
+    font-weight: bold;
     -fx-font-weight: bold;
+    cursor: hand;
     -fx-cursor: hand;
+    padding: 10 20;
     -fx-padding: 10 20;
+    font-size: 14px;
     -fx-font-size: 14px;
     -fx-effect: dropshadow(gaussian, rgba(63, 81, 181, 0.2), 10, 0, 0, 4);
 }
 
 .button:hover {
+    background-color: -fx-primary-dark;
     -fx-background-color: -fx-primary-dark;
 }
 
@@ -84,8 +104,11 @@
 }
 
 .btn-secondary {
+    background-color: transparent;
     -fx-background-color: transparent;
+    border-color: -fx-primary;
     -fx-border-color: -fx-primary;
+    border-radius: 8;
     -fx-border-radius: 8;
     -fx-text-fill: -fx-primary;
 }
@@ -100,30 +123,38 @@
 
 /* Cards */
 .card {
+    background-color: -fx-bg-card;
     -fx-background-color: -fx-bg-card;
     -fx-background-radius: 12;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 15, 0, 0, 5);
 }
 
 .card-clickable:hover {
+    background-color: #fafafa;
     -fx-background-color: #fafafa;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 0, 8);
+    cursor: hand;
     -fx-cursor: hand;
 }
 
 /* Sidebar */
 .sidebar {
+    background-color: -fx-bg-sidebar;
     -fx-background-color: -fx-bg-sidebar;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
 }
 
 .side-button {
+    background-color: transparent;
     -fx-background-color: transparent;
     -fx-text-fill: #555;
     -fx-alignment: CENTER_LEFT;
+    font-size: 15px;
     -fx-font-size: 15px;
+    padding: 12 20;
     -fx-padding: 12 20;
     -fx-background-radius: 8;
+    margin: 5 10;
     -fx-margin: 5 10;
 }
 
@@ -133,41 +164,51 @@
 }
 
 .side-button-active {
+    background-color: #e8eaf6;
     -fx-background-color: #e8eaf6;
     -fx-text-fill: -fx-primary;
+    font-weight: bold;
     -fx-font-weight: bold;
 }
 
 /* ScrollPane */
 /* Custom Scrollbar */
 .scroll-pane {
+    background-color: transparent;
     -fx-background-color: transparent;
 }
 
 .scroll-pane > .viewport {
+    background-color: transparent;
     -fx-background-color: transparent;
 }
 
 .scroll-bar:vertical, .scroll-bar:horizontal {
+    background-color: transparent;
     -fx-background-color: transparent;
 }
 
 .scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    background-color: #cbd5e0;
     -fx-background-color: #cbd5e0;
     -fx-background-radius: 10;
 }
 
 .scroll-bar:vertical .thumb:hover, .scroll-bar:horizontal .thumb:hover {
+    background-color: -fx-primary;
     -fx-background-color: -fx-primary;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
+    background-color: transparent;
     -fx-background-color: transparent;
+    padding: 0;
     -fx-padding: 0;
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
     -fx-shape: "";
+    padding: 0;
     -fx-padding: 0;
 }
 
@@ -176,6 +217,7 @@
 }
 
 .check-box .text {
+    fill: -fx-text-main;
     -fx-fill: -fx-text-main;
 }
 
@@ -184,5 +226,6 @@
 }
 
 .radio-button .text {
+    fill: -fx-text-main;
     -fx-fill: -fx-text-main;
 }

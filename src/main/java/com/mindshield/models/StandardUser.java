@@ -24,6 +24,14 @@ public class StandardUser extends BaseUser {
         // Danışmanlara soru sorma yeteneği
     }
 
+    public boolean isAnonymous() {
+        return isAnonymous;
+    }
+
+    public List<String> getJournalingHistory() {
+        return journalingHistory;
+    }
+
     @Override
     public void login() {
         // Implement login logic for StandardUser

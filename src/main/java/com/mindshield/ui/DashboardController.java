@@ -5,7 +5,9 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class DashboardController {
 
@@ -93,4 +95,20 @@ public class DashboardController {
     @FXML public void showBlog() { loadView("/Blog.fxml"); }
     @FXML private void showMessages() { loadView("/Messages.fxml"); }
     @FXML private void showProfile() { loadView("/Settings.fxml"); }
+
+    @FXML
+    private void handleLogout() {
+        try {
+            setCurrentUser(null);
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            
+            // Yeni bir sahne oluşturarak pencere boyutunun Login.fxml'e göre ayarlanmasını sağlarız
+            Scene scene = new Scene(loginView);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
