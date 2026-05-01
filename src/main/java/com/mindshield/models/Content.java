@@ -1,9 +1,8 @@
 package com.mindshield.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-import java.io.Serializable;
 
 public abstract class Content implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,6 +23,7 @@ public abstract class Content implements Serializable {
     }
 
     public String getId() { return id; }
+    public BaseUser getAuthor() { return author; }
     public boolean isAuthor(BaseUser user) { return this.author != null && this.author.equals(user); }
     public String getPersonaName() { return author.getPersona(); }
     public String getTitle() { return title; }

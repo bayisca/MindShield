@@ -6,6 +6,7 @@ import java.util.List;
 public interface PostDao {
     void save(BlogPost post);
     void update();
+    void deleteById(String id);
     BlogPost findById(String id);
     List<BlogPost> findAll();
     List<BlogPost> searchByTitleOrContent(String searchTerm);

@@ -21,6 +21,28 @@ public class BlogPost extends Content {
         comments.add(comment);
     }
 
+    public Comment findCommentById(String commentId) {
+        if (commentId == null) return null;
+        for (Comment c : comments) {
+            if (c != null && commentId.equals(c.getId())) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public Comment removeCommentById(String commentId) {
+        if (commentId == null) return null;
+        for (int i = 0; i < comments.size(); i++) {
+            Comment c = comments.get(i);
+            if (c != null && commentId.equals(c.getId())) {
+                comments.remove(i);
+                return c;
+            }
+        }
+        return null;
+    }
+
     public boolean isPublished() {
         return isPublished;
     }

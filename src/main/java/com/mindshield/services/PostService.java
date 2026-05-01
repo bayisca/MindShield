@@ -1,5 +1,11 @@
 package com.mindshield.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.mindshield.dao.PostDao;
+import com.mindshield.dao.PostDaoImpl;
 import com.mindshield.exceptions.PostNotFoundException;
 import com.mindshield.exceptions.UnauthorizedException;
 import com.mindshield.models.BaseUser;
@@ -7,12 +13,6 @@ import com.mindshield.models.BlogPost;
 import com.mindshield.models.Comment;
 import com.mindshield.models.Content;
 import com.mindshield.ui.UserRole;
-import com.mindshield.dao.PostDao;
-import com.mindshield.dao.PostDaoImpl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service class for managing blog posts and comments.
@@ -67,6 +67,41 @@ public class PostService {
         return post;
     }
 
+    public BlogPost updatePost(BaseUser author, String postId, String title, String body) {
+        if (author == null) {
+            throw new UnauthorizedException("Authentication required to update a post.");
+        }
+        if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
+            throw new IllegalArgumentException("Post title and body cannot be empty.");
+        }
+
+        BlogPost post = findPostById(postId);
+        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
+            throw new UnauthorizedException("You can only update your own posts.");
+        }
+
+        post.setTitle(title);
+        post.setBody(body);
+        postDao.update(); // Save changes to persistent storage
+        return post;
+    }
+
+    public BlogPost unpublishPost(BaseUser author, String postId) {
+        if (author == null) {
+            throw new UnauthorizedException("Authentication required to delete a post.");
+        }
+
+        BlogPost post = findPostById(postId);
+        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
+            throw new UnauthorizedException("You can only delete your own posts.");
+        }
+
+        blogPosts.removeIf(p -> p != null && postId.equals(p.getId()));
+        comments.removeIf(c -> c != null && postId.equals(c.getParentId()));
+        postDao.deleteById(postId);
+        return post;
+    }
+
     /**
      * Adds a comment to an existing blog post.
      * 
@@ -89,6 +124,28 @@ public class PostService {
         postDao.update(); // Save changes to persistent storage
         
         return comment;
+    }
+
+    public Comment deleteComment(BaseUser author, String postId, String commentId) {
+        if (author == null) {
+            throw new UnauthorizedException("Authentication required to delete a comment.");
+        }
+
+        BlogPost post = findPostById(postId);
+        Comment existing = post.findCommentById(commentId);
+        if (existing == null) {
+            throw new PostNotFoundException("Comment not found with ID: " + commentId);
+        }
+
+        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN;
+        if (!canDelete) {
+            throw new UnauthorizedException("You are not allowed to delete this comment.");
+        }
+
+        Comment removed = post.removeCommentById(commentId);
+        comments.removeIf(c -> c != null && commentId.equals(c.getId()));
+        postDao.update();
+        return removed;
     }
 
     /**

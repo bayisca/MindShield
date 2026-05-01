@@ -1,11 +1,16 @@
 package com.mindshield.dao;
 
-import com.mindshield.models.BlogPost;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.mindshield.models.BlogPost;
 
 public class PostDaoImpl implements PostDao {
     private List<BlogPost> dbMock;
@@ -19,6 +24,15 @@ public class PostDaoImpl implements PostDao {
     public void save(BlogPost post) {
         dbMock.add(post);
         savePosts();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        if (id == null) return;
+        boolean removed = dbMock.removeIf(p -> p != null && id.equals(p.getId()));
+        if (removed) {
+            savePosts();
+        }
     }
 
     public void update() {
