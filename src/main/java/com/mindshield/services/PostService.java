@@ -14,14 +14,14 @@ import com.mindshield.models.Comment;
 import com.mindshield.models.Content;
 import com.mindshield.ui.UserRole;
 
-/**
- * Service class for managing blog posts and comments.
- * Handles business logic, RBAC, and data validation.
- */
+
+//Service class for managing blog posts and comments.
+
 public class PostService {
     private List<BlogPost> blogPosts;
     private List<Comment> comments;
     private PostDao postDao;
+    private static final int MAX_POST_WORD_LIMIT = 5000; // Maximum word limit for posts
 
     public PostService() {
         this.postDao = new PostDaoImpl(); // Connected to Ahmet's DAO structure
@@ -29,16 +29,42 @@ public class PostService {
         this.comments = new ArrayList<>();
     }
 
-    /**
-     * Creates a new blog post. Only counselors are authorized to create posts.
-     * 
-     * @param author The user creating the post
-     * @param title The title of the post
-     * @param body The content of the post
-     * @return The created BlogPost
-     * @throws UnauthorizedException if the author is not a COUNSELOR
-     * @throws IllegalArgumentException if title or body is empty
-     */
+    
+    //Validates the word count of a post body.
+
+    public void validateWordLimit(String body) {
+        if (body == null || body.trim().isEmpty()) {
+            return; // Empty body is handled elsewhere
+        }
+        
+        String[] words = body.trim().split("\\s+");
+        int wordCount = words.length;
+        
+        if (wordCount > MAX_POST_WORD_LIMIT) {
+            throw new IllegalArgumentException(
+                "Post body exceeds the maximum word limit of " + MAX_POST_WORD_LIMIT + 
+                " words. Current word count: " + wordCount);
+        }
+    }
+
+    
+    //Gets the current word count of a given text.
+    
+    public int getWordCount(String text) {
+        if (text == null || text.trim().isEmpty()) {
+            return 0;
+        }
+        return text.trim().split("\\s+").length;
+    }
+
+
+    //Gets the maximum word limit for posts.
+    
+    public int getMaxWordLimit() {
+        return MAX_POST_WORD_LIMIT;
+    }
+
+    //Creates a new blog post. Only counselors are authorized to create posts.
     public BlogPost createPost(BaseUser author, String title, String body) {
         if (author.getRole() != UserRole.COUNSELOR) {
             throw new UnauthorizedException("Only counselors can create blog posts.");
@@ -46,6 +72,8 @@ public class PostService {
         if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
             throw new IllegalArgumentException("Post title and body cannot be empty.");
         }
+        
+        validateWordLimit(body); // Validate word limit before creating post
 
         BlogPost post = new BlogPost(author, title, body);
         blogPosts.add(post);
@@ -53,18 +81,27 @@ public class PostService {
         return post;
     }
 
-    /**
-     * Publishes a blog post by its ID.
-     * 
-     * @param postId The ID of the post to publish
-     * @return The published BlogPost
-     * @throws PostNotFoundException if the post does not exist
-     */
+    // Publishes a blog post by its ID.
     public BlogPost publishPost(String postId) {
-        BlogPost post = findPostById(postId);
-        post.publish();
-        postDao.update(); // Save changes to persistent storage
-        return post;
+        if (postId == null || postId.trim().isEmpty()) {
+            throw new IllegalArgumentException("Post ID cannot be null or empty.");
+        }
+        
+        try {
+            BlogPost post = findPostById(postId);
+            
+            if (post.isPublished()) {
+                throw new IllegalStateException("Post is already published.");
+            }
+            
+            post.publish();
+            postDao.update(); // Save changes to persistent storage
+            return post;
+        } catch (PostNotFoundException e) {
+            throw e; // Re-throw not found exception as-is
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to publish post: " + e.getMessage(), e);
+        }
     }
 
     public BlogPost updatePost(BaseUser author, String postId, String title, String body) {
@@ -74,6 +111,8 @@ public class PostService {
         if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
             throw new IllegalArgumentException("Post title and body cannot be empty.");
         }
+        
+        validateWordLimit(body); // Validate word limit before updating post
 
         BlogPost post = findPostById(postId);
         if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
@@ -102,16 +141,8 @@ public class PostService {
         return post;
     }
 
-    /**
-     * Adds a comment to an existing blog post.
-     * 
-     * @param postId The ID of the post
-     * @param author The user creating the comment
-     * @param body The content of the comment
-     * @return The created Comment
-     * @throws PostNotFoundException if the post does not exist
-     * @throws IllegalArgumentException if the comment body is empty
-     */
+    
+    //Adds a comment to an existing blog post.
     public Comment addComment(String postId, BaseUser author, String body) {
         if (body == null || body.trim().isEmpty()) {
             throw new IllegalArgumentException("Comment body cannot be empty.");
@@ -148,12 +179,8 @@ public class PostService {
         return removed;
     }
 
-    /**
-     * Searches posts by keyword in title or body via DAO.
-     * 
-     * @param searchTerm The keyword to search for
-     * @return A list of matching blog posts
-     */
+    
+    // Searches posts by keyword in title or body via DAO.
     public List<BlogPost> searchPosts(String searchTerm) {
         // Connected to DAO structure as requested
         return postDao.searchByTitleOrContent(searchTerm);
@@ -181,13 +208,9 @@ public class PostService {
         return new ArrayList<>(blogPosts);
     }
 
-    /**
-     * Finds a post by its ID.
-     * 
-     * @param postId The ID to look for
-     * @return The matching BlogPost
-     * @throws PostNotFoundException if no post is found
-     */
+    
+    // Finds a post by its ID.
+    
     public BlogPost findPostById(String postId) {
         return blogPosts.stream()
                 .filter(post -> post.getId().equals(postId))
