@@ -98,9 +98,9 @@ public class PostService {
             postDao.update(); // Save changes to persistent storage
             return post;
         } catch (PostNotFoundException e) {
-            throw e; // Re-throw not found exception as-is
+            throw e; // Rethrow specific exception for not found
         } catch (Exception e) {
-            throw new RuntimeException("Failed to publish post: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to publish post: " + e.getMessage(), e); 
         }
     }
 
@@ -112,7 +112,7 @@ public class PostService {
             throw new IllegalArgumentException("Post title and body cannot be empty.");
         }
         
-        validateWordLimit(body); // Validate word limit before updating post
+        validateWordLimit(body); 
 
         BlogPost post = findPostById(postId);
         if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
@@ -121,7 +121,7 @@ public class PostService {
 
         post.setTitle(title);
         post.setBody(body);
-        postDao.update(); // Save changes to persistent storage
+        postDao.update(); 
         return post;
     }
 
@@ -130,14 +130,14 @@ public class PostService {
             throw new UnauthorizedException("Authentication required to delete a post.");
         }
 
-        BlogPost post = findPostById(postId);
+        BlogPost post = findPostById(postId); 
         if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
             throw new UnauthorizedException("You can only delete your own posts.");
         }
 
-        blogPosts.removeIf(p -> p != null && postId.equals(p.getId()));
-        comments.removeIf(c -> c != null && postId.equals(c.getParentId()));
-        postDao.deleteById(postId);
+        blogPosts.removeIf(p -> p != null && postId.equals(p.getId())); // Remove post from in-memory list
+        comments.removeIf(c -> c != null && postId.equals(c.getParentId())); // Remove associated comments
+        postDao.deleteById(postId); // Remove post from persistent storage
         return post;
     }
 
@@ -157,6 +157,31 @@ public class PostService {
         return comment;
     }
 
+    public Comment updateComment(BaseUser author, String postId, String commentId, String body) {
+        if (author == null) {
+            throw new UnauthorizedException("Authentication required to update a comment.");
+        }
+        if (body == null || body.trim().isEmpty()) {
+            throw new IllegalArgumentException("Comment body cannot be empty.");
+        }
+
+        BlogPost post = findPostById(postId);
+        Comment comment = post.findCommentById(commentId);
+        
+        if (comment == null) {
+            throw new PostNotFoundException("Comment not found with ID: " + commentId);
+        }
+
+        boolean canEdit = comment.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN;
+        if (!canEdit) {
+            throw new UnauthorizedException("You are not allowed to edit this comment.");
+        }
+
+        comment.setBody(body);
+        postDao.update(); 
+        return comment;
+    }
+
     public Comment deleteComment(BaseUser author, String postId, String commentId) {
         if (author == null) {
             throw new UnauthorizedException("Authentication required to delete a comment.");
@@ -164,11 +189,12 @@ public class PostService {
 
         BlogPost post = findPostById(postId);
         Comment existing = post.findCommentById(commentId);
+        
         if (existing == null) {
             throw new PostNotFoundException("Comment not found with ID: " + commentId);
         }
 
-        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN;
+        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN; //
         if (!canDelete) {
             throw new UnauthorizedException("You are not allowed to delete this comment.");
         }
@@ -215,7 +241,7 @@ public class PostService {
         return blogPosts.stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()
-                .orElseThrow(() -> new PostNotFoundException("Blog post not found with ID: " + postId));
+                .orElseThrow(() -> new PostNotFoundException("Blog post not found with ID: " + postId)); 
     }
 
     public List<Comment> getCommentsForPost(String postId) {
