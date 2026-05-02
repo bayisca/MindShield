@@ -56,11 +56,31 @@ public class MessagesController {
         contactList.setItems(FXCollections.observableArrayList(contactsList));
     }
 
+    private BaseUser getUserByPersona(String persona) {
+        for (BaseUser user : MainApp.userDatabase.values()) {
+            if (user.getPersona().equals(persona)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     private void loadChatHistory() {
         BaseUser currentUser = DashboardController.getCurrentUser();
-        String chatId = getChatId(currentUser.getPersona(), selectedContactPersona);
-        String history = MainApp.chatDatabase.getOrDefault(chatId, "");
-        chatArea.setText(history);
+        if (currentUser == null || selectedContactPersona == null) return;
+        
+        BaseUser contactUser = getUserByPersona(selectedContactPersona);
+        if (contactUser == null) return;
+        
+        List<com.mindshield.models.Message> messages = MainApp.messageService.getMessagesBetween(currentUser, contactUser);
+        
+        StringBuilder history = new StringBuilder();
+        for (com.mindshield.models.Message m : messages) {
+            String senderName = m.getSender().getPersona().equals(currentUser.getPersona()) ? "Siz" : m.getSender().getPersona();
+            history.append(senderName).append(": ").append(m.getContent()).append("\n");
+        }
+        
+        chatArea.setText(history.toString());
         chatArea.setScrollTop(Double.MAX_VALUE);
     }
 
@@ -71,22 +91,14 @@ public class MessagesController {
         String msg = messageInput.getText();
         if (msg != null && !msg.isEmpty()) {
             BaseUser currentUser = DashboardController.getCurrentUser();
-            String chatId = getChatId(currentUser.getPersona(), selectedContactPersona);
+            BaseUser contactUser = getUserByPersona(selectedContactPersona);
             
-            String newEntry = "Siz: " + msg + "\n";
-            String currentHistory = MainApp.chatDatabase.getOrDefault(chatId, "");
-            MainApp.chatDatabase.put(chatId, currentHistory + newEntry);
-            
-            // Karşı tarafın mesaj geçmişini de simüle etmek için (basit tutuyoruz)
-            // Gerçekte chatId simetriktir.
+            if (currentUser != null && contactUser != null) {
+                MainApp.messageService.sendMessage(currentUser, contactUser, msg);
+            }
             
             messageInput.clear();
             loadChatHistory();
         }
-    }
-
-    private String getChatId(String p1, String p2) {
-        // Alfabetik sıralayarak benzersiz bir ID oluştururuz
-        return p1.compareTo(p2) < 0 ? p1 + "-" + p2 : p2 + "-" + p1;
     }
 }

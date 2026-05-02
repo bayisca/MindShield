@@ -19,6 +19,8 @@ public class MainApp extends Application {
     public static Map<String, BaseUser> userDatabase = new HashMap<>();
     public static List<BlogPost> blogPosts = new ArrayList<>();
     public static Map<String, String> chatDatabase = new HashMap<>();
+    public static com.mindshield.services.PostService postService = new com.mindshield.services.PostService();
+    public static com.mindshield.services.MessageService messageService = new com.mindshield.services.MessageService();
 
     static {
         // Default admin (Counselor)

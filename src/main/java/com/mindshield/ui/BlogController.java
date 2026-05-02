@@ -24,7 +24,7 @@ public class BlogController {
         if (blogContainer == null) return;
         
         blogContainer.getChildren().clear();
-        for (com.mindshield.models.BlogPost post : MainApp.blogPosts) {
+        for (com.mindshield.models.BlogPost post : MainApp.postService.getAllPosts()) {
             blogContainer.getChildren().add(createPostCard(post));
         }
     }
