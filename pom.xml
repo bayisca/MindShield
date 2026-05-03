@@ -11,11 +11,18 @@
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-controls</artifactId>
-        <version>25</version> </dependency>
+        <version>25</version> 
+    </dependency>
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-fxml</artifactId>
-        <version>25</version> </dependency>
+        <version>25</version> 
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-media</artifactId>
+        <version>25</version> 
+    </dependency>
   </dependencies>
 
   <build>

@@ -25,6 +25,7 @@
                   
                   <Button maxWidth="Infinity" onAction="#showBlog" styleClass="side-button" text="📑 Uzman Blogları" />
                   <Button maxWidth="Infinity" onAction="#showMessages" styleClass="side-button" text="💬 Mesajlarım" />
+                  <Button maxWidth="Infinity" onAction="#showMeditation" styleClass="side-button" text="🎧 SoulShield Kütüphanesi" />
                   <Button maxWidth="Infinity" onAction="#showProfile" styleClass="side-button" text="👤 Profil ve Ayarlar" />
                   
                   <Region VBox.vgrow="ALWAYS" />

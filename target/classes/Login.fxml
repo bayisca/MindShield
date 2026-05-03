@@ -17,6 +17,7 @@
                      <children>
                         <Text styleClass="title-text" text="MindShield" />
                         <Text styleClass="subtitle-text" text="Güvenli ve Anonim Danışmanlık" />
+                        <Text style="-fx-font-style: italic; -fx-fill: #666666; -fx-font-size: 12px;" text='"Kimliğini değil duygularını paylaş"' />
                      </children>
                      <VBox.margin>
                         <Insets bottom="30.0" />

@@ -95,6 +95,7 @@ public class DashboardController {
     @FXML public void showBlog() { loadView("/Blog.fxml"); }
     @FXML private void showMessages() { loadView("/Messages.fxml"); }
     @FXML private void showProfile() { loadView("/Settings.fxml"); }
+    @FXML private void showMeditation() { loadView("/Meditation.fxml"); }
 
     @FXML
     private void handleLogout() {
