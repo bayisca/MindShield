@@ -6,6 +6,7 @@ import java.util.List;
 import com.mindshield.ui.UserRole;
 
 public class Admin extends BaseUser {
+    private static final long serialVersionUID = 1L;
 
     private List<String> systemLogs; // Sistemdeki önemli hareketlerin kaydı
     private int moderatedPostCount; // Denetlenen içerik sayısı

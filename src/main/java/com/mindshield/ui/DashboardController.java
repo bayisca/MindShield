@@ -2,10 +2,13 @@ package com.mindshield.ui;
 
 import java.io.IOException;
 
+import com.mindshield.services.MeditationPlaybackService;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -13,11 +16,13 @@ public class DashboardController {
 
     @FXML
     private StackPane contentArea;
+    @FXML
+    private Button btnJourShield;
 
     private static com.mindshield.models.BaseUser currentUser;
     private static DashboardController instance;
 
-    public static void setCurrentUser(com.mindshield.models.BaseUser user) {
+    public static void setCurrentUser(com.mindshield.models.BaseUser user) { // DashboardController'da oturum açan kullanıcıyı saklar
         currentUser = user;
     }
 
@@ -33,7 +38,13 @@ public class DashboardController {
     public void initialize() {
         instance = this;
         System.out.println("MindShield Dashboard hazır!");
-        showBlog(); 
+        if (btnJourShield != null) {
+            UserRole r = currentUser != null ? currentUser.getRole() : null;
+            boolean showJour = r == UserRole.CLIENT || r == UserRole.ANONYMOUS;
+            btnJourShield.setVisible(showJour);
+            btnJourShield.setManaged(showJour);
+        }
+        showBlog();
     }
 
     private void loadView(String fxmlFile) {
@@ -60,7 +71,7 @@ public class DashboardController {
         }
     }
 
-    public void showBlogDetail(com.mindshield.models.BlogPost post) {
+    public void showBlogDetail(com.mindshield.models.BlogPost post) { 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/BlogDetail.fxml"));
             Parent view = loader.load();
@@ -96,10 +107,12 @@ public class DashboardController {
     @FXML private void showMessages() { loadView("/Messages.fxml"); }
     @FXML private void showProfile() { loadView("/Settings.fxml"); }
     @FXML private void showMeditation() { loadView("/Meditation.fxml"); }
+    @FXML private void showJourShield() { loadView("/JourShield.fxml"); }
 
     @FXML
     private void handleLogout() {
         try {
+            MeditationPlaybackService.getInstance().stopPlayback();
             setCurrentUser(null);
             Stage stage = (Stage) contentArea.getScene().getWindow();
             Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));

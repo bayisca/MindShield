@@ -6,6 +6,7 @@ import java.util.List;
 import com.mindshield.ui.UserRole;
 
 public class StandardUser extends BaseUser {
+    private static final long serialVersionUID = 1L;
 
     private boolean isAnonymous;
     private List<String> journalingHistory;

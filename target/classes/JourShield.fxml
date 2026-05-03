@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="jour-shield-root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.JourShieldController">
+   <children>
+      <VBox prefHeight="560.0" prefWidth="620.0" spacing="14.0">
+         <padding>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding>
+         <children>
+            <VBox spacing="6.0" styleClass="jour-shield-header">
+               <children>
+                  <Text styleClass="jour-shield-title" text="🔒 JourShield" />
+                  <Label styleClass="jour-shield-subtitle" text="Yalnızca size özel günlük alanı — yayınlanamaz, danışmanlar dahil kimse okuyamaz." wrapText="true" />
+               </children>
+            </VBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="jour-shield-calendar-row">
+               <children>
+                  <Label styleClass="jour-shield-label-strong" text="Takvim:" />
+                  <DatePicker fx:id="datePicker" prefWidth="160.0" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="jour-shield-hint" text="Gün seçerek o tarihteki girişlerinizi görün" wrapText="true" />
+               </children>
+            </HBox>
+
+            <HBox spacing="14.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefWidth="220.0" spacing="8.0" styleClass="jour-shield-side">
+                     <children>
+                        <Label styleClass="jour-shield-label-strong" text="Bu günün girişleri" />
+                        <ListView fx:id="entryList" prefHeight="320.0" styleClass="jour-shield-list" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0" styleClass="jour-shield-editor" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="titleField" promptText="Başlık" styleClass="jour-shield-input" />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label styleClass="jour-shield-label-strong" text="Ruh hali:" />
+                              <ComboBox fx:id="moodCombo" prefWidth="180.0" styleClass="jour-shield-input" />
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="bodyField" prefHeight="220.0" promptText="Bugünkü düşünceleriniz… (yalnızca sizde kalır)" styleClass="jour-shield-input" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleNewEntry" styleClass="button-secondary" text="✚ Yeni giriş" />
+                              <Button mnemonicParsing="false" onAction="#handleSave" styleClass="button" text="💾 Kaydet" />
+                              <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-danger" text="🗑 Sil" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

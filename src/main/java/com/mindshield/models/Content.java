@@ -41,6 +41,10 @@ public abstract class Content implements Serializable {
         this.updatedAt = LocalDateTime.now();
     }
 
+    protected void touchUpdated() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public boolean containsInTitle(String searchTerm) {
         return title.toLowerCase().contains(searchTerm.toLowerCase());
     }

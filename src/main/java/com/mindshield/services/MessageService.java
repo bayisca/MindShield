@@ -1,12 +1,17 @@
 package com.mindshield.services;
 
-import com.mindshield.models.BaseUser;
-import com.mindshield.models.Message;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.mindshield.models.BaseUser;
+import com.mindshield.models.Message;
 
 /**
  * MessageService handles all direct messaging logic between clients and counselors.
@@ -20,15 +25,9 @@ public class MessageService {
         this.messages = loadMessages();
     }
 
-    /**
-     * Sends a direct message from one user to another.
-     * 
-     * @param sender The user sending the message
-     * @param receiver The user receiving the message
-     * @param content The text content of the message
-     * @return The created Message object
-     * @throws IllegalArgumentException if the content is null or empty
-     */
+    
+    // Sends a direct message from one user to another.
+    
     public Message sendMessage(BaseUser sender, BaseUser receiver, String content) {
         if (content == null || content.trim().isEmpty()) {
             throw new IllegalArgumentException("Message content cannot be empty");
@@ -39,13 +38,8 @@ public class MessageService {
         return message;
     }
 
-    /**
-     * Retrieves all messages exchanged between two specific users.
-     * 
-     * @param user1 The first user
-     * @param user2 The second user
-     * @return A list of messages between the two users
-     */
+    //Retrieves all messages exchanged between two specific users.
+
     public List<Message> getMessagesBetween(BaseUser user1, BaseUser user2) {
         return messages.stream()
                 .filter(m -> (m.getSender().equals(user1) && m.getReceiver().equals(user2)) ||
@@ -53,9 +47,8 @@ public class MessageService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Saves messages to file for persistence.
-     */
+    //Saves messages to file for persistence.
+
     private void saveMessages() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
             oos.writeObject(messages);
@@ -64,9 +57,7 @@ public class MessageService {
         }
     }
 
-    /**
-     * Loads messages from file.
-     */
+    //Loads messages from file.
     @SuppressWarnings("unchecked")
     private List<Message> loadMessages() {
         File file = new File(DATA_FILE);
