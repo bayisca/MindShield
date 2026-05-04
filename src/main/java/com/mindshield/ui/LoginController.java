@@ -39,9 +39,8 @@ public class LoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
             Stage stage = (Stage) personaField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.getScene().setRoot(root);
             stage.setTitle(title);
-            stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
         }

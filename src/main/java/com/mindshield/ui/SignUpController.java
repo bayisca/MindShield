@@ -45,7 +45,7 @@ public class SignUpController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             Stage stage = (Stage) regUser.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.getScene().setRoot(root);
             stage.setTitle("MindShield - Giriş");
         } catch (IOException e) {
             System.err.println("Login.fxml yüklenirken hata oluştu!");

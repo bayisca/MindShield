@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="jour-shield-root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.JourShieldController">
    <children>
-      <VBox prefHeight="560.0" prefWidth="620.0" spacing="14.0">
+      <VBox prefHeight="560.0" prefWidth="620.0" spacing="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
