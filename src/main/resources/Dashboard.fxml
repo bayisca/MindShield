@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.DashboardController">
    <children>
-      <HBox prefHeight="600.0" prefWidth="900.0">
+      <HBox prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <!-- Sidebar -->
             <VBox prefHeight="600.0" prefWidth="240.0" spacing="10.0" styleClass="sidebar">
@@ -36,7 +36,7 @@
             </VBox>
             
             <!-- Content Area -->
-            <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="660.0">
+            <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="660.0" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>

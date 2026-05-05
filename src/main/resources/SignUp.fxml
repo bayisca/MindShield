@@ -6,8 +6,10 @@
 
 <AnchorPane prefHeight="550.0" prefWidth="700.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SignUpController">
    <children>
-      <VBox alignment="CENTER" layoutX="175.0" layoutY="40.0" prefWidth="350.0" spacing="0.0" styleClass="card" style="-fx-padding: 40;">
+      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <VBox alignment="CENTER" maxWidth="350.0" spacing="0.0" styleClass="card" style="-fx-padding: 40;">
+               <children>
             <VBox alignment="CENTER" spacing="5.0">
                <children>
                   <Text styleClass="title-text" text="Yeni Persona" />
@@ -45,6 +47,8 @@
             
             <Hyperlink onAction="#goToLogin" style="-fx-padding: 15 0 0 0;" text="Zaten bir Personam var" />
          </children>
-      </VBox>
+            </VBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

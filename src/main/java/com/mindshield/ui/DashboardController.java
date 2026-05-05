@@ -117,10 +117,8 @@ public class DashboardController {
             Stage stage = (Stage) contentArea.getScene().getWindow();
             Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             
-            // Yeni bir sahne oluşturarak pencere boyutunun Login.fxml'e göre ayarlanmasını sağlarız
-            Scene scene = new Scene(loginView);
-            stage.setScene(scene);
-            stage.centerOnScreen();
+            // Yeni bir sahne oluşturmak yerine mevcut sahnenin içeriğini değiştirerek boyutu koruruz
+            stage.getScene().setRoot(loginView);
         } catch (IOException e) {
             e.printStackTrace();
         }

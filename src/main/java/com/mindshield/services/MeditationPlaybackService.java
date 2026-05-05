@@ -1,6 +1,12 @@
 package com.mindshield.services;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.mindshield.models.MeditationTrack;
+
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -10,11 +16,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Sekme değişiminde controller yeniden oluşturulsa bile çalmayı sürdürmek için
@@ -37,9 +38,9 @@ public final class MeditationPlaybackService {
     private final ReadOnlyBooleanWrapper playing = new ReadOnlyBooleanWrapper(false);
 
     private MeditationPlaybackService() {
-        tracks.add(new MeditationTrack("1", "Derin Uyku", "", "derin_uyku.mp3",
+        tracks.add(new MeditationTrack("1", "Derin Uyku", "Umut Kaan", "derin_uyku.mp3",
                 "Uykuya dalmayı kolaylaştıran frekanslar."));
-        tracks.add(new MeditationTrack("2", "Sabah Enerjisi", "", "sabah_enerjisi.mp3",
+        tracks.add(new MeditationTrack("2", "Sabah Enerjisi", "Zarif Serra", "sabah_enerjisi.mp3",
                 "Güne enerjik başlamak için motivasyon sesi."));
         tracks.add(new MeditationTrack("3", "Stres Giderme", "", "stres_giderme.mp3",
                 "Yoğun stres anlarında dinlenmesi gereken meditasyon."));

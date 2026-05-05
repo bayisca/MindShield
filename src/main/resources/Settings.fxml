@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SettingsController">
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="560.0" prefWidth="620.0" styleClass="scroll-pane">
+      <ScrollPane fitToWidth="true" prefHeight="560.0" prefWidth="620.0" styleClass="scroll-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox spacing="25.0">
                <padding>
