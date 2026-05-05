@@ -43,7 +43,7 @@ public class BlogDetailController {
     public void setPost(BlogPost post) {
         this.currentPost = post;
         txtTitle.setText(post.getTitle());
-        lblAuthor.setText("✍ " + post.getAuthor().getPersona());
+        lblAuthor.setText(post.getAuthor().getPersona());
         lblDate.setText(post.getCreatedAt().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
         txtContent.setText(post.getBody());
 
@@ -89,15 +89,14 @@ public class BlogDetailController {
         commentContainer.getChildren().clear();
         for (Comment comment : currentPost.getComments()) {
             VBox card = new VBox(5);
-            card.getStyleClass().add("card");
-            card.setStyle("-fx-padding: 12; -fx-background-color: #f8f9fa;");
+            card.setStyle("-fx-padding: 12 14; -fx-background-color: #1a2a3d; -fx-background-radius: 8; -fx-border-color: #263d56; -fx-border-radius: 8;");
 
             Label author = new Label(comment.getAuthor().getPersona());
-            author.setStyle("-fx-font-weight: bold; -fx-font-size: 13; -fx-text-fill: -fx-primary;");
+            author.setStyle("-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #14b8a6;");
 
             Text body = new Text(comment.getBody());
             body.setWrappingWidth(500);
-            body.setStyle("-fx-font-size: 14;");
+            body.setStyle("-fx-font-size: 13; -fx-fill: #94a3b8;");
 
             card.getChildren().addAll(author, body);
             commentContainer.getChildren().add(card);

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="620.0" prefWidth="760.0" styleClass="main-container,welcome-root"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.WelcomeController">
+   <children>
+      <ScrollPane fitToWidth="true" styleClass="scroll-pane"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox alignment="CENTER" spacing="0.0"
+                  style="-fx-background-color: linear-gradient(to bottom, #0a1a28, #0d1b2a 60%, #071320); -fx-padding: 60 80;">
+               <children>
+
+                  <!-- Hero -->
+                  <VBox alignment="CENTER" spacing="16.0">
+                     <children>
+                        <Label text="🎉" style="-fx-font-size: 54px;" />
+                        <Label fx:id="lblWelcomePersona"
+                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;"
+                               text="Hoş Geldin!" />
+                        <Label style="-fx-font-size: 15px; -fx-text-fill: #475569;" wrapText="true"
+                               textAlignment="CENTER" maxWidth="500.0"
+                               text="Personan başarıyla oluşturuldu. MindShield'a katıldığın için teşekkürler. Aşağıda seni bekleyen özellikleri keşfet." />
+                     </children>
+                  </VBox>
+
+                  <Region prefHeight="48.0" />
+
+                  <!-- Feature grid -->
+                  <GridPane hgap="16.0" vgap="16.0" alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints prefWidth="290.0" />
+                        <ColumnConstraints prefWidth="290.0" />
+                     </columnConstraints>
+                     <children>
+
+                        <!-- Blog -->
+                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                           <children>
+                              <Label text="📑" style="-fx-font-size: 28px;" />
+                              <Label text="Uzman Blogları" styleClass="welcome-feature-label" />
+                              <Label text="Ruh sağlığı uzmanlarının yazılarını oku, yorumla ve paylaş."
+                                     styleClass="welcome-feature-desc" wrapText="true" />
+                           </children>
+                        </VBox>
+
+                        <!-- Messages -->
+                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                           <children>
+                              <Label text="💬" style="-fx-font-size: 28px;" />
+                              <Label text="Anonim Mesajlaşma" styleClass="welcome-feature-label" />
+                              <Label text="Danışmanlarla gerçek kimliğin gizli kalarak özel görüş."
+                                     styleClass="welcome-feature-desc" wrapText="true" />
+                           </children>
+                        </VBox>
+
+                        <!-- SoulShield -->
+                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="🎧" style="-fx-font-size: 28px;" />
+                              <Label text="SoulShield Meditasyon" styleClass="welcome-feature-label" />
+                              <Label text="Sakinleştirici sesler ve meditasyon parçalarıyla zihnini dinlendir."
+                                     styleClass="welcome-feature-desc" wrapText="true" />
+                           </children>
+                        </VBox>
+
+                        <!-- JourShield (client only) -->
+                        <VBox fx:id="featureJour" styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="🔒" style="-fx-font-size: 28px;" />
+                              <Label text="JourShield Günlük" styleClass="welcome-feature-label" />
+                              <Label text="Şifreli, özel günlük yaz. Sadece sen okuyabilirsin."
+                                     styleClass="welcome-feature-desc" wrapText="true" />
+                           </children>
+                        </VBox>
+
+                     </children>
+                  </GridPane>
+
+                  <Region prefHeight="44.0" />
+
+                  <!-- CTA -->
+                  <VBox alignment="CENTER" spacing="14.0">
+                     <children>
+                        <Button text="Keşfetmeye Başla →" prefWidth="280.0" prefHeight="50.0"
+                                onAction="#goToDashboard"
+                                style="-fx-font-size: 15px; -fx-font-weight: bold;" />
+                        <Label fx:id="lblRoleNote"
+                               style="-fx-font-size: 12px; -fx-text-fill: #475569;"
+                               text="" />
+                     </children>
+                  </VBox>
+
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

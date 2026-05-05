@@ -4,45 +4,82 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="560.0" prefWidth="620.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.BlogWriteController">
+<AnchorPane prefHeight="560.0" prefWidth="680.0" styleClass="main-container"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.BlogWriteController">
    <children>
-      <VBox prefHeight="560.0" prefWidth="620.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
+      <VBox spacing="16.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding><Insets bottom="4.0" left="4.0" right="4.0" top="4.0" /></padding>
          <children>
+
+            <!-- Toolbar -->
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" text="İptal Et" style="-fx-background-color: transparent; -fx-text-fill: #f44336;" />
+                  <Button fx:id="btnCancel" text="Geri Don" styleClass="btn-secondary" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Text styleClass="title-text" style="-fx-font-size: 24;" text="Yeni Blog Yazısı" />
+                  <Label text="Yeni Blog Yazisi"
+                         style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnPublish" mnemonicParsing="false" style="-fx-background-color: #4CAF50;" text="Yayınla" />
+                  <Button fx:id="btnPublish" text="Yayinla"
+                          style="-fx-background-color: #14b8a6; -fx-text-fill: #0d1b2a;
+                                 -fx-font-weight: bold; -fx-background-radius: 10;
+                                 -fx-cursor: hand; -fx-padding: 9 22;" />
                </children>
             </HBox>
-            
-            <Separator />
-            
-            <VBox spacing="10.0">
+
+            <!-- Dark writing surface -->
+            <VBox VBox.vgrow="ALWAYS" spacing="0.0" styleClass="card"
+                  style="-fx-background-radius: 14; -fx-border-radius: 14;">
                <children>
-                  <Label text="Başlık" style="-fx-font-weight: bold; -fx-font-size: 14;" />
-                  <TextField fx:id="fldTitle" prefHeight="45.0" promptText="Yazınızın dikkat çekici bir başlığı olsun..." />
+
+                  <!-- Title field on slightly lighter dark band -->
+                  <VBox style="-fx-padding: 22 24 16 24;
+                               -fx-background-color: #1a2a3d;
+                               -fx-background-radius: 14 14 0 0;
+                               -fx-border-color: transparent transparent #1e3048 transparent;
+                               -fx-border-width: 0 0 1 0;">
+                     <children>
+                        <Label text="BASLIK" style="-fx-font-size: 10px; -fx-text-fill: #475569;" />
+                        <Region prefHeight="6.0" />
+                        <TextField fx:id="fldTitle" prefHeight="44.0"
+                                   promptText="Yazinizin dikkat cekici bir basligi olsun..." />
+                     </children>
+                  </VBox>
+
+                  <!-- Content textarea -->
+                  <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 16 24 20 24;">
+                     <children>
+                        <Label text="ICERIK" style="-fx-font-size: 10px; -fx-text-fill: #475569;" />
+                        <Region prefHeight="6.0" />
+                        <TextArea fx:id="fldContent" wrapText="true" VBox.vgrow="ALWAYS"
+                                  promptText="Bilgi ve deneyimlerinizi buraya yazin..."
+                                  style="-fx-background-color: transparent;
+                                         -fx-control-inner-background: transparent;
+                                         -fx-text-fill: #e2e8f0;
+                                         -fx-prompt-text-fill: #475569;
+                                         -fx-border-color: transparent;
+                                         -fx-font-size: 14px;" />
+                     </children>
+                  </VBox>
+
+                  <!-- Author footer -->
+                  <HBox alignment="CENTER_LEFT" spacing="8.0"
+                        style="-fx-background-color: #1a2a3d; -fx-padding: 12 24;
+                               -fx-border-color: #1e3048 transparent transparent transparent;
+                               -fx-border-width: 1 0 0 0; -fx-background-radius: 0 0 14 14;">
+                     <children>
+                        <Label text="Yazar:" style="-fx-font-size: 12px; -fx-text-fill: #475569;" />
+                        <Label fx:id="lblAuthor" text="—"
+                               style="-fx-font-weight: bold; -fx-text-fill: #14b8a6; -fx-font-size: 13px;" />
+                     </children>
+                  </HBox>
+
                </children>
             </VBox>
-            
-            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label text="İçerik" style="-fx-font-weight: bold; -fx-font-size: 14;" />
-                  <TextArea fx:id="fldContent" prefHeight="300.0" promptText="Bilgi ve deneyimlerinizi buraya yazın..." wrapText="true" style="-fx-font-size: 14;" />
-               </children>
-            </VBox>
-            
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <Label text="Yazar:" textFill="#666" />
-                  <Label fx:id="lblAuthor" text="Anonim" style="-fx-font-weight: bold;" textFill="#1a237e" />
-               </children>
-            </HBox>
+
          </children>
       </VBox>
    </children>

@@ -4,30 +4,44 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="560.0" prefWidth="620.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.BlogController">
+<AnchorPane prefHeight="620.0" prefWidth="700.0" styleClass="main-container"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.BlogController">
    <children>
-      <VBox prefHeight="560.0" prefWidth="620.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
+      <VBox spacing="20.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding><Insets bottom="10.0" left="4.0" right="4.0" top="4.0" /></padding>
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="20.0">
+
+            <!-- Page header -->
+            <HBox alignment="CENTER_LEFT" spacing="14.0">
                <children>
-                  <Text styleClass="title-text" style="-fx-font-size: 24;" text="Uzman Blogları" />
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnWrite" mnemonicParsing="false" style="-fx-background-color: #4CAF50;" text="+ Yeni Yazı Yaz" />
+                  <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="📑  Uzman Blogları" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                        <Label text="Ruh sağlığı profesyonellerinden içgörüler ve tavsiyeler."
+                               style="-fx-font-size: 13px; -fx-text-fill: #475569;" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnWrite" text="+ Yeni Yazı"
+                          style="-fx-background-color: rgba(20,184,166,0.15); -fx-border-color: rgba(20,184,166,0.4); -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #14b8a6; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 9 18;" />
                </children>
             </HBox>
-            
+
+            <!-- Blog list -->
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="blogContainer" spacing="15.0">
+                  <VBox fx:id="blogContainer" spacing="16.0">
+                     <padding><Insets right="4.0" /></padding>
                      <children>
-                        <!-- Blog yazıları dinamik olarak eklenecek -->
+                        <!-- Dynamically populated -->
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
+
          </children>
       </VBox>
    </children>

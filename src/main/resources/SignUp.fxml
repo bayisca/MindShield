@@ -4,17 +4,62 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="550.0" prefWidth="700.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SignUpController">
+<AnchorPane prefHeight="660.0" prefWidth="820.0" styleClass="main-container,welcome-root"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.SignUpController">
    <children>
-      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="660.0" prefWidth="820.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER" maxWidth="350.0" spacing="0.0" styleClass="card" style="-fx-padding: 40;">
+
+            <!-- LEFT: Branding -->
+            <VBox prefWidth="380.0" alignment="CENTER" spacing="20.0"
+                  style="-fx-background-color: linear-gradient(to bottom, #0a1e2e, #071525); -fx-padding: 60 48;">
                <children>
-            <VBox alignment="CENTER" spacing="5.0">
-               <children>
-                  <Text styleClass="title-text" text="Yeni Persona" />
-                  <Text styleClass="subtitle-text" text="Anonim dünyana hoş geldin" />
+                  <Label text="MindShield"
+                         style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #14b8a6;
+                                -fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 16, 0, 0, 0);" />
+
+                  <VBox spacing="8.0" alignment="CENTER">
+                     <children>
+                        <Label text="Yeni Persona Olustur"
+                               style="-fx-font-size: 17px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                        <Label text="Gercek kimligin gizli kalirken yardim alabilirsin."
+                               style="-fx-font-size: 12px; -fx-text-fill: #475569;"
+                               wrapText="true" textAlignment="CENTER" maxWidth="260.0"/>
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="10.0" style="-fx-padding: 16 0 0 0;">
+                     <children>
+                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                           <children>
+                              <VBox spacing="2.0">
+                                 <children>
+                                    <Label text="Danisan Hesabi" styleClass="welcome-feature-label" />
+                                    <Label text="Danismanlarla anonim gorusme yap, meditasyon ve gunluk tut."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                           <children>
+                              <VBox spacing="2.0">
+                                 <children>
+                                    <Label text="Danisман Hesabi" styleClass="welcome-feature-label" />
+                                    <Label text="Blog yaz, danisan sorularini yanitla, destek sun."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
+<<<<<<< HEAD
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -29,27 +74,72 @@
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
+=======
+>>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
             </VBox>
 
-            <VBox spacing="10.0">
+            <!-- RIGHT: Register form -->
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: #0d1b2a; -fx-padding: 60 64;">
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Hesap Türü Seçin:" textFill="#444" />
-                  <RadioButton fx:id="rbClient" selected="true" text="Danışan (Anonim)">
-                     <toggleGroup><ToggleGroup fx:id="roleGroup" /></toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="rbCounselor" text="Danışman (Uzman)" toggleGroup="$roleGroup" />
+                  <VBox maxWidth="320.0" spacing="0.0">
+                     <children>
+                        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0; -fx-padding: 0 0 4 0;" text="Kayit Ol" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #475569; -fx-padding: 0 0 28 0;" text="Anonim dunyaya hos geldin" />
+
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-padding: 0 0 5 0;" text="PERSONA ADI" />
+                        <TextField fx:id="regUser" prefHeight="44.0" promptText="Benzersiz bir takma ad sec" maxWidth="Infinity" />
+                        <Region prefHeight="14.0" />
+
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-padding: 0 0 5 0;" text="SIFRE" />
+                        <PasswordField fx:id="regPass" prefHeight="44.0" promptText="Guclu bir sifre belirle" maxWidth="Infinity" />
+                        <Region prefHeight="20.0" />
+
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-padding: 0 0 10 0;" text="HESAP TURU" />
+                        <HBox spacing="12.0">
+                           <children>
+                              <VBox styleClass="card" spacing="6.0"
+                                    style="-fx-padding: 14 16; -fx-cursor: hand; -fx-background-radius: 10; -fx-border-radius: 10;"
+                                    HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Danisan" style="-fx-font-weight: bold; -fx-text-fill: #e2e8f0; -fx-font-size: 13;" />
+                                    <Label text="Destek almak istiyorum" style="-fx-font-size: 11; -fx-text-fill: #475569;" />
+                                    <RadioButton fx:id="rbClient" selected="true" text="Sec">
+                                       <toggleGroup><ToggleGroup fx:id="roleGroup" /></toggleGroup>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="card" spacing="6.0"
+                                    style="-fx-padding: 14 16; -fx-cursor: hand; -fx-background-radius: 10; -fx-border-radius: 10;"
+                                    HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Danisman" style="-fx-font-weight: bold; -fx-text-fill: #e2e8f0; -fx-font-size: 13;" />
+                                    <Label text="Destek vermek istiyorum" style="-fx-font-size: 11; -fx-text-fill: #475569;" />
+                                    <RadioButton fx:id="rbCounselor" text="Sec" toggleGroup="$roleGroup" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Region prefHeight="24.0" />
+
+                        <Button maxWidth="Infinity" prefHeight="46.0" onAction="#handleSignUp" text="Persona Olustur" />
+
+                        <HBox alignment="CENTER" style="-fx-padding: 18 0 0 0;" spacing="6.0">
+                           <children>
+                              <Label style="-fx-text-fill: #475569; -fx-font-size: 13px;" text="Zaten bir personan var mi?" />
+                              <Hyperlink onAction="#goToLogin" text="Giris Yap" />
+                           </children>
+                        </HBox>
+
+                        <Label fx:id="lblError"
+                               style="-fx-text-fill: #f87171; -fx-font-size: 12px; -fx-padding: 8 0 0 0;"
+                               text="" wrapText="true" maxWidth="320.0" />
+                     </children>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
             </VBox>
 
-            <Button maxWidth="Infinity" onAction="#handleSignUp" prefHeight="45.0" text="Kayıt Ol" />
-            
-            <Hyperlink onAction="#goToLogin" style="-fx-padding: 15 0 0 0;" text="Zaten bir Personam var" />
          </children>
-            </VBox>
-         </children>
-      </StackPane>
+      </HBox>
    </children>
 </AnchorPane>
