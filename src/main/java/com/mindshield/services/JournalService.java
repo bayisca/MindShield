@@ -33,7 +33,7 @@ public class JournalService {
             throw new UnauthorizedException("Günlük için giriş yapmalısınız.");
         }
         UserRole role = user.getRole();
-        if (role == UserRole.COUNSELOR || role == UserRole.ADMIN) {
+        if (role == UserRole.COUNSELOR || role == UserRole.SUPERADMIN) {
             throw new UnauthorizedException("Günlük girişleri yalnızca danışanlara özeldir; bu içeriğe erişemezsiniz.");
         }
         if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS) {

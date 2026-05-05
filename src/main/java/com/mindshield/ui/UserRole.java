@@ -4,5 +4,6 @@ public enum UserRole {
     CLIENT,    // Danışan
     COUNSELOR, // Danışman
     ANONYMOUS, // Anonim kullanıcı
-    ADMIN      // Yönetici
+    SUPERADMIN, // Sistem Yöneticisi
+    ADMIN      // Yöneticisi
 }

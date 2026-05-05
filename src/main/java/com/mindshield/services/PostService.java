@@ -115,7 +115,7 @@ public class PostService {
         validateWordLimit(body); 
 
         BlogPost post = findPostById(postId);
-        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
+        if (!post.isAuthor(author) && author.getRole() != UserRole.SUPERADMIN) {
             throw new UnauthorizedException("You can only update your own posts.");
         }
 
@@ -131,7 +131,7 @@ public class PostService {
         }
 
         BlogPost post = findPostById(postId); 
-        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
+        if (!post.isAuthor(author) && author.getRole() != UserRole.SUPERADMIN) {
             throw new UnauthorizedException("You can only delete your own posts.");
         }
 
@@ -172,7 +172,7 @@ public class PostService {
             throw new PostNotFoundException("Comment not found with ID: " + commentId);
         }
 
-        boolean canEdit = comment.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN;
+        boolean canEdit = comment.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.SUPERADMIN;
         if (!canEdit) {
             throw new UnauthorizedException("You are not allowed to edit this comment.");
         }
@@ -194,7 +194,7 @@ public class PostService {
             throw new PostNotFoundException("Comment not found with ID: " + commentId);
         }
 
-        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN; //
+        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.SUPERADMIN; //
         if (!canDelete) {
             throw new UnauthorizedException("You are not allowed to delete this comment.");
         }

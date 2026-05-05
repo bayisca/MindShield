@@ -22,8 +22,9 @@
             
             <VBox spacing="15.0">
                <children>
-                  <TextField fx:id="regUser" prefHeight="45.0" promptText="Persona Adı" />
+                  <TextField fx:id="regUser" prefHeight="45.0" promptText="Persona Adı / Gerçek İsim" />
                   <PasswordField fx:id="regPass" prefHeight="45.0" promptText="Şifre" />
+                  <TextField fx:id="regExpertise" prefHeight="45.0" promptText="Uzmanlık Alanı (Danışmanlar İçin)" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />

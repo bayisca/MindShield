@@ -24,7 +24,12 @@ public class SettingsController {
         BaseUser user = DashboardController.getCurrentUser();
         if (user != null) {
             newPersonaName.setText(user.getPersona());
-            loadMyPosts(user);
+            if (user.getRole() == UserRole.COUNSELOR || user.getRole() == UserRole.SUPERADMIN) {
+                loadMyPosts(user);
+            } else {
+                myPostsContainer.setVisible(false);
+                myPostsContainer.setManaged(false);
+            }
         }
     }
 

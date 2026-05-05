@@ -23,11 +23,16 @@ public class MainApp extends Application {
     public static com.mindshield.services.PostService postService = new com.mindshield.services.PostService();
     public static com.mindshield.services.MessageService messageService = new com.mindshield.services.MessageService();
     public static com.mindshield.services.JournalService journalService = new com.mindshield.services.JournalService();
+    public static com.mindshield.services.UserService userService = new com.mindshield.services.UserService();
 
     static {
         // Default admin (Counselor)
         BaseUser admin = new Counselor("admin", "admin-001", "admin123", "General Wellness");
         userDatabase.put("admin", admin);
+
+        // SuperAdmin
+        BaseUser superAdmin = new com.mindshield.models.StandardUser("superadmin", "sa-001", "sa123", UserRole.SUPERADMIN);
+        userDatabase.put("superadmin", superAdmin);
 
         // Sample Blog Posts
         blogPosts.add(new BlogPost(admin, "Stresle Baş Etme Yolları",

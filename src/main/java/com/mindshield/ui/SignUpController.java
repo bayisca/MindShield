@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -14,30 +15,49 @@ import javafx.stage.Stage;
 public class SignUpController {
     @FXML private TextField regUser;
     @FXML private PasswordField regPass;
+    @FXML private TextField regExpertise;
     @FXML private RadioButton rbCounselor;
+
+    @FXML
+    public void initialize() {
+        regExpertise.setVisible(false);
+        regExpertise.setManaged(false);
+        
+        rbCounselor.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            regExpertise.setVisible(newVal);
+            regExpertise.setManaged(newVal);
+            if (newVal) {
+                regUser.setPromptText("Gerçek Adınız");
+            } else {
+                regUser.setPromptText("Persona Adı");
+            }
+        });
+    }
 
     @FXML
     private void handleSignUp() {
         String persona = regUser.getText();
         String pass = regPass.getText();
+        String expertise = regExpertise.getText();
         UserRole role = rbCounselor.isSelected() ? UserRole.COUNSELOR : UserRole.CLIENT;
 
-        if (!persona.isEmpty() && !pass.isEmpty()) {
-            // BaseUser modelini kullanarak kaydet
-            String id = java.util.UUID.randomUUID().toString();
-            com.mindshield.models.BaseUser newUser;
-            
-            if (role == UserRole.COUNSELOR) {
-                newUser = new com.mindshield.models.Counselor(persona, id, pass, "Awaiting Approval");
-            } else {
-                newUser = new com.mindshield.models.StandardUser(persona, id, pass, role);
-            }
-            
-            MainApp.userDatabase.put(persona, newUser);
-            System.out.println("Yeni Persona Kaydedildi: " + persona + " (" + role + ")");
-            
+        try {
+            MainApp.userService.registerUser(persona, pass, role, expertise);
+            showAlert(Alert.AlertType.INFORMATION, "Başarılı", "Kayıt işlemi başarıyla tamamlandı!");
             goToLogin();
+        } catch (IllegalArgumentException e) {
+            showAlert(Alert.AlertType.WARNING, "Kayıt Hatası", e.getMessage());
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Sistem Hatası", "Beklenmeyen bir hata oluştu: " + e.getMessage());
         }
+    }
+    
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML
