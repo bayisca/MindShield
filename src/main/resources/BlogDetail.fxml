@@ -4,59 +4,96 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.BlogDetailController">
+<AnchorPane prefHeight="560.0" prefWidth="680.0" styleClass="main-container"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.BlogDetailController">
    <children>
-      <VBox prefHeight="560.0" prefWidth="620.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
+      <VBox spacing="14.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding><Insets bottom="4.0" left="4.0" right="4.0" top="4.0" /></padding>
          <children>
+
+            <!-- Toolbar -->
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Button fx:id="btnBack" mnemonicParsing="false" styleClass="btn-secondary" text="← Geri Dön" />
+                  <Button fx:id="btnBack" text="Geri Don" styleClass="btn-secondary" />
                   <Region HBox.hgrow="ALWAYS" />
                   <HBox fx:id="adminControls" spacing="10.0" visible="false">
                      <children>
-                        <Button fx:id="btnEdit" mnemonicParsing="false" styleClass="btn-secondary" text="✎ Düzenle" />
-                        <Button fx:id="btnDelete" mnemonicParsing="false" styleClass="button" style="-fx-background-color: -fx-danger;" text="🗑 Sil" />
+                        <Button fx:id="btnEdit" text="Duzenle" styleClass="btn-secondary" />
+                        <Button fx:id="btnDelete" text="Sil" styleClass="btn-danger" />
                      </children>
                   </HBox>
                </children>
             </HBox>
-            
+
+            <!-- Content card — dark theme -->
             <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox spacing="25.0" styleClass="card" style="-fx-padding: 30;">
+                  <VBox spacing="0.0" styleClass="card"
+                        style="-fx-background-radius: 14; -fx-border-radius: 14;">
                      <children>
-                        <Text fx:id="txtTitle" styleClass="title-text" text="Blog Başlığı" />
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+
+                        <!-- Article header -->
+                        <VBox spacing="10.0"
+                              style="-fx-background-color: #1a2a3d; -fx-padding: 28 28 18 28;
+                                     -fx-background-radius: 14 14 0 0;
+                                     -fx-border-color: transparent transparent #1e3048 transparent;
+                                     -fx-border-width: 0 0 1 0;">
                            <children>
-                              <Label styleClass="subtitle-text" text="Yazar:" />
-                              <Label fx:id="lblAuthor" style="-fx-font-weight: bold; -fx-text-fill: -fx-primary;" text="Yazar Adı" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Label fx:id="lblDate" styleClass="subtitle-text" text="Tarih" />
-                           </children>
-                        </HBox>
-                        <Separator />
-                        <Text fx:id="txtContent" style="-fx-font-size: 15; -fx-line-spacing: 5;" text="Blog içeriği buraya gelecek..." wrappingWidth="520.0" />
-                        
-                        <Separator />
-                        <VBox spacing="15.0">
-                           <children>
-                              <Text style="-fx-font-weight: bold; -fx-font-size: 18; -fx-fill: -fx-text-title;" text="Yorumlar" />
-                              <VBox fx:id="commentContainer" spacing="12.0" />
-                              <HBox spacing="10.0">
+                              <Text fx:id="txtTitle"
+                                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #e2e8f0;"
+                                    wrappingWidth="580.0" text="Baslik" />
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
                                  <children>
-                                    <TextField fx:id="commentInput" prefHeight="40.0" promptText="Bir yorum yaz..." HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" onAction="#addComment" prefHeight="40.0" text="Gönder" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #475569;" text="Yazar:" />
+                                    <Label fx:id="lblAuthor"
+                                           style="-fx-font-weight: bold; -fx-font-size: 12px;
+                                                  -fx-text-fill: #14b8a6;
+                                                  -fx-background-color: rgba(20,184,166,0.12);
+                                                  -fx-background-radius: 20; -fx-padding: 2 10;" text="—" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="lblDate"
+                                           style="-fx-font-size: 11px; -fx-text-fill: #475569;" text="—" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
+
+                        <!-- Article body -->
+                        <VBox style="-fx-padding: 26 28;">
+                           <children>
+                              <Text fx:id="txtContent"
+                                    style="-fx-font-size: 14px; -fx-fill: #94a3b8; -fx-line-spacing: 6;"
+                                    wrappingWidth="580.0" text="Icerik yukleniyor..." />
+                           </children>
+                        </VBox>
+
+                        <Separator style="-fx-opacity: 0.3;" />
+
+                        <!-- Comments -->
+                        <VBox spacing="14.0" style="-fx-padding: 22 28 28 28;">
+                           <children>
+                              <Label text="Yorumlar"
+                                     style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
+                              <VBox fx:id="commentContainer" spacing="10.0" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="commentInput" prefHeight="42.0"
+                                               promptText="Bir yorum yaz..." HBox.hgrow="ALWAYS" />
+                                    <Button onAction="#addComment" prefHeight="42.0" text="Gonder" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
+
          </children>
       </VBox>
    </children>

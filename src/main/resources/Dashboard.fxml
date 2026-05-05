@@ -1,46 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.DashboardController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="main-container" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.DashboardController">
    <children>
-      <HBox prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="700.0" prefWidth="1000.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <!-- Sidebar -->
-            <VBox prefHeight="600.0" prefWidth="240.0" spacing="10.0" styleClass="sidebar">
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
+
+            <!-- SIDEBAR -->
+            <VBox prefWidth="240.0" styleClass="sidebar" spacing="4.0">
+               <padding><Insets top="30.0" bottom="20.0" left="12.0" right="12.0" /></padding>
                <children>
-                  <VBox alignment="CENTER" spacing="10.0">
+
+                  <!-- Brand: plain text, no emoji -->
+                  <VBox alignment="CENTER" spacing="4.0">
+                     <padding><Insets bottom="28.0" /></padding>
                      <children>
-                        <Text styleClass="title-text" style="-fx-font-size: 20;" text="MindShield" />
+                        <Label text="MindShield"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #14b8a6;" />
+                        <Label text="Guvenli &amp; Anonim Danismanlik"
+                               style="-fx-font-size: 10px; -fx-text-fill: #334155;" />
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="30.0" />
-                     </VBox.margin>
                   </VBox>
-                  
-                  <Button maxWidth="Infinity" onAction="#showBlog" styleClass="side-button" text="📑 Uzman Blogları" />
-                  <Button maxWidth="Infinity" onAction="#showMessages" styleClass="side-button" text="💬 Mesajlarım" />
-                  <Button maxWidth="Infinity" onAction="#showMeditation" styleClass="side-button" text="🎧 SoulShield" />
-                  <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield" styleClass="side-button" text="🔒 JourShield" />
-                  <Button maxWidth="Infinity" onAction="#showProfile" styleClass="side-button" text="👤 Profil ve Ayarlar" />
-                  
+
+                  <Button fx:id="btnNavBlog" maxWidth="Infinity" onAction="#showBlog"
+                          styleClass="side-button" text="Uzman Bloglari" />
+
+                  <Button fx:id="btnNavMessages" maxWidth="Infinity" onAction="#showMessages"
+                          styleClass="side-button" text="Mesajlarim" />
+
+                  <Button fx:id="btnNavCounselors" maxWidth="Infinity" onAction="#showCounselors"
+                          styleClass="side-button" text="Danismanlarim" />
+
+                  <Button maxWidth="Infinity" onAction="#showMeditation"
+                          styleClass="side-button" text="SoulShield - Meditasyon" />
+
+                  <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield"
+                          styleClass="side-button" text="JourShield - Gunluk" />
+
+                  <Button fx:id="btnMyClients" maxWidth="Infinity" onAction="#showMessages"
+                          styleClass="side-button" text="Danisanlarim" />
+
+                  <Button maxWidth="Infinity" onAction="#showProfile"
+                          styleClass="side-button" text="Profil ve Ayarlar" />
+
                   <Region VBox.vgrow="ALWAYS" />
-                  
-                  <Button maxWidth="Infinity" onAction="#handleLogout" styleClass="side-button" text="🚪 Çıkış Yap" />
+
+                  <!-- User badge -->
+                  <VBox fx:id="userBadge" styleClass="card"
+                        style="-fx-padding: 12 14; -fx-background-radius: 10; -fx-border-radius: 10;"
+                        spacing="2.0">
+                     <padding><Insets bottom="10.0" /></padding>
+                     <children>
+                        <Label fx:id="lblUserName"
+                               style="-fx-font-weight: bold; -fx-font-size: 13; -fx-text-fill: #e2e8f0;"
+                               text="Persona" />
+                        <Label fx:id="lblUserRole"
+                               style="-fx-font-size: 11; -fx-text-fill: #14b8a6;"
+                               text="Rol" />
+                     </children>
+                  </VBox>
+
+                  <Button maxWidth="Infinity" onAction="#handleLogout"
+                          styleClass="side-button-logout" text="Cikis Yap" />
                </children>
             </VBox>
-            
-            <!-- Content Area -->
-            <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="660.0" HBox.hgrow="ALWAYS">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+
+            <!-- CONTENT AREA -->
+            <StackPane fx:id="contentArea" HBox.hgrow="ALWAYS"
+                       style="-fx-background-color: #0d1b2a;">
+               <padding><Insets bottom="24.0" left="24.0" right="24.0" top="24.0" /></padding>
             </StackPane>
+
          </children>
       </HBox>
    </children>

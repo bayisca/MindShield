@@ -56,8 +56,7 @@ public class BlogWriteController {
                 var user = DashboardController.getCurrentUser();
                 if (user == null) user = MainApp.userDatabase.get("admin");
 
-                BlogPost newPost = new BlogPost(user, title, body);
-                MainApp.blogPosts.add(0, newPost); 
+                MainApp.postService.createPost(user, title, body);
                 DashboardController.getInstance().showBlog();
             }
         } else {

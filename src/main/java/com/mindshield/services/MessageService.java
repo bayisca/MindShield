@@ -47,6 +47,13 @@ public class MessageService {
                 .collect(Collectors.toList());
     }
 
+    /** Returns true if at least one message exists between the two users. */
+    public boolean hasChatBetween(BaseUser user1, BaseUser user2) {
+        return messages.stream()
+                .anyMatch(m -> (m.getSender().equals(user1) && m.getReceiver().equals(user2)) ||
+                               (m.getSender().equals(user2) && m.getReceiver().equals(user1)));
+    }
+
     //Saves messages to file for persistence.
 
     private void saveMessages() {

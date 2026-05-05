@@ -5,34 +5,47 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
-    @FXML private TextField personaField;
+
+    @FXML private TextField     personaField;
     @FXML private PasswordField passwordField;
+    @FXML private Label         lblError;
 
     @FXML
     private void handleLogin() {
-        String persona = personaField.getText();
-        String pass = passwordField.getText();
+        String persona = personaField.getText().trim();
+        String pass    = passwordField.getText();
+
+        if (persona.isEmpty() || pass.isEmpty()) {
+            showError("Persona adı ve şifre boş bırakılamaz.");
+            return;
+        }
 
         com.mindshield.models.BaseUser user = MainApp.userDatabase.get(persona);
 
         if (user != null && user.getPassword().equals(pass)) {
-            System.out.println("Giriş başarılı! Hoş geldin: " + persona);
             DashboardController.setCurrentUser(user);
             switchToDashboard();
         } else {
-            System.out.println("Hata: Persona veya şifre geçersiz.");
+            showError("Persona veya şifre hatalı. Tekrar dene.");
+            passwordField.clear();
         }
     }
 
     @FXML
     private void goToSignUp() {
-        changeScene("/SignUp.fxml", "MindShield - Kayıt Ol");
+        changeScene("/SignUp.fxml", "MindShield — Kayıt Ol");
+    }
+
+    private void showError(String msg) {
+        if (lblError != null) {
+            lblError.setText(msg);
+        }
     }
 
     private void changeScene(String fxml, String title) {
@@ -47,6 +60,6 @@ public class LoginController {
     }
 
     private void switchToDashboard() {
-        changeScene("/Dashboard.fxml", "MindShield - Dashboard");
+        changeScene("/Dashboard.fxml", "MindShield — Dashboard");
     }
 }

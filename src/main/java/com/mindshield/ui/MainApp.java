@@ -1,12 +1,9 @@
 package com.mindshield.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.mindshield.models.BaseUser;
-import com.mindshield.models.BlogPost;
 import com.mindshield.models.Counselor;
 
 import javafx.application.Application;
@@ -18,22 +15,24 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     public static Map<String, BaseUser> userDatabase = new HashMap<>();
-    public static List<BlogPost> blogPosts = new ArrayList<>();
     public static Map<String, String> chatDatabase = new HashMap<>();
     public static com.mindshield.services.PostService postService = new com.mindshield.services.PostService();
     public static com.mindshield.services.MessageService messageService = new com.mindshield.services.MessageService();
     public static com.mindshield.services.JournalService journalService = new com.mindshield.services.JournalService();
 
     static {
-        // Default admin (Counselor)
-        BaseUser admin = new Counselor("admin", "admin-001", "admin123", "General Wellness");
+        // Default admin counselor (pre-approved)
+        Counselor admin = new Counselor("admin", "admin-001", "admin123", "Genel Psikoloji");
+        admin.setApproved(true);
         userDatabase.put("admin", admin);
 
-        // Sample Blog Posts
-        blogPosts.add(new BlogPost(admin, "Stresle Baş Etme Yolları",
-                "Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler ve günlük egzersizler..."));
-        blogPosts.add(new BlogPost(admin, "Anksiyete ve Sosyal Fobi",
-                "Sosyal ortamlarda rahat hissetmek için uygulayabileceğiniz bilişsel davranışçı teknikler."));
+        // Sample counselor for testing
+        Counselor demoDoc = new Counselor("Dr.Ayse", "doc-002", "doc123", "Anksiyete ve Stres");
+        demoDoc.setApproved(true);
+        userDatabase.put("Dr.Ayse", demoDoc);
+
+        // Seed sample blog posts through postService (so they appear in the blog list)
+        postService.seedSamplePosts(admin);
     }
 
     @Override
@@ -46,10 +45,12 @@ public class MainApp extends Application {
         // 2. Sahneyi (Scene) oluştur
         Scene scene = new Scene(root);
 
-        // 3. Pencere ayarları
-        primaryStage.setTitle("MindShield - Anonim Giriş");
+        // 3. Window settings
+        primaryStage.setTitle("MindShield — Anonim Danışmanlık");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(true); // Pencereyi boyutlandırılabilir yap
+        primaryStage.setMinWidth(860);
+        primaryStage.setMinHeight(640);
+        primaryStage.setResizable(true);
         primaryStage.setMaximized(true);
         primaryStage.show();
     }

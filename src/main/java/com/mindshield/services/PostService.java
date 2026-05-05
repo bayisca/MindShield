@@ -24,9 +24,34 @@ public class PostService {
     private static final int MAX_POST_WORD_LIMIT = 5000; // Maximum word limit for posts
 
     public PostService() {
-        this.postDao = new PostDaoImpl(); // Connected to Ahmet's DAO structure
-        this.blogPosts = postDao.findAll(); // Load existing posts from DAO
+        this.postDao = new PostDaoImpl();
+        this.blogPosts = postDao.findAll();
         this.comments = new ArrayList<>();
+    }
+
+    /**
+     * Seeds sample blog posts on first run (when the post list is empty).
+     * Only called once from MainApp's static initialiser.
+     */
+    public void seedSamplePosts(BaseUser admin) {
+        if (!blogPosts.isEmpty()) return; // Already seeded from persisted data
+
+        BlogPost p1 = new BlogPost(admin, "Stresle Baş Etme Yolları",
+                "Modern yaşamın getirdiği stresi yönetmek için bilimsel yöntemler:\n\n" +
+                "1. Derin nefes egzersizleri günde 10 dakika yapın.\n" +
+                "2. Düzenli yürüyüş ve hafif fiziksel aktivite kortizol seviyelerini düşürür.\n" +
+                "3. Uyku düzeninizi koruyun — yetersiz uyku stresi katlar.\n" +
+                "4. Sosyal destek sistemleri kurun; yalnız olmadığınızı hissetmek önemlidir.");
+        blogPosts.add(p1);
+        postDao.save(p1);
+
+        BlogPost p2 = new BlogPost(admin, "Anksiyete ve Sosyal Fobi",
+                "Sosyal ortamlarda rahat hissetmek için bilişsel davranışçı teknikler:\n\n" +
+                "Sosyal fobi, yaşanan kaygı bozukluklarının en yaygın formlarından biridir. " +
+                "Tetikleyici durumları tanıyın, negatif otomatik düşünceleri sorgulayın ve " +
+                "kademeli maruz kalma egzersizleri yapın. Profesyonel destek almaktan çekinmeyin.");
+        blogPosts.add(p2);
+        postDao.save(p2);
     }
 
     

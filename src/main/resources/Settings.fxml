@@ -4,56 +4,87 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="560.0" prefWidth="620.0" styleClass="main-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindshield.ui.SettingsController">
+<AnchorPane prefHeight="620.0" prefWidth="700.0" styleClass="main-container"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.SettingsController">
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="560.0" prefWidth="620.0" styleClass="scroll-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fitToWidth="true" styleClass="scroll-pane"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox spacing="25.0">
-               <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-               </padding>
+            <VBox spacing="22.0">
+               <padding><Insets bottom="30.0" left="4.0" right="4.0" top="4.0" /></padding>
                <children>
-                  <Text styleClass="title-text" text="Profil ve Ayarlar" />
-                  
-                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
+
+                  <!-- Header -->
+                  <Label text="⚙️  Profil ve Ayarlar"
+                         style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+
+                  <!-- Persona settings card -->
+                  <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
                      <children>
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Persona Bilgilerini Güncelle" />
-                        
-                        <VBox spacing="5.0">
+                        <Label text="Persona Bilgileri"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
+
+                        <VBox spacing="6.0">
                            <children>
-                              <Label styleClass="subtitle-text" text="Yeni Persona Adı:" />
-                              <TextField fx:id="newPersonaName" prefHeight="40.0" promptText="Yeni adınızı girin" />
+                              <Label text="YENİ PERSONA ADI"
+                                     style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                              <TextField fx:id="newPersonaName" prefHeight="42.0"
+                                         promptText="Yeni adını gir" maxWidth="Infinity" />
                            </children>
                         </VBox>
-                        
-                        <VBox spacing="5.0">
+
+                        <VBox spacing="6.0">
                            <children>
-                              <Label styleClass="subtitle-text" text="Yeni Şifre:" />
-                              <PasswordField fx:id="newPassword" prefHeight="40.0" promptText="Yeni şifrenizi girin" />
+                              <Label text="YENİ ŞİFRE"
+                                     style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                              <PasswordField fx:id="newPassword" prefHeight="42.0"
+                                             promptText="Yeni şifreni gir" maxWidth="Infinity" />
                            </children>
                         </VBox>
-                        
-                        <Button onAction="#saveSettings" prefHeight="45.0" text="Değişiklikleri Kaydet" />
+
+                        <Button onAction="#saveSettings" prefHeight="42.0"
+                                text="Değişiklikleri Kaydet" />
                      </children>
                   </VBox>
-                  
-                  <!-- YAZILARIM BÖLÜMÜ -->
-                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
+
+                  <!-- My Blog Posts (counselor) -->
+                  <VBox fx:id="myPostsSection" spacing="14.0" styleClass="card" style="-fx-padding: 24;">
                      <children>
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Blog Yazılarım" />
+                        <Label text="📑  Blog Yazılarım"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
                         <VBox fx:id="myPostsContainer" spacing="10.0">
                            <!-- Java tarafından doldurulacak -->
                         </VBox>
                      </children>
                   </VBox>
-                  
-                  <VBox spacing="15.0" styleClass="card" style="-fx-padding: 25;">
+
+                  <!-- Privacy -->
+                  <VBox spacing="14.0" styleClass="card" style="-fx-padding: 24;">
                      <children>
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Gizlilik ve Güvenlik" />
+                        <Label text="🔒  Gizlilik ve Güvenlik"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
                         <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
                         <CheckBox text="Verilerimi yerel diskte şifrele" />
+                        <CheckBox text="Bildirim tercihlerini yönet" />
                      </children>
                   </VBox>
+
+                  <!-- Danger zone -->
+                  <VBox spacing="14.0" styleClass="card"
+                        style="-fx-padding: 24; -fx-border-color: rgba(248,113,113,0.3); -fx-border-radius: 14;">
+                     <children>
+                        <Label text="⚠️  Tehlike Bölgesi"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #f87171;" />
+                        <Label text="Bu işlemler geri alınamaz. Dikkatli ol."
+                               style="-fx-font-size: 12px; -fx-text-fill: #475569;" />
+                        <Button text="Hesabı Sil" styleClass="btn-danger"
+                                prefHeight="40.0" prefWidth="160.0" />
+                     </children>
+                  </VBox>
+
                </children>
             </VBox>
          </content>
