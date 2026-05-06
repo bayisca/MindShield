@@ -36,6 +36,9 @@
                   <Button fx:id="btnNavBlog" maxWidth="Infinity" onAction="#showBlog"
                           styleClass="side-button" text="Uzman Bloglari" />
 
+                  <Button fx:id="btnNavForum" maxWidth="Infinity" onAction="#showForum"
+                          styleClass="side-button" text="Forum" />
+
                   <Button fx:id="btnNavMessages" maxWidth="Infinity" onAction="#showMessages"
                           styleClass="side-button" text="Mesajlarim" />
 

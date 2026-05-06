@@ -21,6 +21,7 @@ public class DashboardController {
     // Sidebar nav buttons (role-conditional visibility)
     @FXML private Button btnNavHome;
     @FXML private Button btnNavBlog;
+    @FXML private Button btnNavForum;
     @FXML private Button btnNavMessages;
     @FXML private Button btnNavCounselors; // CLIENT / ANONYMOUS only
     @FXML private Button btnJourShield;    // CLIENT / ANONYMOUS / COUNSELOR
@@ -70,10 +71,10 @@ public class DashboardController {
         if (lblUserName != null) lblUserName.setText(currentUser.getPersona());
         if (lblUserRole != null) {
             String roleLabel = switch (role) {
-                case COUNSELOR -> "🩺 Danışman";
-                case CLIENT    -> "🎭 Danışan";
-                case ANONYMOUS -> "🕵 Anonim";
-                case ADMIN     -> "🛡 Süper Admin";
+                case COUNSELOR -> "Danisman";
+                case CLIENT    -> "Danisan";
+                case ANONYMOUS -> "Anonim";
+                case ADMIN     -> "Super Admin";
             };
             lblUserRole.setText(roleLabel);
         }
@@ -105,8 +106,7 @@ public class DashboardController {
             if (fxmlFile.equals("/Blog.fxml")) {
                 BlogController bc = loader.getController();
                 boolean canWrite = currentUser != null
-                        && (currentUser.getRole() == UserRole.COUNSELOR
-                            || currentUser.getRole() == UserRole.ADMIN);
+                        && currentUser.getRole() == UserRole.COUNSELOR;
                 if (!canWrite) bc.hideWriteButton();
             }
 
@@ -166,6 +166,7 @@ public class DashboardController {
 
     @FXML public void showHome()       { loadView("/Home.fxml"); }
     @FXML public void showBlog()       { loadView("/Blog.fxml"); }
+    @FXML public void showForum()      { loadView("/Forum.fxml"); }
     @FXML public void showMessages()   { loadView("/Messages.fxml"); }
     @FXML public void showCounselors() { loadView("/CounselorSelect.fxml"); }
     @FXML public void showMeditation() { loadView("/Meditation.fxml"); }

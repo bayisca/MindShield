@@ -44,7 +44,7 @@
                         <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                            <children>
                               <Label text="📑" style="-fx-font-size: 28px;" />
-                              <Label text="Uzman Blogları" styleClass="welcome-feature-label" />
+                              <Label text="Bloglar" styleClass="welcome-feature-label" />
                               <Label text="Ruh sağlığı uzmanlarının yazılarını oku, yorumla ve paylaş."
                                      styleClass="welcome-feature-desc" wrapText="true" />
                            </children>

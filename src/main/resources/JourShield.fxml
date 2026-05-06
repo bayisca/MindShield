@@ -13,7 +13,7 @@
          <children>
             <VBox spacing="6.0" styleClass="jour-shield-header">
                <children>
-                  <Text styleClass="jour-shield-title" text="🔒 JourShield" />
+                  <Text styleClass="jour-shield-title" text="JourShield" />
                   <Label styleClass="jour-shield-subtitle" text="Yalnızca size özel günlük; yayınlanmaz. Başka kullanıcılar veya danışanlarınız girişlerinizi göremez." wrapText="true" />
                </children>
             </VBox>
@@ -47,9 +47,9 @@
                         <TextArea fx:id="bodyField" prefHeight="220.0" promptText="Bugünkü düşünceleriniz… (yalnızca sizde kalır)" styleClass="jour-shield-input" wrapText="true" VBox.vgrow="ALWAYS" />
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleNewEntry" styleClass="button-secondary" text="✚ Yeni giriş" />
-                              <Button mnemonicParsing="false" onAction="#handleSave" styleClass="button" text="💾 Kaydet" />
-                              <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-danger" text="🗑 Sil" />
+                              <Button mnemonicParsing="false" onAction="#handleNewEntry" styleClass="button-secondary" text="Yeni giris" />
+                              <Button mnemonicParsing="false" onAction="#handleSave" styleClass="button" text="Kaydet" />
+                              <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-danger" text="Sil" />
                            </children>
                         </HBox>
                      </children>

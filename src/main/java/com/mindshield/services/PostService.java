@@ -72,7 +72,7 @@ public class PostService {
     }
 
     public BlogPost createPost(BaseUser author, String title, String body) {
-        if (author.getRole() != UserRole.COUNSELOR && author.getRole() != UserRole.ADMIN) {
+        if (author.getRole() != UserRole.COUNSELOR) {
             throw new UnauthorizedException("Only counselors can create blog posts.");
         }
         validateWordLimit(body);

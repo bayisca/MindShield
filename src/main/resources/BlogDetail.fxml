@@ -19,7 +19,7 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Button fx:id="btnBack" text="Geri Don" styleClass="btn-secondary" />
-                  <Button fx:id="btnFavoriteBlog" text="🤍" styleClass="btn-secondary" onAction="#handleFavorite" />
+                  <Button fx:id="btnFavoriteBlog" text="Favorilere ekle" styleClass="btn-secondary" onAction="#handleFavorite" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnReport" text="Sikayet et" styleClass="btn-secondary" visible="false" managed="false" />
 

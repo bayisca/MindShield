@@ -575,6 +575,25 @@
     -fx-background-color: rgba(255,255,255,0.7);
 }
 
+.jour-shield-root .combo-box-popup .list-view {
+    -fx-background-color: #FCF9F5;
+    -fx-border-color: rgba(129,166,198,0.45);
+}
+
+.jour-shield-root .combo-box-popup .list-cell {
+    -fx-background-color: #FCF9F5;
+    -fx-text-fill: #34495E;
+}
+
+.jour-shield-root .combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(129,166,198,0.20);
+}
+
+.jour-shield-root .combo-box-popup .list-cell:selected {
+    -fx-background-color: rgba(129,166,198,0.32);
+    -fx-text-fill: #2C3E50;
+}
+
 /* ═══════════════════════════════════════════
    MEDITATION / SOULSHIELD
 ═══════════════════════════════════════════ */

@@ -34,6 +34,40 @@ public abstract class BaseUser implements Serializable {
         return favoriteSongTitles;
     }
 
+    public boolean isFavoriteBlog(String postId) {
+        return postId != null && getFavoriteBlogIds().contains(postId);
+    }
+
+    public boolean toggleFavoriteBlog(String postId) {
+        if (postId == null || postId.isBlank()) {
+            return false;
+        }
+        java.util.List<String> favorites = getFavoriteBlogIds();
+        if (favorites.contains(postId)) {
+            favorites.remove(postId);
+            return false;
+        }
+        favorites.add(postId);
+        return true;
+    }
+
+    public boolean isFavoriteSong(String songTitle) {
+        return songTitle != null && getFavoriteSongTitles().contains(songTitle);
+    }
+
+    public boolean toggleFavoriteSong(String songTitle) {
+        if (songTitle == null || songTitle.isBlank()) {
+            return false;
+        }
+        java.util.List<String> favorites = getFavoriteSongTitles();
+        if (favorites.contains(songTitle)) {
+            favorites.remove(songTitle);
+            return false;
+        }
+        favorites.add(songTitle);
+        return true;
+    }
+
     public String getPersona() { return persona; }
     public String getPassword() { return password; }
     public void setPersona(String persona) { this.persona = persona; }

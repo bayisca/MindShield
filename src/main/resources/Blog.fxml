@@ -20,8 +20,8 @@
                <children>
                   <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="📑  Uzman Blogları" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Ruh sağlığı profesyonellerinden içgörüler ve tavsiyeler."
+                        <Label text="Uzman Bloglari" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Ruh sağlığı hakkında uzmanlardan paylaşımlar ve tavsiyeler."
                                style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;" />
                      </children>
                   </VBox>

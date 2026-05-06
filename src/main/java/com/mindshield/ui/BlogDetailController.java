@@ -75,8 +75,8 @@ public class BlogDetailController {
 
     private void updateFavoriteButton() {
         if (currentPost == null || DashboardController.getCurrentUser() == null || btnFavoriteBlog == null) return;
-        boolean isFav = DashboardController.getCurrentUser().getFavoriteBlogIds().contains(currentPost.getId().toString());
-        btnFavoriteBlog.setText(isFav ? "❤️" : "🤍");
+        boolean isFav = DashboardController.getCurrentUser().isFavoriteBlog(currentPost.getId());
+        btnFavoriteBlog.setText(isFav ? "Favoriden cikar" : "Favorilere ekle");
     }
 
     @FXML
@@ -95,12 +95,7 @@ public class BlogDetailController {
     private void handleFavorite() {
         if (currentPost == null || DashboardController.getCurrentUser() == null) return;
         com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
-        java.util.List<String> favs = user.getFavoriteBlogIds();
-        if (favs.contains(currentPost.getId().toString())) {
-            favs.remove(currentPost.getId().toString());
-        } else {
-            favs.add(currentPost.getId().toString());
-        }
+        user.toggleFavoriteBlog(currentPost.getId());
         updateFavoriteButton();
     }
 

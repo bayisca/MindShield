@@ -24,6 +24,7 @@ public class MainApp extends Application {
     public static com.mindshield.services.UserService userService = new com.mindshield.services.UserService();
     public static com.mindshield.services.ChatRoomService chatRoomService = new com.mindshield.services.ChatRoomService();
     public static com.mindshield.services.ModerationService moderationService = new com.mindshield.services.ModerationService();
+    public static com.mindshield.services.ForumService forumService = new com.mindshield.services.ForumService();
 
     static {
         // Default admin counselor (pre-approved)
@@ -46,6 +47,8 @@ public class MainApp extends Application {
 
         // Seed sample blog posts through postService (so they appear in the blog list)
         postService.seedSamplePosts(admin);
+        forumService.createTopic(admin, "Gune nasil daha sakin basliyorsunuz?",
+                "Sabah rutininizde iyi gelen kucuk aliskanliklari paylasir misiniz?");
 
         seedSupportGroupsIfNeeded();
     }

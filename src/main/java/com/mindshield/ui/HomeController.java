@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.BlogPost;
 import com.mindshield.models.Counselor;
+import com.mindshield.models.ForumTopic;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,7 @@ public class HomeController {
     @FXML private Label         lblBlogPostCount;
     @FXML private VBox          favSongsContainer;
     @FXML private VBox          favBlogsContainer;
+    @FXML private VBox          myForumTopicsContainer;
 
     private final String[] quotes = {
         "Her yeni gün, taze bir başlangıçtır.",
@@ -49,7 +51,7 @@ public class HomeController {
     public void initialize() {
         BaseUser user = DashboardController.getCurrentUser();
         if (user != null) {
-            lblGreeting.setText("Hoş Geldin, " + user.getPersona() + " 👋");
+            lblGreeting.setText("Hos Geldin, " + user.getPersona());
             
             // Populate Settings/Profile
             if (newPersonaName != null) {
@@ -92,9 +94,10 @@ public class HomeController {
             }
 
             loadFavorites(user);
+            loadMyForumTopics(user);
 
         } else {
-            lblGreeting.setText("Hoş Geldin 👋");
+            lblGreeting.setText("Hos Geldin");
         }
 
         // Pick a random quote
@@ -153,7 +156,7 @@ public class HomeController {
                 favSongsContainer.getChildren().add(empty);
             } else {
                 for (String song : songs) {
-                    Label lbl = new Label("🎵 " + song);
+                    Label lbl = new Label("Sarki: " + song);
                     lbl.setStyle("-fx-padding: 8; -fx-background-color: #FAFAF5; -fx-background-radius: 6; -fx-border-color: #D2C4B4; -fx-border-radius: 6; -fx-text-fill: #34495E;");
                     lbl.setMaxWidth(Double.MAX_VALUE);
                     favSongsContainer.getChildren().add(lbl);
@@ -180,6 +183,33 @@ public class HomeController {
         }
     }
 
+    private void loadMyForumTopics(BaseUser user) {
+        if (myForumTopicsContainer == null) {
+            return;
+        }
+        myForumTopicsContainer.getChildren().clear();
+
+        List<ForumTopic> myTopics = MainApp.forumService.getTopicsByAuthor(user);
+        if (myTopics.isEmpty()) {
+            Label empty = new Label("Henuz acilmis forum basliginiz yok.");
+            empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 13px;");
+            myForumTopicsContainer.getChildren().add(empty);
+            return;
+        }
+
+        for (ForumTopic topic : myTopics) {
+            VBox card = new VBox(4);
+            card.setStyle("-fx-padding: 10; -fx-background-color: #FAFAF5; -fx-background-radius: 8; -fx-border-color: #D2C4B4; -fx-border-radius: 8; -fx-cursor: hand;");
+            Label title = new Label(topic.getTitle());
+            title.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #34495E;");
+            Label meta = new Label(topic.getReplies().size() + " yanit");
+            meta.setStyle("-fx-font-size: 11px; -fx-text-fill: #8A9CAE;");
+            card.getChildren().addAll(title, meta);
+            card.setOnMouseClicked(e -> DashboardController.getInstance().showForum());
+            myForumTopicsContainer.getChildren().add(card);
+        }
+    }
+
     @FXML
     private void saveSettings() {
         BaseUser user = DashboardController.getCurrentUser();
@@ -193,7 +223,7 @@ public class HomeController {
             if (!persona.isEmpty() && !persona.equals(user.getPersona())) {
                 user.setPersona(persona);
                 if (lblGreeting != null) {
-                    lblGreeting.setText("Hoş Geldin, " + user.getPersona() + " 👋");
+                    lblGreeting.setText("Hos Geldin, " + user.getPersona());
                 }
                 DashboardController dashboard = DashboardController.getInstance();
                 if (dashboard != null) {
@@ -273,6 +303,11 @@ public class HomeController {
     @FXML
     private void navToBlog() {
         DashboardController.getInstance().showBlog();
+    }
+
+    @FXML
+    private void navToForum() {
+        DashboardController.getInstance().showForum();
     }
 
     @FXML

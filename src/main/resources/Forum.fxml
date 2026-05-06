@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="620.0" prefWidth="760.0" styleClass="main-container" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.ForumController">
+   <children>
+      <VBox spacing="14.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <padding><Insets top="8.0" right="8.0" bottom="8.0" left="8.0"/></padding>
+         <children>
+            <VBox spacing="4.0">
+               <children>
+                  <Label text="Forum" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                  <Label text="Kullanicilar baslik acabilir, ayni baslik altinda birbirine yanit yazabilir."
+                         style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;"/>
+               </children>
+            </VBox>
+
+            <HBox spacing="12.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox spacing="8.0" prefWidth="260.0" styleClass="card" style="-fx-padding: 12;">
+                     <children>
+                        <Label text="Basliklar" style="-fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                        <TextField fx:id="searchField" promptText="Baslik ara..."/>
+                        <ListView fx:id="topicList" VBox.vgrow="ALWAYS"/>
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="8.0" styleClass="card" style="-fx-padding: 12;">
+                           <children>
+                              <Label text="Yeni Baslik Ac" style="-fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                              <TextField fx:id="topicTitleField" promptText="Baslik"/>
+                              <TextArea fx:id="topicBodyField" promptText="Konuyu acikla" prefHeight="90.0" wrapText="true"/>
+                              <Button text="Baslik Olustur" onAction="#createTopic"/>
+                           </children>
+                        </VBox>
+
+                        <VBox spacing="8.0" styleClass="card" style="-fx-padding: 12;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="selectedTopicTitle" text="Baslik seciniz" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                              <Label fx:id="selectedTopicMeta" text="" style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;"/>
+                              <Button fx:id="btnDeleteTopic" text="Basligi Sil" onAction="#deleteSelectedTopic" styleClass="btn-danger" />
+                              <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                                 <content>
+                                    <VBox fx:id="repliesContainer" spacing="8.0" style="-fx-padding: 2 2 2 2;"/>
+                                 </content>
+                              </ScrollPane>
+                              <TextArea fx:id="replyBodyField" promptText="Bu basliga yanit yaz..." prefHeight="70.0" wrapText="true"/>
+                              <Button text="Yanit Gonder" onAction="#sendReply"/>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

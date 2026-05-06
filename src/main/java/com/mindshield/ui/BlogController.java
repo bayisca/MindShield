@@ -30,7 +30,7 @@ public class BlogController {
         }
 
         if (blogContainer.getChildren().isEmpty()) {
-            Label empty = new Label("Henuz hic uzman yazisi yok.");
+            Label empty = new Label("Henuz hic blog yok.");
             empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 14px; -fx-padding: 30;");
             blogContainer.getChildren().add(empty);
         }

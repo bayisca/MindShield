@@ -40,8 +40,8 @@ public class MeditationController {
                 .addListener((obs, oldV, newV) -> playback.setVolumeFraction(newV.doubleValue() / 100.0)); 
 
         playback.playingProperty()
-                .addListener((obs, was, playingNow) -> btnPlay.setText(Boolean.TRUE.equals(playingNow) ? "⏸ " : "▶ "));
-        btnPlay.setText(playback.playingProperty().get() ? "⏸ " : "▶ ");
+                .addListener((obs, was, playingNow) -> btnPlay.setText(Boolean.TRUE.equals(playingNow) ? "Duraklat" : "Oynat"));
+        btnPlay.setText(playback.playingProperty().get() ? "Duraklat" : "Oynat");
 
         syncListSelection();
 
@@ -62,11 +62,11 @@ public class MeditationController {
     
     private void updateFavoriteButton(MeditationTrack track) {
         if (track == null || DashboardController.getCurrentUser() == null) {
-            btnFavorite.setText("🤍");
+            btnFavorite.setText("Favori");
             return;
         }
-        boolean isFav = DashboardController.getCurrentUser().getFavoriteSongTitles().contains(track.getTitle());
-        btnFavorite.setText(isFav ? "❤️" : "🤍");
+        boolean isFav = DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+        btnFavorite.setText(isFav ? "Favoriden cikar" : "Favori yap");
     }
 
     // Meditasyon müziklerini yükler ve listeye ekler
@@ -108,7 +108,7 @@ public class MeditationController {
     @FXML
     private void handleStop() {
         playback.stopPlayback();
-        btnPlay.setText("▶");
+        btnPlay.setText("Oynat");
     }
 
     @FXML
@@ -136,13 +136,8 @@ public class MeditationController {
         }
         com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
         if (user == null) return;
-        
-        java.util.List<String> favs = user.getFavoriteSongTitles();
-        if (favs.contains(track.getTitle())) {
-            favs.remove(track.getTitle());
-        } else {
-            favs.add(track.getTitle());
-        }
+
+        user.toggleFavoriteSong(track.getTitle());
         updateFavoriteButton(track);
     }
 
