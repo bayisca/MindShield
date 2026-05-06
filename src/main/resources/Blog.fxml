@@ -20,13 +20,13 @@
                <children>
                   <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="📑  Uzman Blogları" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                        <Label text="📑  Uzman Blogları" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
                         <Label text="Ruh sağlığı profesyonellerinden içgörüler ve tavsiyeler."
-                               style="-fx-font-size: 13px; -fx-text-fill: #475569;" />
+                               style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;" />
                      </children>
                   </VBox>
                   <Button fx:id="btnWrite" text="+ Yeni Yazı"
-                          style="-fx-background-color: rgba(20,184,166,0.15); -fx-border-color: rgba(20,184,166,0.4); -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #14b8a6; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 9 18;" />
+                          style="-fx-background-color: rgba(129,166,198,0.15); -fx-border-color: rgba(20,184,166,0.4); -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #81A6C6; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 9 18;" />
                </children>
             </HBox>
 

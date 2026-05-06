@@ -24,11 +24,14 @@
                      <padding><Insets bottom="28.0" /></padding>
                      <children>
                         <Label text="MindShield"
-                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #14b8a6;" />
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label text="Guvenli &amp; Anonim Danismanlik"
-                               style="-fx-font-size: 10px; -fx-text-fill: #334155;" />
+                               style="-fx-font-size: 10px; -fx-text-fill: #8A9CAE;" />
                      </children>
                   </VBox>
+
+                  <Button fx:id="btnNavHome" maxWidth="Infinity" onAction="#showHome"
+                          styleClass="side-button" text="Ana Sayfa" />
 
                   <Button fx:id="btnNavBlog" maxWidth="Infinity" onAction="#showBlog"
                           styleClass="side-button" text="Uzman Bloglari" />
@@ -45,9 +48,6 @@
                   <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield"
                           styleClass="side-button" text="Gunluk (JourShield)" />
 
-                  <Button maxWidth="Infinity" onAction="#showProfile"
-                          styleClass="side-button" text="Profil ve Ayarlar" />
-
                   <Region VBox.vgrow="ALWAYS" />
 
                   <!-- User badge -->
@@ -57,10 +57,10 @@
                      <padding><Insets bottom="10.0" /></padding>
                      <children>
                         <Label fx:id="lblUserName"
-                               style="-fx-font-weight: bold; -fx-font-size: 13; -fx-text-fill: #e2e8f0;"
+                               style="-fx-font-weight: bold; -fx-font-size: 13; -fx-text-fill: #34495E;"
                                text="Persona" />
                         <Label fx:id="lblUserRole"
-                               style="-fx-font-size: 11; -fx-text-fill: #14b8a6;"
+                               style="-fx-font-size: 11; -fx-text-fill: #81A6C6;"
                                text="Rol" />
                      </children>
                   </VBox>
@@ -72,7 +72,7 @@
 
             <!-- CONTENT AREA -->
             <StackPane fx:id="contentArea" HBox.hgrow="ALWAYS"
-                       style="-fx-background-color: #0d1b2a;">
+                       style="-fx-background-color: #F3E3D0;">
                <padding><Insets bottom="24.0" left="24.0" right="24.0" top="24.0" /></padding>
             </StackPane>
 

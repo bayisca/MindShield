@@ -19,6 +19,7 @@ public class DashboardController {
     @FXML private StackPane contentArea;
 
     // Sidebar nav buttons (role-conditional visibility)
+    @FXML private Button btnNavHome;
     @FXML private Button btnNavBlog;
     @FXML private Button btnNavMessages;
     @FXML private Button btnNavCounselors; // CLIENT / ANONYMOUS only
@@ -48,7 +49,7 @@ public class DashboardController {
     public void initialize() {
         instance = this;
         applyRoleVisibility();
-        showBlog(); // default landing tab
+        showHome(); // default landing tab
     }
 
     /** Hide / show sidebar items based on logged-in user's role. */
@@ -76,6 +77,10 @@ public class DashboardController {
             };
             lblUserRole.setText(roleLabel);
         }
+    }
+
+    public void refreshUserBadge() {
+        applyRoleVisibility();
     }
 
     private void setVisible(Button btn, boolean visible) {
@@ -159,12 +164,12 @@ public class DashboardController {
 
     // ── FXML action handlers ─────────────────────────────────────
 
+    @FXML public void showHome()       { loadView("/Home.fxml"); }
     @FXML public void showBlog()       { loadView("/Blog.fxml"); }
     @FXML public void showMessages()   { loadView("/Messages.fxml"); }
     @FXML public void showCounselors() { loadView("/CounselorSelect.fxml"); }
     @FXML public void showMeditation() { loadView("/Meditation.fxml"); }
     @FXML public void showJourShield() { loadView("/JourShield.fxml"); }
-    @FXML public void showProfile()    { loadView("/Settings.fxml"); }
 
     @FXML
     private void handleLogout() {

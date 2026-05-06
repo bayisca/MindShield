@@ -33,6 +33,7 @@
                         <Button mnemonicParsing="false" onAction="#handlePrevious" prefHeight="40.0" prefWidth="100.0" styleClass="button-secondary" text="⏮" />
                         <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#handlePlayPause" prefHeight="40.0" prefWidth="100.0" styleClass="button" text="▶" />
                         <Button mnemonicParsing="false" onAction="#handleNext" prefHeight="40.0" prefWidth="100.0" styleClass="button-secondary" text="⏭" />
+                        <Button fx:id="btnFavorite" mnemonicParsing="false" onAction="#handleFavorite" prefHeight="40.0" prefWidth="50.0" styleClass="button-secondary" text="❤️" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="Ses:" />
                         <Slider fx:id="volumeSlider" prefWidth="150.0" value="50.0" max="100.0" />

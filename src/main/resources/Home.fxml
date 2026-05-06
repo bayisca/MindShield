@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-pane" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.HomeController">
+   <content>
+      <VBox spacing="24.0" style="-fx-padding: 30 40 40 40;">
+         <children>
+
+            <!-- Header Section -->
+            <VBox spacing="8.0" style="-fx-background-color: #FAFAFA; -fx-padding: 30; -fx-background-radius: 14; -fx-border-color: #D2C4B4; -fx-border-radius: 14;">
+               <children>
+                  <Label fx:id="lblGreeting" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #34495E;" text="Hoş Geldin 👋" />
+                  <Label fx:id="lblQuote" style="-fx-font-size: 14px; -fx-text-fill: #6A7C8F; -fx-font-style: italic;" text="Günün Sözü" />
+               </children>
+               <effect>
+                  <javafx.scene.effect.DropShadow color="rgba(0,0,0,0.05)" radius="15.0" />
+               </effect>
+            </VBox>
+
+            <Label text="Kısayollar" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50; -fx-padding: 10 0 0 0;" />
+
+            <!-- Shortcuts Grid -->
+            <GridPane hgap="20.0" vgap="20.0">
+               <columnConstraints>
+                  <ColumnConstraints percentWidth="50.0" />
+                  <ColumnConstraints percentWidth="50.0" />
+               </columnConstraints>
+               <children>
+
+                  <!-- Card 1: Blog -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#navToBlog">
+                     <children>
+                        <Label text="📑" style="-fx-font-size: 32px;" />
+                        <Label text="Uzman Blogları" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Ruh sağlığı makalelerini oku, yenilikleri keşfet." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+
+                  <!-- Card 2: Messages -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#navToMessages">
+                     <children>
+                        <Label text="💬" style="-fx-font-size: 32px;" />
+                        <Label text="Mesajlarım" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Anonim ve güvenli olarak uzmanlarla mesajlaş." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+
+                  <!-- Card 3: Meditation -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="1" onMouseClicked="#navToMeditation">
+                     <children>
+                        <Label text="🎧" style="-fx-font-size: 32px;" />
+                        <Label text="SoulShield Meditasyon" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Odaklanma ve rahatlama için ses arşivini dinle." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+
+                  <!-- Card 4: JourShield -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
+                     <children>
+                        <Label text="🔒" style="-fx-font-size: 32px;" />
+                        <Label text="JourShield Günlük" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Şifreli bir alanda kendi düşüncelerini ve notlarını tut." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+
+               </children>
+            </GridPane>
+
+            <!-- Favorites Section -->
+            <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
+               <children>
+                  <Label text="❤️ Favori Şarkılarım / Meditasyonlarım" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <VBox fx:id="favSongsContainer" spacing="10.0">
+                     <!-- Populated from Java -->
+                  </VBox>
+               </children>
+            </VBox>
+
+            <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
+               <children>
+                  <Label text="❤️ Favori Bloglarım" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <VBox fx:id="favBlogsContainer" spacing="10.0">
+                     <!-- Populated from Java -->
+                  </VBox>
+               </children>
+            </VBox>
+
+            <!-- Profile & Settings Section -->
+            <Label text="⚙️ Profil ve Ayarlar" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50; -fx-padding: 20 0 0 0;" />
+
+            <!-- Counselor özet -->
+            <VBox fx:id="counselorSummarySection" spacing="10.0" styleClass="card" style="-fx-padding: 24;"
+                  visible="false" managed="false">
+               <children>
+                  <Label text="Hesap özeti"
+                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <Label fx:id="lblJoinedDate" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+                  <Label fx:id="lblExpertiseTitle" style="-fx-text-fill: #81A6C6; -fx-font-size: 13px;" />
+                  <Label fx:id="lblBlogPostCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+               </children>
+            </VBox>
+
+            <!-- Persona settings card -->
+            <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
+               <children>
+                  <Label text="Persona Bilgileri"
+                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+
+                  <VBox spacing="6.0">
+                     <children>
+                        <Label text="YENİ PERSONA ADI"
+                               style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
+                        <TextField fx:id="newPersonaName" prefHeight="42.0"
+                                   promptText="Yeni adını gir" maxWidth="Infinity" />
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="6.0">
+                     <children>
+                        <Label text="YENİ ŞİFRE"
+                               style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
+                        <PasswordField fx:id="newPassword" prefHeight="42.0"
+                                       promptText="Yeni şifreni gir" maxWidth="Infinity" />
+                     </children>
+                  </VBox>
+
+                  <Button onAction="#saveSettings" prefHeight="42.0"
+                          text="Değişiklikleri Kaydet" />
+               </children>
+            </VBox>
+
+            <!-- My Blog Posts (counselor) -->
+            <VBox fx:id="myPostsSection" spacing="14.0" styleClass="card" style="-fx-padding: 24;">
+               <children>
+                  <Label text="📑  Blog Yazılarım"
+                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <VBox fx:id="myPostsContainer" spacing="10.0">
+                     <!-- Java tarafından doldurulacak -->
+                  </VBox>
+               </children>
+            </VBox>
+
+            <!-- Privacy -->
+            <VBox spacing="14.0" styleClass="card" style="-fx-padding: 24;">
+               <children>
+                  <Label text="🔒  Gizlilik ve Güvenlik"
+                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
+                  <CheckBox text="Verilerimi yerel diskte şifrele" />
+                  <CheckBox text="Bildirim tercihlerini yönet" />
+               </children>
+            </VBox>
+
+            <!-- Danger zone -->
+            <VBox spacing="14.0" styleClass="card"
+                  style="-fx-padding: 24; -fx-border-color: rgba(226,149,149,0.3); -fx-border-radius: 14;">
+               <children>
+                  <Label text="⚠️  Tehlike Bölgesi"
+                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #E09B9B;" />
+                  <Label text="Bu işlemler geri alınamaz. Dikkatli ol."
+                         style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" />
+                  <Button onAction="#deleteAccount" text="Hesabı Sil" styleClass="btn-danger"
+                          prefHeight="40.0" prefWidth="160.0" />
+               </children>
+            </VBox>
+
+            <!-- Extra Info / Footer -->
+            <HBox alignment="CENTER" style="-fx-padding: 40 0 0 0;">
+               <children>
+                  <Label text="MindShield her zaman yanınızda." style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" />
+               </children>
+            </HBox>
+
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

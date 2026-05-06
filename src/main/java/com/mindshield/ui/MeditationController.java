@@ -22,6 +22,8 @@ public class MeditationController {
     @FXML
     private Button btnPlay;
     @FXML
+    private Button btnFavorite;
+    @FXML
     private Slider volumeSlider;
 
     private final MeditationPlaybackService playback = MeditationPlaybackService.getInstance(); // Singleton olarak playback servisine erişiyoruz
@@ -43,6 +45,10 @@ public class MeditationController {
 
         syncListSelection();
 
+        trackList.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
+            updateFavoriteButton(newV);
+        });
+
         // Listeden tek tıkla çalmaya çalışır
         trackList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
@@ -54,6 +60,15 @@ public class MeditationController {
         });
     }
     
+    private void updateFavoriteButton(MeditationTrack track) {
+        if (track == null || DashboardController.getCurrentUser() == null) {
+            btnFavorite.setText("🤍");
+            return;
+        }
+        boolean isFav = DashboardController.getCurrentUser().getFavoriteSongTitles().contains(track.getTitle());
+        btnFavorite.setText(isFav ? "❤️" : "🤍");
+    }
+
     // Meditasyon müziklerini yükler ve listeye ekler
     private void loadLibrary() {
         ArrayList<MeditationTrack> items = new ArrayList<>(playback.getTracks());
@@ -110,6 +125,25 @@ public class MeditationController {
             showAlert("Dosya Bulunamadı",
                     "Sonraki parça için ses dosyası bulunamadı.");
         }
+    }
+
+    @FXML
+    private void handleFavorite() {
+        MeditationTrack track = trackList.getSelectionModel().getSelectedItem();
+        if (track == null) {
+            showAlert("Uyarı", "Favoriye eklemek için listeden bir müzik seçin.");
+            return;
+        }
+        com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
+        if (user == null) return;
+        
+        java.util.List<String> favs = user.getFavoriteSongTitles();
+        if (favs.contains(track.getTitle())) {
+            favs.remove(track.getTitle());
+        } else {
+            favs.add(track.getTitle());
+        }
+        updateFavoriteButton(track);
     }
 
     private void showAlert(String title, String content) {

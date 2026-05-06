@@ -33,6 +33,7 @@
         often hit "file in use" during maven-resources-plugin copy (e.g. Login.fxml → target/classes).
         The profile below moves Maven's build directory to LOCALAPPDATA (not synced by OneDrive).
     -->
+    <!--
     <profiles>
         <profile>
             <id>windows-build-outside-onedrive</id>
@@ -46,6 +47,7 @@
             </build>
         </profile>
     </profiles>
+    -->
 
     <build>
         <plugins>

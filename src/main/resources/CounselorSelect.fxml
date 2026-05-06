@@ -20,9 +20,9 @@
                <children>
                   <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="🩺 Danışman Seç" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                        <Label text="🩺 Danışman Seç" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
                         <Label text="Anonim olarak bir uzmana mesaj at ve destek al."
-                               style="-fx-font-size: 13px; -fx-text-fill: #475569;" />
+                               style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;" />
                      </children>
                   </VBox>
                </children>
@@ -41,11 +41,11 @@
 
             <!-- Info bar -->
             <HBox alignment="CENTER_LEFT" spacing="8.0"
-                  style="-fx-background-color: rgba(20,184,166,0.08); -fx-background-radius: 8; -fx-padding: 10 16; -fx-border-color: rgba(20,184,166,0.2); -fx-border-radius: 8;">
+                  style="-fx-background-color: rgba(129,166,198,0.08); -fx-background-radius: 8; -fx-padding: 10 16; -fx-border-color: rgba(129,166,198,0.2); -fx-border-radius: 8;">
                <children>
-                  <Label text="ℹ" style="-fx-font-size: 14px; -fx-text-fill: #14b8a6;" />
+                  <Label text="ℹ" style="-fx-font-size: 14px; -fx-text-fill: #81A6C6;" />
                   <Label text="Bir danışman seçtiğinde Mesajlarım ekranı otomatik açılır."
-                         style="-fx-font-size: 12px; -fx-text-fill: #64748b;" wrapText="true" />
+                         style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                </children>
             </HBox>
 

@@ -20,6 +20,8 @@ public class BlogDetailController {
     @FXML
     private Button btnBack;
     @FXML
+    private Button btnFavoriteBlog;
+    @FXML
     private Text txtTitle;
     @FXML
     private Label lblAuthor;
@@ -68,6 +70,13 @@ public class BlogDetailController {
         }
 
         refreshComments();
+        updateFavoriteButton();
+    }
+
+    private void updateFavoriteButton() {
+        if (currentPost == null || DashboardController.getCurrentUser() == null || btnFavoriteBlog == null) return;
+        boolean isFav = DashboardController.getCurrentUser().getFavoriteBlogIds().contains(currentPost.getId().toString());
+        btnFavoriteBlog.setText(isFav ? "❤️" : "🤍");
     }
 
     @FXML
@@ -80,6 +89,19 @@ public class BlogDetailController {
         if (btnReport != null) {
             btnReport.setOnAction(e -> handleReportPost());
         }
+    }
+
+    @FXML
+    private void handleFavorite() {
+        if (currentPost == null || DashboardController.getCurrentUser() == null) return;
+        com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
+        java.util.List<String> favs = user.getFavoriteBlogIds();
+        if (favs.contains(currentPost.getId().toString())) {
+            favs.remove(currentPost.getId().toString());
+        } else {
+            favs.add(currentPost.getId().toString());
+        }
+        updateFavoriteButton();
     }
 
     private void handleReportPost() {
@@ -126,14 +148,14 @@ public class BlogDetailController {
         commentContainer.getChildren().clear();
         for (Comment comment : currentPost.getComments()) {
             VBox card = new VBox(5);
-            card.setStyle("-fx-padding: 12 14; -fx-background-color: #1a2a3d; -fx-background-radius: 8; -fx-border-color: #263d56; -fx-border-radius: 8;");
+            card.setStyle("-fx-padding: 12 14; -fx-background-color: #FAFAFA; -fx-background-radius: 8; -fx-border-color: #BBAA99; -fx-border-radius: 8;");
 
             Label author = new Label(comment.getAuthor().getPersona());
-            author.setStyle("-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #14b8a6;");
+            author.setStyle("-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #81A6C6;");
 
             Text body = new Text(comment.getBody());
             body.setWrappingWidth(500);
-            body.setStyle("-fx-font-size: 13; -fx-fill: #94a3b8;");
+            body.setStyle("-fx-font-size: 13; -fx-fill: #4A5B6C;");
 
             card.getChildren().addAll(author, body);
             commentContainer.getChildren().add(card);

@@ -15,37 +15,37 @@
                <padding><Insets top="28.0" bottom="20.0" left="14.0" right="14.0" /></padding>
                <children>
                   <Label text="MindShield"
-                         style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f87171;" />
+                         style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #E09B9B;" />
                   <Label text="Yönetici Paneli"
-                         style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                         style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
                   <Separator />
                   <Label fx:id="lblAdminName"
-                         style="-fx-font-size: 13px; -fx-text-fill: #e2e8f0;" />
+                         style="-fx-font-size: 13px; -fx-text-fill: #34495E;" />
                   <Region VBox.vgrow="ALWAYS" />
                   <Button maxWidth="Infinity" onAction="#handleLogout" styleClass="side-button-logout" text="Çıkış" />
                </children>
             </VBox>
 
             <VBox HBox.hgrow="ALWAYS" spacing="14.0"
-                  style="-fx-background-color: #0d1b2a;">
+                  style="-fx-background-color: #F3E3D0;">
                <padding><Insets top="24.0" bottom="24.0" left="24.0" right="24.0" /></padding>
                <children>
                   <Label text="Şikayetler"
-                         style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                         style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
                   <HBox spacing="14.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox spacing="8.0" prefWidth="320.0">
                            <children>
-                              <Label text="Liste" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                              <Label text="Liste" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
                               <ListView fx:id="reportList" VBox.vgrow="ALWAYS"
-                                        style="-fx-background-color: #112233;" />
+                                        style="-fx-background-color: #EAE0D2;" />
                            </children>
                         </VBox>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Detay" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                              <Label text="Detay" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
                               <TextArea fx:id="detailArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"
-                                        style="-fx-control-inner-background: #112233; -fx-text-fill: #cbd5e1;" />
+                                        style="-fx-control-inner-background: #EAE0D2; -fx-text-fill: #2C3E50;" />
                               <HBox spacing="10.0">
                                  <children>
                                     <Button fx:id="btnRemoveUser" onAction="#removeReportedUser"

@@ -7,7 +7,7 @@ import java.util.UUID;
 public class ModerationReport implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public enum Kind implements Serializable {
+    public enum Kind {
         BLOG_POST,
         ROOM_MESSAGE,
         DIRECT_USER

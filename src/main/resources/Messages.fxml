@@ -11,23 +11,23 @@
       <TabPane fx:id="mainTabs" tabClosingPolicy="UNAVAILABLE"
                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-               style="-fx-background-color: #0d1b2a;">
+               style="-fx-background-color: #F3E3D0;">
          <tabs>
             <Tab text="DM Kutusu">
                <content>
                   <HBox prefHeight="620.0" prefWidth="760.0">
                      <children>
                         <VBox prefWidth="210.0" spacing="8.0"
-                              style="-fx-background-color: #112233; -fx-border-color: transparent #1e3048 transparent transparent; -fx-border-width: 0 1 0 0;">
+                              style="-fx-background-color: #EAE0D2; -fx-border-color: transparent #D2C4B4 transparent transparent; -fx-border-width: 0 1 0 0;">
                            <padding><Insets bottom="16.0" left="12.0" right="12.0" top="20.0" /></padding>
                            <children>
                               <Label text="Konusmalar"
-                                     style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #64748b; -fx-padding: 0 0 8 4;" />
+                                     style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #6A7C8F; -fx-padding: 0 0 8 4;" />
                               <ListView fx:id="contactList" VBox.vgrow="ALWAYS"
                                         style="-fx-background-color: transparent; -fx-border-color: transparent;" />
                            </children>
                         </VBox>
-                        <VBox HBox.hgrow="ALWAYS" spacing="16.0" style="-fx-background-color: #0d1b2a;">
+                        <VBox HBox.hgrow="ALWAYS" spacing="16.0" style="-fx-background-color: #F3E3D0;">
                            <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="12.0">
@@ -35,10 +35,10 @@
                                     <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label fx:id="lblSelectedContact"
-                                                 style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;"
+                                                 style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495E;"
                                                  text="Bir kisi secin" />
                                           <Label text="Ozel mesajlasma"
-                                                 style="-fx-font-size: 11px; -fx-text-fill: #475569;" />
+                                                 style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" />
                                        </children>
                                     </VBox>
                                     <Button onAction="#reportDmContact" styleClass="btn-secondary" text="Sikayet et" />
@@ -49,7 +49,7 @@
                                     style="-fx-padding: 14; -fx-background-radius: 12; -fx-border-radius: 12;">
                                  <children>
                                     <TextArea fx:id="dmChatArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"
-                                              style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-text-fill: #94a3b8; -fx-font-size: 13; -fx-border-color: transparent;" />
+                                              style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-text-fill: #4A5B6C; -fx-font-size: 13; -fx-border-color: transparent;" />
                                  </children>
                               </VBox>
                               <HBox spacing="10.0">
@@ -70,16 +70,16 @@
                   <HBox prefHeight="620.0" prefWidth="760.0">
                      <children>
                         <VBox prefWidth="220.0" spacing="8.0"
-                              style="-fx-background-color: #112233; -fx-border-color: transparent #1e3048 transparent transparent; -fx-border-width: 0 1 0 0;">
+                              style="-fx-background-color: #EAE0D2; -fx-border-color: transparent #D2C4B4 transparent transparent; -fx-border-width: 0 1 0 0;">
                            <padding><Insets bottom="16.0" left="12.0" right="12.0" top="20.0" /></padding>
                            <children>
                               <Label text="Gruplar"
-                                     style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #64748b; -fx-padding: 0 0 8 4;" />
+                                     style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #6A7C8F; -fx-padding: 0 0 8 4;" />
                               <ListView fx:id="roomListView" VBox.vgrow="ALWAYS"
                                         style="-fx-background-color: transparent; -fx-border-color: transparent;" />
                            </children>
                         </VBox>
-                        <VBox HBox.hgrow="ALWAYS" spacing="14.0" style="-fx-background-color: #0d1b2a;">
+                        <VBox HBox.hgrow="ALWAYS" spacing="14.0" style="-fx-background-color: #F3E3D0;">
                            <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="12.0">
@@ -87,10 +87,10 @@
                                     <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label fx:id="lblSelectedRoom"
-                                                 style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;"
+                                                 style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495E;"
                                                  text="Bir grup secin" />
                                           <Label text="Onceden kurulmus destek odalari"
-                                                 style="-fx-font-size: 11px; -fx-text-fill: #475569;" />
+                                                 style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" />
                                        </children>
                                     </VBox>
                                     <Button onAction="#reportSelectedRoomMessage" styleClass="btn-secondary"
@@ -99,7 +99,7 @@
                               </HBox>
                               <Separator />
                               <ListView fx:id="roomChatListView" VBox.vgrow="ALWAYS"
-                                        style="-fx-background-color: #112233; -fx-border-radius: 10;" />
+                                        style="-fx-background-color: #EAE0D2; -fx-border-radius: 10;" />
                               <HBox spacing="10.0">
                                  <children>
                                     <TextField fx:id="roomMessageInput" prefHeight="46.0" HBox.hgrow="ALWAYS"

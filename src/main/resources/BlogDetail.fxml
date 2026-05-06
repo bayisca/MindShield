@@ -19,6 +19,7 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Button fx:id="btnBack" text="Geri Don" styleClass="btn-secondary" />
+                  <Button fx:id="btnFavoriteBlog" text="🤍" styleClass="btn-secondary" onAction="#handleFavorite" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnReport" text="Sikayet et" styleClass="btn-secondary" visible="false" managed="false" />
 
@@ -40,25 +41,25 @@
 
                         <!-- Article header -->
                         <VBox spacing="10.0"
-                              style="-fx-background-color: #1a2a3d; -fx-padding: 28 28 18 28;
+                              style="-fx-background-color: #FAFAFA; -fx-padding: 28 28 18 28;
                                      -fx-background-radius: 14 14 0 0;
-                                     -fx-border-color: transparent transparent #1e3048 transparent;
+                                     -fx-border-color: transparent transparent #D2C4B4 transparent;
                                      -fx-border-width: 0 0 1 0;">
                            <children>
                               <Text fx:id="txtTitle"
-                                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #e2e8f0;"
+                                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #34495E;"
                                     wrappingWidth="580.0" text="Baslik" />
                               <HBox alignment="CENTER_LEFT" spacing="12.0">
                                  <children>
-                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #475569;" text="Yazar:" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" text="Yazar:" />
                                     <Label fx:id="lblAuthor"
                                            style="-fx-font-weight: bold; -fx-font-size: 12px;
-                                                  -fx-text-fill: #14b8a6;
-                                                  -fx-background-color: rgba(20,184,166,0.12);
+                                                  -fx-text-fill: #81A6C6;
+                                                  -fx-background-color: rgba(129,166,198,0.12);
                                                   -fx-background-radius: 20; -fx-padding: 2 10;" text="—" />
                                     <Region HBox.hgrow="ALWAYS" />
                                     <Label fx:id="lblDate"
-                                           style="-fx-font-size: 11px; -fx-text-fill: #475569;" text="—" />
+                                           style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" text="—" />
                                  </children>
                               </HBox>
                            </children>
@@ -68,7 +69,7 @@
                         <VBox style="-fx-padding: 26 28;">
                            <children>
                               <Text fx:id="txtContent"
-                                    style="-fx-font-size: 14px; -fx-fill: #94a3b8; -fx-line-spacing: 6;"
+                                    style="-fx-font-size: 14px; -fx-fill: #4A5B6C; -fx-line-spacing: 6;"
                                     wrappingWidth="580.0" text="Icerik yukleniyor..." />
                            </children>
                         </VBox>
@@ -79,7 +80,7 @@
                         <VBox spacing="14.0" style="-fx-padding: 22 28 28 28;">
                            <children>
                               <Label text="Yorumlar"
-                                     style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
+                                     style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
                               <VBox fx:id="commentContainer" spacing="10.0" />
                               <HBox spacing="10.0">
                                  <children>

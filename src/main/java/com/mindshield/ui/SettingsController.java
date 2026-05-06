@@ -92,7 +92,7 @@ public class SettingsController {
 
         if (myPosts.isEmpty()) {
             Label empty = new Label("Henüz bir yazınız bulunmuyor.");
-            empty.setStyle("-fx-text-fill: #475569; -fx-font-size: 13px;");
+            empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 13px;");
             myPostsContainer.getChildren().add(empty);
         } else {
             for (BlogPost post : myPosts) {
@@ -103,16 +103,16 @@ public class SettingsController {
 
     private VBox createMiniCard(BlogPost post) {
         VBox card = new VBox(6);
-        card.setStyle("-fx-padding: 12; -fx-background-color: #1e3048;" +
-                      "-fx-background-radius: 8; -fx-border-color: #263d56; -fx-border-radius: 8;" +
+        card.setStyle("-fx-padding: 12; -fx-background-color: #D2C4B4;" +
+                      "-fx-background-radius: 8; -fx-border-color: #BBAA99; -fx-border-radius: 8;" +
                       "-fx-cursor: hand;");
 
         Label title = new Label(post.getTitle());
-        title.setStyle("-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #e2e8f0;");
+        title.setStyle("-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #34495E;");
 
         Label date = new Label(post.getCreatedAt() != null
                 ? post.getCreatedAt().toString().substring(0, 10) : "");
-        date.setStyle("-fx-font-size: 11px; -fx-text-fill: #475569;");
+        date.setStyle("-fx-font-size: 11px; -fx-text-fill: #8A9CAE;");
 
         card.getChildren().addAll(title, date);
         card.setOnMouseClicked(e -> DashboardController.getInstance().showBlogDetail(post));

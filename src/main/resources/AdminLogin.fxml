@@ -11,21 +11,21 @@
       <VBox alignment="CENTER" spacing="20.0"
             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-            style="-fx-background-color: #0d1b2a; -fx-padding: 48;">
+            style="-fx-background-color: #F3E3D0; -fx-padding: 48;">
          <children>
             <Label text="Yönetici Girişi"
-                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
             <Label text="Şikayetleri ve moderasyonu buradan yönetirsiniz."
                    wrapText="true" maxWidth="360"
-                   style="-fx-font-size: 13px; -fx-text-fill: #64748b;" />
+                   style="-fx-font-size: 13px; -fx-text-fill: #6A7C8F;" />
 
             <VBox maxWidth="340.0" spacing="10.0">
                <children>
                   <Label text="YÖNETİCİ PERSONA ADI"
-                         style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                         style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
                   <TextField fx:id="personaField" prefHeight="44.0" promptText="Örn. superadmin" />
                   <Label text="ŞİFRE"
-                         style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                         style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
                   <PasswordField fx:id="passwordField" prefHeight="44.0" promptText="Şifre" />
                   <Region prefHeight="8.0" />
                   <Button maxWidth="Infinity" prefHeight="46.0" onAction="#handleLogin" text="Yönetici olarak gir" />
@@ -35,7 +35,7 @@
                      </children>
                   </HBox>
                   <Label fx:id="lblError" wrapText="true" maxWidth="340"
-                         style="-fx-text-fill: #f87171; -fx-font-size: 12px;" />
+                         style="-fx-text-fill: #E09B9B; -fx-font-size: 12px;" />
                </children>
             </VBox>
          </children>

@@ -14,7 +14,7 @@
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox alignment="CENTER" spacing="0.0"
-                  style="-fx-background-color: linear-gradient(to bottom, #0a1a28, #0d1b2a 60%, #071320); -fx-padding: 60 80;">
+                  style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #F3E3D0 60%, #D2C4B4); -fx-padding: 60 80;">
                <children>
 
                   <!-- Hero -->
@@ -22,9 +22,9 @@
                      <children>
                         <Label text="🎉" style="-fx-font-size: 54px;" />
                         <Label fx:id="lblWelcomePersona"
-                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;"
+                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #34495E;"
                                text="Hoş Geldin!" />
-                        <Label style="-fx-font-size: 15px; -fx-text-fill: #475569;" wrapText="true"
+                        <Label style="-fx-font-size: 15px; -fx-text-fill: #8A9CAE;" wrapText="true"
                                textAlignment="CENTER" maxWidth="500.0"
                                text="Personan başarıyla oluşturuldu. MindShield'a katıldığın için teşekkürler. Aşağıda seni bekleyen özellikleri keşfet." />
                      </children>
@@ -92,7 +92,7 @@
                                 onAction="#goToDashboard"
                                 style="-fx-font-size: 15px; -fx-font-weight: bold;" />
                         <Label fx:id="lblRoleNote"
-                               style="-fx-font-size: 12px; -fx-text-fill: #475569;"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;"
                                text="" />
                      </children>
                   </VBox>

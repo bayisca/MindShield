@@ -16,19 +16,19 @@
 
             <!-- LEFT: Branding panel -->
             <VBox prefWidth="400.0" alignment="CENTER" spacing="24.0"
-                  style="-fx-background-color: linear-gradient(to bottom, #0a1e2e, #071525); -fx-padding: 60 50;">
+                  style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-padding: 60 50;">
                <children>
                   <!-- Logo: plain text only -->
                   <Label text="MindShield"
-                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #14b8a6;
+                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;
                                 -fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 20, 0, 0, 0);" />
 
                   <VBox spacing="8.0" alignment="CENTER">
                      <children>
                         <Label text="Zihnin icin guvenli alan."
-                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
                         <Label text="Kimligini degil, duygularini paylas."
-                               style="-fx-font-size: 13px; -fx-text-fill: #475569;"
+                               style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;"
                                wrapText="true" textAlignment="CENTER" maxWidth="280.0"/>
                      </children>
                   </VBox>
@@ -72,7 +72,7 @@
                                      style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #5eead4;" />
                               <Label text="JourShield ile dusuncelerinizi gunluge yazabilir, ruh halinizi takip edebilirsiniz. Kayitlar yalnizca size ozeldir; danisman hesabiyla da guvenli sekilde gunluk tutabilirsiniz."
                                      wrapText="true" maxWidth="300.0"
-                                     style="-fx-font-size: 12px; -fx-text-fill: #64748b;" />
+                                     style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" />
                            </children>
                         </VBox>
                      </children>
@@ -82,18 +82,18 @@
 
             <!-- RIGHT: Login form -->
             <VBox alignment="CENTER" HBox.hgrow="ALWAYS"
-                  style="-fx-background-color: #0d1b2a; -fx-padding: 60 70;">
+                  style="-fx-background-color: #F3E3D0; -fx-padding: 60 70;">
                <children>
                   <VBox maxWidth="340.0" spacing="0.0">
                      <children>
-                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0; -fx-padding: 0 0 6 0;" text="Hos Geldin" />
-                        <Label style="-fx-font-size: 13px; -fx-text-fill: #475569; -fx-padding: 0 0 32 0;" text="Personanla giris yap" />
+                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495E; -fx-padding: 0 0 6 0;" text="Hos Geldin" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE; -fx-padding: 0 0 32 0;" text="Personanla giris yap" />
 
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-padding: 0 0 6 0;" text="PERSONA ADI" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F; -fx-padding: 0 0 6 0;" text="PERSONA ADI" />
                         <TextField fx:id="personaField" prefHeight="46.0" promptText="Persona adini gir" maxWidth="Infinity" />
                         <Region prefHeight="16.0" />
 
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-padding: 0 0 6 0;" text="SIFRE" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F; -fx-padding: 0 0 6 0;" text="SIFRE" />
                         <PasswordField fx:id="passwordField" prefHeight="46.0" promptText="Sifreni gir" maxWidth="Infinity" />
                         <Region prefHeight="28.0" />
 
@@ -101,7 +101,7 @@
 
                         <HBox alignment="CENTER" style="-fx-padding: 20 0 0 0;" spacing="6.0">
                            <children>
-                              <Label style="-fx-text-fill: #475569; -fx-font-size: 13px;" text="Henuz bir personan yok mu?" />
+                              <Label style="-fx-text-fill: #8A9CAE; -fx-font-size: 13px;" text="Henuz bir personan yok mu?" />
                               <Hyperlink onAction="#goToSignUp" text="Olustur" />
                            </children>
                         </HBox>
@@ -110,7 +110,7 @@
                                 styleClass="btn-secondary" text="Yonetici girisi" />
 
                         <Label fx:id="lblError"
-                               style="-fx-text-fill: #f87171; -fx-font-size: 12px; -fx-padding: 8 0 0 0;"
+                               style="-fx-text-fill: #E09B9B; -fx-font-size: 12px; -fx-padding: 8 0 0 0;"
                                text="" wrapText="true" maxWidth="340.0" />
                      </children>
                   </VBox>

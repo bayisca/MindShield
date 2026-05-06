@@ -28,7 +28,7 @@ public class CounselorSelectController {
 
         if (counselorContainer.getChildren().isEmpty()) {
             Label empty = new Label("Henüz kayıtlı danışman bulunmuyor.");
-            empty.setStyle("-fx-text-fill: #475569; -fx-font-size: 14px; -fx-padding: 20;");
+            empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 14px; -fx-padding: 20;");
             counselorContainer.getChildren().add(empty);
         }
     }
@@ -42,10 +42,10 @@ public class CounselorSelectController {
         header.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
         Circle avatar = new Circle(22);
-        avatar.setStyle("-fx-fill: rgba(20,184,166,0.15); -fx-stroke: #14b8a6; -fx-stroke-width: 1.5;");
+        avatar.setStyle("-fx-fill: rgba(129,166,198,0.15); -fx-stroke: #81A6C6; -fx-stroke-width: 1.5;");
 
         Label initials = new Label(c.getPersona().substring(0, Math.min(2, c.getPersona().length())).toUpperCase());
-        initials.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #14b8a6;");
+        initials.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #81A6C6;");
 
         javafx.scene.layout.StackPane avatarPane = new javafx.scene.layout.StackPane(avatar, initials);
 
@@ -61,8 +61,8 @@ public class CounselorSelectController {
 
         // Rating badge
         Label rating = new Label(c.getRating() > 0 ? "★ " + String.format("%.1f", c.getRating()) : "Yeni");
-        rating.setStyle("-fx-background-color: rgba(20,184,166,0.12); -fx-border-color: rgba(20,184,166,0.3);" +
-                        "-fx-border-radius: 20; -fx-background-radius: 20; -fx-text-fill: #14b8a6;" +
+        rating.setStyle("-fx-background-color: rgba(129,166,198,0.12); -fx-border-color: rgba(129,166,198,0.3);" +
+                        "-fx-border-radius: 20; -fx-background-radius: 20; -fx-text-fill: #81A6C6;" +
                         "-fx-font-size: 11px; -fx-padding: 3 10;");
 
         header.getChildren().addAll(avatarPane, nameBox, rating);

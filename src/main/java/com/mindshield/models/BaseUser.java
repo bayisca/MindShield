@@ -14,6 +14,9 @@ public abstract class BaseUser implements Serializable {
     /** Hesabın oluşturulduğu tarih (eski kayıtlarda null olabilir). */
     private LocalDate registeredAt;
 
+    private java.util.List<String> favoriteBlogIds = new java.util.ArrayList<>();
+    private java.util.List<String> favoriteSongTitles = new java.util.ArrayList<>();
+
     public BaseUser(String persona, String password, UserRole role) {
         this.persona = persona;
         this.password = password;
@@ -21,8 +24,19 @@ public abstract class BaseUser implements Serializable {
         this.registeredAt = LocalDate.now();
     }
 
+    public java.util.List<String> getFavoriteBlogIds() {
+        if (favoriteBlogIds == null) favoriteBlogIds = new java.util.ArrayList<>();
+        return favoriteBlogIds;
+    }
+
+    public java.util.List<String> getFavoriteSongTitles() {
+        if (favoriteSongTitles == null) favoriteSongTitles = new java.util.ArrayList<>();
+        return favoriteSongTitles;
+    }
+
     public String getPersona() { return persona; }
     public String getPassword() { return password; }
+    public void setPersona(String persona) { this.persona = persona; }
 
     public void setPassword(String password) {
         this.password = password;
