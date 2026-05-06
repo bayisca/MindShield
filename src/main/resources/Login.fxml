@@ -41,7 +41,7 @@
                               <VBox spacing="3.0">
                                  <children>
                                     <Label text="[Kilit]  Tam Anonimlik" styleClass="welcome-feature-label" />
-                                    <Label text="Gercek adin asla saklanmaz." styleClass="welcome-feature-desc" />
+                                    <Label text="Gercek adin asla paylaşılmaz." styleClass="welcome-feature-desc" />
                                  </children>
                               </VBox>
                            </children>
@@ -66,6 +66,15 @@
                               </VBox>
                            </children>
                         </HBox>
+                        <VBox spacing="6.0" style="-fx-padding: 18 0 0 0;">
+                           <children>
+                              <Label text="JourShield"
+                                     style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #5eead4;" />
+                              <Label text="JourShield ile dusuncelerinizi gunluge yazabilir, ruh halinizi takip edebilirsiniz. Kayitlar yalnizca size ozeldir; danisman hesabiyla da guvenli sekilde gunluk tutabilirsiniz."
+                                     wrapText="true" maxWidth="300.0"
+                                     style="-fx-font-size: 12px; -fx-text-fill: #64748b;" />
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
@@ -96,6 +105,9 @@
                               <Hyperlink onAction="#goToSignUp" text="Olustur" />
                            </children>
                         </HBox>
+
+                        <Button maxWidth="Infinity" prefHeight="40.0" onAction="#openAdminLogin"
+                                styleClass="btn-secondary" text="Yonetici girisi" />
 
                         <Label fx:id="lblError"
                                style="-fx-text-fill: #f87171; -fx-font-size: 12px; -fx-padding: 8 0 0 0;"

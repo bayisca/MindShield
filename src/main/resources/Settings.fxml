@@ -21,6 +21,18 @@
                   <Label text="⚙️  Profil ve Ayarlar"
                          style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
 
+                  <!-- Counselor özet -->
+                  <VBox fx:id="counselorSummarySection" spacing="10.0" styleClass="card" style="-fx-padding: 24;"
+                        visible="false" managed="false">
+                     <children>
+                        <Label text="Hesap özeti"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #cbd5e1;" />
+                        <Label fx:id="lblJoinedDate" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;" />
+                        <Label fx:id="lblExpertiseTitle" style="-fx-text-fill: #14b8a6; -fx-font-size: 13px;" />
+                        <Label fx:id="lblBlogPostCount" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+
                   <!-- Persona settings card -->
                   <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
                      <children>
@@ -80,7 +92,7 @@
                                style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #f87171;" />
                         <Label text="Bu işlemler geri alınamaz. Dikkatli ol."
                                style="-fx-font-size: 12px; -fx-text-fill: #475569;" />
-                        <Button text="Hesabı Sil" styleClass="btn-danger"
+                        <Button onAction="#deleteAccount" text="Hesabi Sil" styleClass="btn-danger"
                                 prefHeight="40.0" prefWidth="160.0" />
                      </children>
                   </VBox>

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,6 +38,8 @@ public class BlogDetailController {
     private Button btnEdit;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnReport;
 
     private BlogPost currentPost;
 
@@ -55,6 +58,15 @@ public class BlogDetailController {
             adminControls.setVisible(false);
         }
 
+        boolean canReport = user != null
+                && post.getAuthor() != null
+                && !user.getPersona().equals(post.getAuthor().getPersona())
+                && user.getRole() != UserRole.ADMIN;
+        if (btnReport != null) {
+            btnReport.setVisible(canReport);
+            btnReport.setManaged(canReport);
+        }
+
         refreshComments();
     }
 
@@ -64,6 +76,31 @@ public class BlogDetailController {
 
         btnDelete.setOnAction(e -> handleDelete());
         btnEdit.setOnAction(e -> handleEdit());
+
+        if (btnReport != null) {
+            btnReport.setOnAction(e -> handleReportPost());
+        }
+    }
+
+    private void handleReportPost() {
+        var user = DashboardController.getCurrentUser();
+        if (user == null || currentPost == null) {
+            return;
+        }
+        TextInputDialog dlg = new TextInputDialog();
+        dlg.setTitle("Blog sikayeti");
+        dlg.setHeaderText(null);
+        dlg.setContentText("Gerekce:");
+        dlg.showAndWait().ifPresent(reason -> {
+            if (reason.isBlank()) {
+                return;
+            }
+            MainApp.moderationService.reportBlogPost(user, currentPost, reason.trim());
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setHeaderText(null);
+            ok.setContentText("Sikayetiniz yoneticiye iletildi.");
+            ok.showAndWait();
+        });
     }
 
     private void handleDelete() {

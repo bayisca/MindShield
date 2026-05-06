@@ -2,117 +2,120 @@ package com.mindshield.ui;
 
 import java.io.IOException;
 
+import com.mindshield.models.CounselorExpertise;
+import com.mindshield.util.PasswordRules;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-<<<<<<< HEAD
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-=======
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
->>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SignUpController {
 
     @FXML private TextField     regUser;
     @FXML private PasswordField regPass;
-<<<<<<< HEAD
-    @FXML private TextField regExpertise;
-    @FXML private RadioButton rbCounselor;
-=======
     @FXML private RadioButton   rbCounselor;
+    @FXML private RadioButton   rbClient;
     @FXML private Label         lblError;
->>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
+    @FXML private VBox          expertiseBox;
+    @FXML private ComboBox<CounselorExpertise> expertiseCombo;
 
     @FXML
     public void initialize() {
-        regExpertise.setVisible(false);
-        regExpertise.setManaged(false);
-        
-        rbCounselor.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            regExpertise.setVisible(newVal);
-            regExpertise.setManaged(newVal);
-            if (newVal) {
-                regUser.setPromptText("Gerçek Adınız");
-            } else {
-                regUser.setPromptText("Persona Adı");
+        if (expertiseCombo != null) {
+            expertiseCombo.setItems(FXCollections.observableArrayList(CounselorExpertise.values()));
+            expertiseCombo.getSelectionModel().selectFirst();
+        }
+
+        Runnable syncExpertiseBox = () -> {
+            boolean counselor = rbCounselor != null && rbCounselor.isSelected();
+            if (expertiseBox != null) {
+                expertiseBox.setVisible(counselor);
+                expertiseBox.setManaged(counselor);
             }
-        });
+            if (lblError != null) {
+                lblError.setText("");
+            }
+        };
+
+        if (rbCounselor != null) {
+            rbCounselor.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                if (regUser != null) {
+                    regUser.setPromptText(Boolean.TRUE.equals(newVal) ? "Ad ve soyad (gorunecek isim)" : "Persona Adi");
+                }
+                syncExpertiseBox.run();
+            });
+        }
+        if (rbClient != null) {
+            rbClient.selectedProperty().addListener((obs, o, n) -> syncExpertiseBox.run());
+        }
+        syncExpertiseBox.run();
     }
 
     @FXML
     private void handleSignUp() {
-<<<<<<< HEAD
-        String persona = regUser.getText();
-        String pass = regPass.getText();
-        String expertise = regExpertise.getText();
-        UserRole role = rbCounselor.isSelected() ? UserRole.COUNSELOR : UserRole.CLIENT;
-
-        try {
-            MainApp.userService.registerUser(persona, pass, role, expertise);
-            showAlert(Alert.AlertType.INFORMATION, "Başarılı", "Kayıt işlemi başarıyla tamamlandı!");
-            goToLogin();
-        } catch (IllegalArgumentException e) {
-            showAlert(Alert.AlertType.WARNING, "Kayıt Hatası", e.getMessage());
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Sistem Hatası", "Beklenmeyen bir hata oluştu: " + e.getMessage());
-=======
         String persona = regUser.getText().trim();
-        String pass    = regPass.getText();
+        String pass = regPass.getText();
 
         if (persona.isEmpty() || pass.isEmpty()) {
-            showError("Persona adı ve şifre boş bırakılamaz.");
+            showError("Kullanici adi ve sifre bos birakilamaz.");
             return;
->>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
+        }
+
+        String passErr = PasswordRules.validate(pass);
+        if (passErr != null) {
+            showError(passErr);
+            return;
         }
 
         if (MainApp.userDatabase.containsKey(persona)) {
-            showError("Bu persona adı zaten kullanılıyor. Farklı bir ad dene.");
-            return;
-        }
-
-        if (pass.length() < 4) {
-            showError("Şifre en az 4 karakter olmalıdır.");
+            showError("Bu kullanici adi zaten kullaniliyor. Baska bir ad deneyin.");
             return;
         }
 
         UserRole role = rbCounselor.isSelected() ? UserRole.COUNSELOR : UserRole.CLIENT;
-        String   id   = java.util.UUID.randomUUID().toString();
+        String id = java.util.UUID.randomUUID().toString();
+
+        CounselorExpertise expertise = expertiseCombo != null
+                ? expertiseCombo.getSelectionModel().getSelectedItem()
+                : null;
+
+        if (role == UserRole.COUNSELOR) {
+            if (expertise == null) {
+                showError("Danisman kaydinda uzmanlik alani secmelisiniz.");
+                return;
+            }
+        }
 
         com.mindshield.models.BaseUser newUser;
         if (role == UserRole.COUNSELOR) {
-            newUser = new com.mindshield.models.Counselor(persona, id, pass, "Genel Psikoloji");
+            newUser = new com.mindshield.models.Counselor(persona, id, pass, expertise.getDisplayName());
         } else {
             newUser = new com.mindshield.models.StandardUser(persona, id, pass, role);
         }
 
         MainApp.userDatabase.put(persona, newUser);
-        System.out.println("Yeni Persona: " + persona + " (" + role + ")");
 
-        // Log them in and show the Welcome panel
         DashboardController.setCurrentUser(newUser);
-        navigateTo("/Welcome.fxml", "MindShield — Hoş Geldin!");
-    }
-    
-    private void showAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        navigateTo("/Welcome.fxml", "MindShield — Hos Geldin!");
     }
 
     @FXML
     private void goToLogin() {
-        navigateTo("/Login.fxml", "MindShield — Giriş");
+        navigateTo("/Login.fxml", "MindShield — Giris");
     }
 
     private void showError(String msg) {
-        if (lblError != null) lblError.setText(msg);
+        if (lblError != null) {
+            lblError.setText(msg);
+        }
     }
 
     private void navigateTo(String fxml, String title) {
@@ -122,7 +125,7 @@ public class SignUpController {
             stage.getScene().setRoot(root);
             stage.setTitle(title);
         } catch (IOException e) {
-            System.err.println("Sahne geçiş hatası: " + fxml);
+            System.err.println("Sahne gecis hatasi: " + fxml);
             e.printStackTrace();
         }
     }

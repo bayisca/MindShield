@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="640.0" prefWidth="920.0" styleClass="main-container" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindshield.ui.AdminDashboardController">
+   <children>
+      <HBox prefHeight="640.0" prefWidth="920.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefWidth="260.0" styleClass="sidebar" spacing="8.0">
+               <padding><Insets top="28.0" bottom="20.0" left="14.0" right="14.0" /></padding>
+               <children>
+                  <Label text="MindShield"
+                         style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f87171;" />
+                  <Label text="Yönetici Paneli"
+                         style="-fx-font-size: 11px; -fx-text-fill: #64748b;" />
+                  <Separator />
+                  <Label fx:id="lblAdminName"
+                         style="-fx-font-size: 13px; -fx-text-fill: #e2e8f0;" />
+                  <Region VBox.vgrow="ALWAYS" />
+                  <Button maxWidth="Infinity" onAction="#handleLogout" styleClass="side-button-logout" text="Çıkış" />
+               </children>
+            </VBox>
+
+            <VBox HBox.hgrow="ALWAYS" spacing="14.0"
+                  style="-fx-background-color: #0d1b2a;">
+               <padding><Insets top="24.0" bottom="24.0" left="24.0" right="24.0" /></padding>
+               <children>
+                  <Label text="Şikayetler"
+                         style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;" />
+                  <HBox spacing="14.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="8.0" prefWidth="320.0">
+                           <children>
+                              <Label text="Liste" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                              <ListView fx:id="reportList" VBox.vgrow="ALWAYS"
+                                        style="-fx-background-color: #112233;" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Detay" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                              <TextArea fx:id="detailArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"
+                                        style="-fx-control-inner-background: #112233; -fx-text-fill: #cbd5e1;" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button fx:id="btnRemoveUser" onAction="#removeReportedUser"
+                                            styleClass="btn-danger" text="Kullanıcıyı sistemden çıkar" />
+                                    <Button fx:id="btnDeletePost" onAction="#deleteReportedPost"
+                                            styleClass="btn-danger" text="Blog yazısını sil" />
+                                    <Button onAction="#markResolved" styleClass="btn-secondary" text="Şikayeti kapat" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

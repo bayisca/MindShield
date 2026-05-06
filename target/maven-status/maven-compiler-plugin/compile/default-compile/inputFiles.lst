@@ -33,8 +33,10 @@ C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\services\UserService
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\BlogController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\BlogDetailController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\BlogWriteController.java
+C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\CounselorSelectController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\DashboardController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\JourShieldController.java
+C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\Launcher.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\LoginController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\MainApp.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\MeditationController.java
@@ -42,3 +44,4 @@ C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\MessagesControlle
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\SettingsController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\SignUpController.java
 C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\UserRole.java
+C:\Users\Umut\OneDrive\Project\src\main\java\com\mindshield\ui\WelcomeController.java

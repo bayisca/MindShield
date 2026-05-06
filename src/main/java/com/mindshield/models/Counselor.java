@@ -37,6 +37,18 @@ public class Counselor extends BaseUser {
         return specialization;
     }
 
+    /** Danışan listesinde gösterilecek ünvan (örn. "Kaygı Yönetimi uzmanı"). */
+    public String getExpertiseDisplayTitle() {
+        if (specialization == null || specialization.isBlank()) {
+            return "Uzman danışman";
+        }
+        String s = specialization.trim();
+        if (s.toLowerCase().contains("uzman")) {
+            return s;
+        }
+        return s + " uzmanı";
+    }
+
     public double getRating() {
         return rating;
     }

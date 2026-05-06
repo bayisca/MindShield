@@ -43,10 +43,7 @@
                           styleClass="side-button" text="SoulShield - Meditasyon" />
 
                   <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield"
-                          styleClass="side-button" text="JourShield - Gunluk" />
-
-                  <Button fx:id="btnMyClients" maxWidth="Infinity" onAction="#showMessages"
-                          styleClass="side-button" text="Danisanlarim" />
+                          styleClass="side-button" text="Gunluk (JourShield)" />
 
                   <Button maxWidth="Infinity" onAction="#showProfile"
                           styleClass="side-button" text="Profil ve Ayarlar" />

@@ -22,8 +22,7 @@ public class DashboardController {
     @FXML private Button btnNavBlog;
     @FXML private Button btnNavMessages;
     @FXML private Button btnNavCounselors; // CLIENT / ANONYMOUS only
-    @FXML private Button btnJourShield;    // CLIENT / ANONYMOUS only
-    @FXML private Button btnMyClients;     // COUNSELOR only
+    @FXML private Button btnJourShield;    // CLIENT / ANONYMOUS / COUNSELOR
 
     // User badge labels
     @FXML private Label lblUserName;
@@ -63,11 +62,8 @@ public class DashboardController {
         // Counselor-select panel — only clients need it
         setVisible(btnNavCounselors, isClient);
 
-        // JourShield — private journal, clients only
-        setVisible(btnJourShield, isClient);
-
-        // "My Clients" — counselors see their danışanlar via this shortcut
-        setVisible(btnMyClients, isCounselor);
+        // JourShield — danışan ve danışman günlüğü
+        setVisible(btnJourShield, isClient || isCounselor);
 
         // User badge
         if (lblUserName != null) lblUserName.setText(currentUser.getPersona());
@@ -76,7 +72,7 @@ public class DashboardController {
                 case COUNSELOR -> "🩺 Danışman";
                 case CLIENT    -> "🎭 Danışan";
                 case ANONYMOUS -> "🕵 Anonim";
-                case ADMIN     -> "🔑 Admin";
+                case ADMIN     -> "🛡 Süper Admin";
             };
             lblUserRole.setText(roleLabel);
         }
@@ -103,7 +99,9 @@ public class DashboardController {
             // Role gate: only COUNSELORs can write blog posts
             if (fxmlFile.equals("/Blog.fxml")) {
                 BlogController bc = loader.getController();
-                boolean canWrite = currentUser != null && currentUser.getRole() == UserRole.COUNSELOR;
+                boolean canWrite = currentUser != null
+                        && (currentUser.getRole() == UserRole.COUNSELOR
+                            || currentUser.getRole() == UserRole.ADMIN);
                 if (!canWrite) bc.hideWriteButton();
             }
 

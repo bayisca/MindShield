@@ -6,6 +6,8 @@ import com.mindshield.models.BaseUser;
 import com.mindshield.models.Counselor;
 import com.mindshield.models.StandardUser;
 import com.mindshield.ui.UserRole;
+import com.mindshield.util.PasswordRules;
+
 import java.util.UUID;
 
 public class UserService {
@@ -49,23 +51,9 @@ public class UserService {
     }
 
     private void validatePassword(String password) {
-        if (password == null || password.length() < 4) {
-            throw new IllegalArgumentException("Şifre en az 4 karakter uzunluğunda olmalıdır.");
-        }
-        
-        boolean hasLower = false;
-        boolean hasDigit = false;
-        
-        for (char c : password.toCharArray()) {
-            if (Character.isLowerCase(c)) {
-                hasLower = true;
-            } else if (Character.isDigit(c)) {
-                hasDigit = true;
-            }
-        }
-        
-        if (!hasLower || !hasDigit) {
-            throw new IllegalArgumentException("Şifre en az bir küçük harf ve bir rakam içermelidir.");
+        String err = PasswordRules.validate(password);
+        if (err != null) {
+            throw new IllegalArgumentException(err);
         }
     }
 }

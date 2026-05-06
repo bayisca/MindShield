@@ -53,6 +53,18 @@ public class JournalDaoImpl implements JournalDao {
         return new ArrayList<>(entries);
     }
 
+    @Override
+    public void deleteEntriesByAuthorPersona(String persona) {
+        if (persona == null || persona.isBlank()) {
+            return;
+        }
+        boolean removed = entries.removeIf(e ->
+                e != null && e.getAuthor() != null && persona.equals(e.getAuthor().getPersona()));
+        if (removed) {
+            persist();
+        }
+    }
+
     private void persist() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
             oos.writeObject(entries);

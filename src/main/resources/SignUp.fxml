@@ -59,23 +59,9 @@
                      </children>
                   </VBox>
                </children>
-<<<<<<< HEAD
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
-            </VBox>
-            
-            <VBox spacing="15.0">
-               <children>
-                  <TextField fx:id="regUser" prefHeight="45.0" promptText="Persona Adı / Gerçek İsim" />
-                  <PasswordField fx:id="regPass" prefHeight="45.0" promptText="Şifre" />
-                  <TextField fx:id="regExpertise" prefHeight="45.0" promptText="Uzmanlık Alanı (Danışmanlar İçin)" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-=======
->>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
             </VBox>
 
             <!-- RIGHT: Register form -->
@@ -120,6 +106,17 @@
                               </VBox>
                            </children>
                         </HBox>
+
+                        <VBox fx:id="expertiseBox" spacing="8.0" visible="false" managed="false">
+                           <children>
+                              <Region prefHeight="12.0" />
+                              <Label style="-fx-font-size: 11px; -fx-text-fill: #64748b;"
+                                     text="UZMANLIK ALANI (destek gruplariyla uyumlu)" />
+                              <ComboBox fx:id="expertiseCombo" prefHeight="40.0" maxWidth="Infinity"
+                                        promptText="Uzmanlik secin" />
+                           </children>
+                        </VBox>
+
                         <Region prefHeight="24.0" />
 
                         <Button maxWidth="Infinity" prefHeight="46.0" onAction="#handleSignUp" text="Persona Olustur" />

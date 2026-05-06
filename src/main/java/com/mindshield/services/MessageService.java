@@ -54,6 +54,22 @@ public class MessageService {
                                (m.getSender().equals(user2) && m.getReceiver().equals(user1)));
     }
 
+    /** Hesap kapatılırken ilgili tüm DM kayıtlarını kaldırır. */
+    public void purgeInvolvingPersona(String persona) {
+        if (persona == null || persona.isBlank()) {
+            return;
+        }
+        messages.removeIf(m -> {
+            if (m == null) {
+                return false;
+            }
+            boolean from = m.getSender() != null && persona.equals(m.getSender().getPersona());
+            boolean to = m.getReceiver() != null && persona.equals(m.getReceiver().getPersona());
+            return from || to;
+        });
+        saveMessages();
+    }
+
     //Saves messages to file for persistence.
 
     private void saveMessages() {

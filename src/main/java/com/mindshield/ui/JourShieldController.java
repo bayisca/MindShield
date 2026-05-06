@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -36,6 +37,23 @@ public class JourShieldController {
     public void initialize() {
         moodCombo.setItems(FXCollections.observableArrayList(JournalMood.values())); // Tüm ruh hali seçeneklerini combo box'a ekler
         moodCombo.getSelectionModel().select(JournalMood.NOTR);
+
+        entryList.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(JournalEntry entry, boolean empty) {
+                super.updateItem(entry, empty);
+                if (empty || entry == null) {
+                    setText(null);
+                    return;
+                }
+                BaseUser u = currentUser();
+                if (u != null && u.getRole() == UserRole.COUNSELOR) {
+                    setText(entry.getTitle() + "  •  " + entry.getMood().getDisplayName());
+                } else {
+                    setText(entry.toString());
+                }
+            }
+        });
 
         datePicker.setValue(LocalDate.now());
         datePicker.valueProperty().addListener((obs, prev, next) -> refreshList());

@@ -14,7 +14,7 @@
             <VBox spacing="6.0" styleClass="jour-shield-header">
                <children>
                   <Text styleClass="jour-shield-title" text="🔒 JourShield" />
-                  <Label styleClass="jour-shield-subtitle" text="Yalnızca size özel günlük alanı — yayınlanamaz, danışmanlar dahil kimse okuyamaz." wrapText="true" />
+                  <Label styleClass="jour-shield-subtitle" text="Yalnızca size özel günlük; yayınlanmaz. Başka kullanıcılar veya danışanlarınız girişlerinizi göremez." wrapText="true" />
                </children>
             </VBox>
 

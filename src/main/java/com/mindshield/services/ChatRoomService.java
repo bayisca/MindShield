@@ -8,6 +8,7 @@ import com.mindshield.models.ChatMessage;
 import com.mindshield.models.ChatRoom;
 import com.mindshield.ui.UserRole;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -165,5 +166,29 @@ public class ChatRoomService {
             throw new IllegalArgumentException("Oda bulunamadı.");
         }
         return room;
+    }
+
+    /** Kullanıcıyı tüm odalardan çıkarır (hesap silme / moderasyon). */
+    public void removeUserFromAllRooms(BaseUser user) {
+        if (user == null) {
+            return;
+        }
+        for (ChatRoom room : new ArrayList<>(chatRoomDao.findAll())) {
+            if (room != null && room.isMember(user)) {
+                room.removeMember(user);
+                chatRoomDao.update(room);
+            }
+        }
+    }
+
+    /** Ada göre aktif destek odası arar; yoksa null. */
+    public ChatRoom findActiveRoomByName(String name) {
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+        return chatRoomDao.findAll().stream()
+                .filter(r -> r != null && r.isActive() && name.equals(r.getName()))
+                .findFirst()
+                .orElse(null);
     }
 }

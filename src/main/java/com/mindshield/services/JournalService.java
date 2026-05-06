@@ -15,7 +15,7 @@ import com.mindshield.ui.UserRole;
 
 /**
  * JourShield: Günlük girişleri yalnızca sahibinin görebileceği şekilde yönetir.
- * Danışman ve yönetici rolleri bu verilere erişemez.
+ * Danışanlar ve danışmanlar kendi günlüklerini tutabilir; admin başkasının günlüğüne erişemez.
  */
 public class JournalService {
     private final JournalDao journalDao;
@@ -33,12 +33,17 @@ public class JournalService {
             throw new UnauthorizedException("Günlük için giriş yapmalısınız.");
         }
         UserRole role = user.getRole();
-        if (role == UserRole.COUNSELOR || role == UserRole.SUPERADMIN) {
-            throw new UnauthorizedException("Günlük girişleri yalnızca danışanlara özeldir; bu içeriğe erişemezsiniz.");
+        if (role == UserRole.ADMIN) {
+            throw new UnauthorizedException("Yöneticiler günlük tutamaz.");
         }
-        if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS) {
+        if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS && role != UserRole.COUNSELOR) {
             throw new UnauthorizedException("Bu özellik hesabınız için kullanılamıyor.");
         }
+    }
+
+    /** Hesap silindiğinde çağrılır — yalnızca iç DAO işlemi. */
+    public void purgeEntriesForPersona(String persona) {
+        journalDao.deleteEntriesByAuthorPersona(persona);
     }
 
     private void enforceOwner(BaseUser user, JournalEntry entry) {

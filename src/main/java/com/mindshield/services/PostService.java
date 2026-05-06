@@ -89,9 +89,9 @@ public class PostService {
         return MAX_POST_WORD_LIMIT;
     }
 
-    //Creates a new blog post. Only counselors are authorized to create posts.
+    //Creates a new blog post. Counselors and admins may create posts.
     public BlogPost createPost(BaseUser author, String title, String body) {
-        if (author.getRole() != UserRole.COUNSELOR) {
+        if (author.getRole() != UserRole.COUNSELOR && author.getRole() != UserRole.ADMIN) {
             throw new UnauthorizedException("Only counselors can create blog posts.");
         }
         if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
@@ -140,7 +140,7 @@ public class PostService {
         validateWordLimit(body); 
 
         BlogPost post = findPostById(postId);
-        if (!post.isAuthor(author) && author.getRole() != UserRole.SUPERADMIN) {
+        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
             throw new UnauthorizedException("You can only update your own posts.");
         }
 
@@ -156,7 +156,7 @@ public class PostService {
         }
 
         BlogPost post = findPostById(postId); 
-        if (!post.isAuthor(author) && author.getRole() != UserRole.SUPERADMIN) {
+        if (!post.isAuthor(author) && author.getRole() != UserRole.ADMIN) {
             throw new UnauthorizedException("You can only delete your own posts.");
         }
 
@@ -166,7 +166,18 @@ public class PostService {
         return post;
     }
 
-    
+    /** Yönetici moderasyonu: yazarı kontrol etmeden yazıyı siler. */
+    public BlogPost deletePostAsAdmin(BaseUser admin, String postId) {
+        if (admin == null || admin.getRole() != UserRole.ADMIN) {
+            throw new UnauthorizedException("Bu işlem yalnızca yöneticiler içindir.");
+        }
+        BlogPost post = findPostById(postId);
+        blogPosts.removeIf(p -> p != null && postId.equals(p.getId()));
+        comments.removeIf(c -> c != null && postId.equals(c.getParentId()));
+        postDao.deleteById(postId);
+        return post;
+    }
+
     //Adds a comment to an existing blog post.
     public Comment addComment(String postId, BaseUser author, String body) {
         if (body == null || body.trim().isEmpty()) {
@@ -197,7 +208,7 @@ public class PostService {
             throw new PostNotFoundException("Comment not found with ID: " + commentId);
         }
 
-        boolean canEdit = comment.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.SUPERADMIN;
+        boolean canEdit = comment.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN;
         if (!canEdit) {
             throw new UnauthorizedException("You are not allowed to edit this comment.");
         }
@@ -219,7 +230,7 @@ public class PostService {
             throw new PostNotFoundException("Comment not found with ID: " + commentId);
         }
 
-        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.SUPERADMIN; //
+        boolean canDelete = existing.isAuthor(author) || post.isAuthor(author) || author.getRole() == UserRole.ADMIN; //
         if (!canDelete) {
             throw new UnauthorizedException("You are not allowed to delete this comment.");
         }
@@ -283,5 +294,19 @@ public class PostService {
         return blogPosts.stream()
                 .filter(post -> post.isAuthor(author))
                 .collect(Collectors.toList());
+    }
+
+    /** Hesap kapatılırken yazara ait tüm yazıları kaldırır. */
+    public void deleteAllPostsFor(BaseUser author) {
+        if (author == null) {
+            return;
+        }
+        List<String> ids = blogPosts.stream()
+                .filter(p -> p != null && p.isAuthor(author))
+                .map(BlogPost::getId)
+                .collect(Collectors.toList());
+        for (String id : ids) {
+            unpublishPost(author, id);
+        }
     }
 }

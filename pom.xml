@@ -1,58 +1,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-<<<<<<< HEAD
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mindshield</groupId>
     <artifactId>MindShield</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
+        <javafx.version>21</javafx.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21</version> 
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>21</version> 
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>21</version> 
+            <version>${javafx.version}</version>
         </dependency>
     </dependencies>
-=======
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mindshield</groupId>
-  <artifactId>MindShield</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <properties>
-    <maven.compiler.release>25</maven.compiler.release>
-  </properties>
-  <dependencies>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-controls</artifactId>
-        <version>25</version> 
-    </dependency>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-fxml</artifactId>
-        <version>25</version> 
-    </dependency>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-media</artifactId>
-        <version>25</version> 
-        <!-- added javafx media dependency -->
-    </dependency>
-  </dependencies>
->>>>>>> 286b22c3a7cd0add4fcd2855c1bdf0fbdd8872ee
+
+    <!--
+        Default output is under the project folder. On Windows, projects inside OneDrive
+        often hit "file in use" during maven-resources-plugin copy (e.g. Login.fxml → target/classes).
+        The profile below moves Maven's build directory to LOCALAPPDATA (not synced by OneDrive).
+    -->
+    <profiles>
+        <profile>
+            <id>windows-build-outside-onedrive</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <build>
+                <directory>${env.LOCALAPPDATA}/MindShield/${project.artifactId}/target</directory>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>

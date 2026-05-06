@@ -53,7 +53,7 @@ public class CounselorSelectController {
         Label name = new Label(c.getPersona());
         name.getStyleClass().add("counselor-name");
 
-        Label spec = new Label("🩺 " + c.getSpecialization());
+        Label spec = new Label("🩺 " + c.getExpertiseDisplayTitle());
         spec.getStyleClass().add("counselor-spec");
 
         nameBox.getChildren().addAll(name, spec);

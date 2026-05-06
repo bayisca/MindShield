@@ -30,7 +30,11 @@ public class LoginController {
 
         if (user != null && user.getPassword().equals(pass)) {
             DashboardController.setCurrentUser(user);
-            switchToDashboard();
+            if (user.getRole() == UserRole.ADMIN) {
+                changeScene("/AdminDashboard.fxml", "MindShield — Yönetici");
+            } else {
+                switchToDashboard();
+            }
         } else {
             showError("Persona veya şifre hatalı. Tekrar dene.");
             passwordField.clear();
@@ -40,6 +44,11 @@ public class LoginController {
     @FXML
     private void goToSignUp() {
         changeScene("/SignUp.fxml", "MindShield — Kayıt Ol");
+    }
+
+    @FXML
+    private void openAdminLogin() {
+        changeScene("/AdminLogin.fxml", "MindShield — Yönetici Girişi");
     }
 
     private void showError(String msg) {

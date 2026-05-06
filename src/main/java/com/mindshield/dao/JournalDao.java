@@ -14,4 +14,7 @@ public interface JournalDao {
     JournalEntry findById(String id);
 
     List<JournalEntry> findAll();
+
+    /** Yazar persona adına göre tüm günlük kayıtlarını siler. */
+    void deleteEntriesByAuthorPersona(String persona);
 }
