@@ -18,9 +18,11 @@ public class LoginController {
     @FXML private TextField     personaField;
     @FXML private PasswordField passwordField;
     @FXML private Label         lblError;
-    @FXML private Label         lblAnimatedBrand;
+    @FXML private javafx.scene.text.Text textMind;
+    @FXML private javafx.scene.text.Text textShield;
 
-    private static final String BRAND_TEXT = "MINDSHIELD";
+    private static final String MIND_TEXT = "MIND";
+    private static final String SHIELD_TEXT = "SHIELD";
 
     @FXML
     public void initialize() {
@@ -84,25 +86,31 @@ public class LoginController {
     }
 
     private void playBrandTypingAnimation() {
-        if (lblAnimatedBrand == null) return;
-        lblAnimatedBrand.setText("");
+        if (textMind == null || textShield == null) return;
+        textMind.setText("");
+        textShield.setText("");
 
         Timeline timeline = new Timeline();
         long currentDelay = 0;
         
-        for (int i = 1; i <= BRAND_TEXT.length(); i++) {
+        for (int i = 1; i <= MIND_TEXT.length(); i++) {
             final int end = i;
-            if (i <= 4) { // "MIND"
-                currentDelay += 350L;
-            } else { // "SHIELD"
-                currentDelay += 400L;
-            }
-            
+            currentDelay += 350L;
             timeline.getKeyFrames().add(
                     new KeyFrame(Duration.millis(currentDelay),
-                            e -> lblAnimatedBrand.setText(BRAND_TEXT.substring(0, end)))
+                            e -> textMind.setText(MIND_TEXT.substring(0, end)))
             );
         }
+
+        for (int i = 1; i <= SHIELD_TEXT.length(); i++) {
+            final int end = i;
+            currentDelay += 400L;
+            timeline.getKeyFrames().add(
+                    new KeyFrame(Duration.millis(currentDelay),
+                            e -> textShield.setText(SHIELD_TEXT.substring(0, end)))
+            );
+        }
+        
         timeline.play();
     }
 }

@@ -24,7 +24,7 @@
                         <Label fx:id="lblWelcomePersona"
                                style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #34495E;"
                                text="Hoş Geldin!" />
-                        <Label style="-fx-font-size: 15px; -fx-text-fill: #8A9CAE;" wrapText="true"
+                        <Label fx:id="lblWelcomeDescription" style="-fx-font-size: 16px; -fx-text-fill: #6A7C8F; -fx-font-weight: bold;" wrapText="true"
                                textAlignment="CENTER" maxWidth="500.0"
                                text="Personan başarıyla oluşturuldu. MindShield'a katıldığın için teşekkürler. Aşağıda seni bekleyen özellikleri keşfet." />
                      </children>
@@ -54,8 +54,8 @@
                         <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                            <children>
                               <Label text="💬" style="-fx-font-size: 28px;" />
-                              <Label text="Anonim Mesajlaşma" styleClass="welcome-feature-label" />
-                              <Label text="Danışmanlarla gerçek kimliğin gizli kalarak özel görüş."
+                              <Label fx:id="lblMsgTitle" text="Anonim Mesajlaşma" styleClass="welcome-feature-label" />
+                              <Label fx:id="lblMsgDesc" text="Danışmanlarla gerçek kimliğin gizli kalarak özel görüş."
                                      styleClass="welcome-feature-desc" wrapText="true" />
                            </children>
                         </VBox>
@@ -70,12 +70,22 @@
                            </children>
                         </VBox>
 
-                        <!-- JourShield (client only) -->
+                        <!-- JourShield -->
                         <VBox fx:id="featureJour" styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <Label text="🔒" style="-fx-font-size: 28px;" />
                               <Label text="JourShield Günlük" styleClass="welcome-feature-label" />
                               <Label text="Şifreli, özel günlük yaz. Sadece sen okuyabilirsin."
+                                     styleClass="welcome-feature-desc" wrapText="true" />
+                           </children>
+                        </VBox>
+
+                        <!-- Forum -->
+                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" maxWidth="290">
+                           <children>
+                              <Label text="🤝" style="-fx-font-size: 28px;" />
+                              <Label text="Forum &amp; Destek Grupları" styleClass="welcome-feature-label" />
+                              <Label text="Ortak psikoloji destek gruplarında diğerleriyle dertleşip yardımlaşabilir, deneyimlerinizi paylaşabilirsiniz."
                                      styleClass="welcome-feature-desc" wrapText="true" />
                            </children>
                         </VBox>

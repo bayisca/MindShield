@@ -471,14 +471,14 @@
 }
 
 .welcome-feature-label {
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2C3E50;
+    -fx-text-fill: #1A252F;
 }
 
 .welcome-feature-desc {
-    -fx-font-size: 11px;
-    -fx-text-fill: #6A7C8F;
+    -fx-font-size: 12px;
+    -fx-text-fill: #4A5C6F;
 }
 
 .welcome-feature-card {

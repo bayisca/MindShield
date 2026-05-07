@@ -16,7 +16,10 @@ public class WelcomeController {
 
     @FXML private Label lblWelcomePersona;
     @FXML private Label lblRoleNote;
-    @FXML private VBox  featureJour; // JourShield card — hidden for counselors
+    @FXML private VBox  featureJour;
+    @FXML private Label lblWelcomeDescription;
+    @FXML private Label lblMsgTitle;
+    @FXML private Label lblMsgDesc;
 
     @FXML
     public void initialize() {
@@ -26,15 +29,33 @@ public class WelcomeController {
 
             boolean isCounselor = user.getRole() == UserRole.COUNSELOR;
 
-            // JourShield is a client-only feature
+            // JourShield is now visible for both roles according to new requirements
             if (featureJour != null) {
-                featureJour.setVisible(!isCounselor);
-                featureJour.setManaged(!isCounselor);
+                featureJour.setVisible(true);
+                featureJour.setManaged(true);
             }
 
             if (isCounselor) {
-                lblRoleNote.setText("Danışman hesabı — blog yayınlayabilir ve danışanlarla iletişim kurabilirsin.");
+                if (lblWelcomeDescription != null) {
+                    lblWelcomeDescription.setText("MindShield'a uzman danışman olarak katıldığın için teşekkürler. Aşağıda uzmanlara özel özellikleri keşfet.");
+                }
+                if (lblMsgTitle != null) {
+                    lblMsgTitle.setText("Danışanlarla İletişim");
+                }
+                if (lblMsgDesc != null) {
+                    lblMsgDesc.setText("Danışanların sana ulaştığında mesajlaşma sistemi üzerinden güvenle onlara destek olabilirsin.");
+                }
+                lblRoleNote.setText("Danışman hesabı — blog yayınlayabilir ve danışanlara destek sağlayabilirsin.");
             } else {
+                if (lblWelcomeDescription != null) {
+                    lblWelcomeDescription.setText("Personan başarıyla oluşturuldu. MindShield'a katıldığın için teşekkürler. Aşağıda seni bekleyen özellikleri keşfet.");
+                }
+                if (lblMsgTitle != null) {
+                    lblMsgTitle.setText("Anonim Mesajlaşma");
+                }
+                if (lblMsgDesc != null) {
+                    lblMsgDesc.setText("Danışmanlarla gerçek kimliğin gizli kalarak özel görüş ve destek al.");
+                }
                 lblRoleNote.setText("Danışan hesabı — kimliğin gizli kalır, uzmanlardan destek alabilirsin.");
             }
         }
