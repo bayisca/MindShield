@@ -77,6 +77,14 @@ public class JournalService {
                 .collect(Collectors.toList());
     }
 
+    public List<JournalEntry> listAllMyEntries(BaseUser user) {
+        enforcePrivateJournalUser(user);
+        return journalDao.findAll().stream()
+                .filter(e -> e.isAuthor(user))
+                .sorted(Comparator.comparing(JournalEntry::getCreatedAt).reversed())
+                .collect(Collectors.toList());
+    }
+
     public JournalEntry findMineById(BaseUser user, String id) {
         enforcePrivateJournalUser(user);
         JournalEntry entry = journalDao.findById(id);

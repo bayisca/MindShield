@@ -3,7 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
-
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="660.0" prefWidth="820.0" styleClass="main-container,welcome-root"
             stylesheets="@style.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -18,6 +19,11 @@
             <VBox prefWidth="380.0" alignment="CENTER" spacing="20.0"
                   style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-padding: 60 48;">
                <children>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" preserveRatio="true" pickOnBounds="true">
+                     <image>
+                        <Image url="@logos/logo.png" />
+                     </image>
+                  </ImageView>
                   <Label text="MindShield"
                          style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;
                                 -fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 16, 0, 0, 0);" />

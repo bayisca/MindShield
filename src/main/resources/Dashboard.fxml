@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="main-container" stylesheets="@style.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -23,6 +25,11 @@
                   <VBox alignment="CENTER" spacing="4.0">
                      <padding><Insets bottom="28.0" /></padding>
                      <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" preserveRatio="true" pickOnBounds="true">
+                           <image>
+                              <Image url="@logos/logo.png" />
+                           </image>
+                        </ImageView>
                         <Label text="MindShield"
                                style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label text="Guvenli &amp; Anonim Danismanlik"
@@ -31,25 +38,53 @@
                   </VBox>
 
                   <Button fx:id="btnNavHome" maxWidth="Infinity" onAction="#showHome"
-                          styleClass="side-button" text="Ana Sayfa" />
+                          styleClass="side-button" text="Ana Sayfa">
+                      <graphic>
+                          <Label text="🏠" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button fx:id="btnNavBlog" maxWidth="Infinity" onAction="#showBlog"
-                          styleClass="side-button" text="Uzman Bloglari" />
+                          styleClass="side-button" text="Uzman Bloglari">
+                      <graphic>
+                          <Label text="📑" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button fx:id="btnNavForum" maxWidth="Infinity" onAction="#showForum"
-                          styleClass="side-button" text="Forum" />
+                          styleClass="side-button" text="Forum">
+                      <graphic>
+                          <Label text="🤝" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button fx:id="btnNavMessages" maxWidth="Infinity" onAction="#showMessages"
-                          styleClass="side-button" text="Mesajlarim" />
+                          styleClass="side-button" text="Mesajlarim">
+                      <graphic>
+                          <Label text="💬" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button fx:id="btnNavCounselors" maxWidth="Infinity" onAction="#showCounselors"
-                          styleClass="side-button" text="Danismanlarim" />
+                          styleClass="side-button" text="Danismanlarim">
+                      <graphic>
+                          <Label text="👥" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button maxWidth="Infinity" onAction="#showMeditation"
-                          styleClass="side-button" text="SoulShield - Meditasyon" />
+                          styleClass="side-button" text="SoulShield - Meditasyon">
+                      <graphic>
+                          <Label text="🎧" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield"
-                          styleClass="side-button" text="Gunluk (JourShield)" />
+                          styleClass="side-button" text="Gunluk (JourShield)">
+                      <graphic>
+                          <Label text="🔒" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
 
                   <Region VBox.vgrow="ALWAYS" />
 

@@ -21,8 +21,6 @@ import javafx.scene.control.TextField;
 public class JourShieldController {
 
     @FXML
-    private DatePicker datePicker;
-    @FXML
     private ListView<JournalEntry> entryList;
     @FXML
     private TextField titleField;
@@ -46,17 +44,10 @@ public class JourShieldController {
                     setText(null);
                     return;
                 }
-                BaseUser u = currentUser();
-                if (u != null && u.getRole() == UserRole.COUNSELOR) {
-                    setText(entry.getTitle() + "  •  " + entry.getMood().getDisplayName());
-                } else {
-                    setText(entry.toString());
-                }
+                String dateStr = entry.getCreatedAt() != null ? entry.getCreatedAt().toLocalDate().toString() : "";
+                setText(dateStr + " - " + entry.getMood().getDisplayName());
             }
         });
-
-        datePicker.setValue(LocalDate.now());
-        datePicker.valueProperty().addListener((obs, prev, next) -> refreshList());
 
         entryList.getSelectionModel().selectedItemProperty().addListener((obs, prev, entry) -> { // Listeden bir giriş seçildiğinde detayları gösterir
             if (entry != null) {
@@ -74,12 +65,8 @@ public class JourShieldController {
     }
 
     private void refreshList() {
-        LocalDate d = datePicker.getValue();
-        if (d == null) {
-            return;
-        }
         try {
-            var items = journalService.listMyEntriesForDate(currentUser(), d); 
+            var items = journalService.listAllMyEntries(currentUser()); 
             entryList.setItems(FXCollections.observableArrayList(items));
         } catch (UnauthorizedException e) {
             showAlert(Alert.AlertType.ERROR, "Erişim engellendi", e.getMessage());

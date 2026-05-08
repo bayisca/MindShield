@@ -18,20 +18,13 @@
                </children>
             </VBox>
 
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="jour-shield-calendar-row">
-               <children>
-                  <Label styleClass="jour-shield-label-strong" text="Takvim:" />
-                  <DatePicker fx:id="datePicker" prefWidth="160.0" />
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Label styleClass="jour-shield-hint" text="Gün seçerek o tarihteki girişlerinizi görün" wrapText="true" />
-               </children>
-            </HBox>
+            <!-- DatePicker removed per user request -->
 
             <HBox spacing="14.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox prefWidth="220.0" spacing="8.0" styleClass="jour-shield-side">
                      <children>
-                        <Label styleClass="jour-shield-label-strong" text="Bu günün girişleri" />
+                        <Label styleClass="jour-shield-label-strong" text="Tüm Girişler" />
                         <ListView fx:id="entryList" prefHeight="320.0" styleClass="jour-shield-list" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>

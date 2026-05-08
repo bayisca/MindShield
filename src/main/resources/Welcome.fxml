@@ -32,66 +32,77 @@
 
                   <Region prefHeight="48.0" />
 
-                  <!-- Feature grid -->
-                  <GridPane hgap="16.0" vgap="16.0" alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints prefWidth="290.0" />
-                        <ColumnConstraints prefWidth="290.0" />
-                     </columnConstraints>
-                     <children>
-
-                        <!-- Blog -->
-                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <!-- Feature grid -->
+                        <GridPane hgap="16.0" vgap="16.0" alignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints prefWidth="210.0" />
+                              <ColumnConstraints prefWidth="210.0" />
+                              <ColumnConstraints prefWidth="210.0" />
+                           </columnConstraints>
                            <children>
-                              <Label text="📑" style="-fx-font-size: 28px;" />
-                              <Label text="Bloglar" styleClass="welcome-feature-label" />
-                              <Label text="Ruh sağlığı uzmanlarının yazılarını oku, yorumla ve paylaş."
-                                     styleClass="welcome-feature-desc" wrapText="true" />
+      
+                              <!-- Blog -->
+                              <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                 <children>
+                                    <Label text="📑" style="-fx-font-size: 28px;" />
+                                    <Label text="Bloglar" styleClass="welcome-feature-label" />
+                                    <Label text="Ruh sağlığı uzmanlarının yazılarını oku, yorumla ve paylaş."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
+                              <!-- Messages -->
+                              <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                 <children>
+                                    <Label text="💬" style="-fx-font-size: 28px;" />
+                                    <Label fx:id="lblMsgTitle" text="Anonim Mesajlaşma" styleClass="welcome-feature-label" />
+                                    <Label fx:id="lblMsgDesc" text="Danışmanlarla gerçek kimliğin gizli kalarak özel görüş."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
+                              <!-- SoulShield -->
+                              <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                 <children>
+                                    <Label text="🎧" style="-fx-font-size: 28px;" />
+                                    <Label text="SoulShield Meditasyon" styleClass="welcome-feature-label" />
+                                    <Label text="Sakinleştirici seslerle zihnini dinlendir."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
+                              <!-- JourShield -->
+                              <VBox fx:id="featureJour" styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="🔒" style="-fx-font-size: 28px;" />
+                                    <Label text="JourShield Günlük" styleClass="welcome-feature-label" />
+                                    <Label text="Şifreli, özel günlük yaz. Sadece sen okuyabilirsin."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
+                              <!-- Forum -->
+                              <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="🤝" style="-fx-font-size: 28px;" />
+                                    <Label text="Forum" styleClass="welcome-feature-label" />
+                                    <Label text="Başkalarıyla tartışmalara katıl ve konularda dertleş."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
+                              <!-- Groups -->
+                              <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="👥" style="-fx-font-size: 28px;" />
+                                    <Label text="Destek Grupları" styleClass="welcome-feature-label" />
+                                    <Label text="Ortak psikoloji destek gruplarında deneyimlerini paylaş."
+                                           styleClass="welcome-feature-desc" wrapText="true" />
+                                 </children>
+                              </VBox>
+      
                            </children>
-                        </VBox>
-
-                        <!-- Messages -->
-                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                           <children>
-                              <Label text="💬" style="-fx-font-size: 28px;" />
-                              <Label fx:id="lblMsgTitle" text="Anonim Mesajlaşma" styleClass="welcome-feature-label" />
-                              <Label fx:id="lblMsgDesc" text="Danışmanlarla gerçek kimliğin gizli kalarak özel görüş."
-                                     styleClass="welcome-feature-desc" wrapText="true" />
-                           </children>
-                        </VBox>
-
-                        <!-- SoulShield -->
-                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                           <children>
-                              <Label text="🎧" style="-fx-font-size: 28px;" />
-                              <Label text="SoulShield Meditasyon" styleClass="welcome-feature-label" />
-                              <Label text="Sakinleştirici sesler ve meditasyon parçalarıyla zihnini dinlendir."
-                                     styleClass="welcome-feature-desc" wrapText="true" />
-                           </children>
-                        </VBox>
-
-                        <!-- JourShield -->
-                        <VBox fx:id="featureJour" styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <Label text="🔒" style="-fx-font-size: 28px;" />
-                              <Label text="JourShield Günlük" styleClass="welcome-feature-label" />
-                              <Label text="Şifreli, özel günlük yaz. Sadece sen okuyabilirsin."
-                                     styleClass="welcome-feature-desc" wrapText="true" />
-                           </children>
-                        </VBox>
-
-                        <!-- Forum -->
-                        <VBox styleClass="welcome-feature-card" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" maxWidth="290">
-                           <children>
-                              <Label text="🤝" style="-fx-font-size: 28px;" />
-                              <Label text="Forum &amp; Destek Grupları" styleClass="welcome-feature-label" />
-                              <Label text="Ortak psikoloji destek gruplarında diğerleriyle dertleşip yardımlaşabilir, deneyimlerinizi paylaşabilirsiniz."
-                                     styleClass="welcome-feature-desc" wrapText="true" />
-                           </children>
-                        </VBox>
-
-                     </children>
-                  </GridPane>
+                        </GridPane>
 
                   <Region prefHeight="44.0" />
 
