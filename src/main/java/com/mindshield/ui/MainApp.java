@@ -7,7 +7,7 @@ import com.mindshield.models.Admin;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Counselor;
 import com.mindshield.models.CounselorExpertise;
-
+import com.mindshield.dao.DatabaseInitializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +46,7 @@ public class MainApp extends Application {
         userDatabase.put("Dr.Ayse", demoDoc);
 
         // Seed sample blog posts through postService (so they appear in the blog list)
-        postService.seedSamplePosts(admin);
+        //postService.seedSamplePosts(admin);
         forumService.createTopic(admin, "Gune nasil daha sakin basliyorsunuz?",
                 "Sabah rutininizde iyi gelen kucuk aliskanliklari paylasir misiniz?");
 
@@ -114,6 +114,8 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println("asdasd");
+        DatabaseInitializer.init();
         launch(args);
     }
 }

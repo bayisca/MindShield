@@ -26,6 +26,11 @@
             <artifactId>javafx-media</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>2.2.224</version> <!-- En güncel kararlı sürümü kullanabilirsin -->
+</dependency>
     </dependencies>
 
     <!--

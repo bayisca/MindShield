@@ -36,6 +36,7 @@ com\mindshield\models\ChatRoom.class
 com\mindshield\services\UserService.class
 com\mindshield\ui\LoginController.class
 com\mindshield\models\BaseUser.class
+com\mindshield\dao\DatabaseInitializer.class
 com\mindshield\dao\JournalDaoImpl.class
 com\mindshield\dao\UserDaoImpl.class
 com\mindshield\models\MeditationTrack.class
@@ -63,3 +64,4 @@ com\mindshield\ui\AdminDashboardController.class
 com\mindshield\models\JournalMood.class
 com\mindshield\services\JournalService.class
 com\mindshield\ui\WelcomeController.class
+com\mindshield\dao\DatabaseConnection.class

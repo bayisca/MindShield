@@ -13,7 +13,7 @@ public class Admin extends BaseUser {
 
     public Admin(String persona, String id, String password) {
         // BaseUser constructor'ına Admin rolünü otomatik gönderiyoruz
-        super(persona, password, UserRole.ADMIN);
+        super(id,persona, password, UserRole.ADMIN);
         this.systemLogs = new ArrayList<>();
         this.moderatedPostCount = 0;
     }

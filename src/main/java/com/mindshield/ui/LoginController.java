@@ -1,6 +1,19 @@
 package com.mindshield.ui;
 
 import java.io.IOException;
+import java.sql.ClientInfoStatus;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import org.h2.engine.User;
+
+import com.mindshield.dao.DatabaseConnection;
+import com.mindshield.models.Admin;
+import com.mindshield.models.BaseUser;
+import com.mindshield.models.StandardUser;
+import com.mindshield.models.Counselor;
+import com.mindshield.ui.UserRole;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,14 +28,16 @@ import javafx.util.Duration;
 
 public class LoginController {
 
-    @FXML private TextField     personaField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label         lblError;
-    @FXML private javafx.scene.text.Text textMind;
-    @FXML private javafx.scene.text.Text textShield;
+    @FXML
+    private TextField personaField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label lblError;
+    @FXML
+    private Label lblAnimatedBrand;
 
-    private static final String MIND_TEXT = "MIND";
-    private static final String SHIELD_TEXT = "SHIELD";
+    private static final String BRAND_TEXT = "MINDSHIELD";
 
     @FXML
     public void initialize() {
@@ -31,27 +46,77 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
+
         String persona = personaField.getText().trim();
-        String pass    = passwordField.getText();
+        String pass = passwordField.getText();
 
         if (persona.isEmpty() || pass.isEmpty()) {
             showError("Persona adı ve şifre boş bırakılamaz.");
             return;
         }
 
-        com.mindshield.models.BaseUser user = MainApp.userDatabase.get(persona);
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "SELECT * FROM users WHERE username = ? AND password = ?")) {
 
-        if (user != null && user.getPassword().equals(pass)) {
-            DashboardController.setCurrentUser(user);
-            if (user.getRole() == UserRole.ADMIN) {
-                changeScene("/AdminDashboard.fxml", "MindShield — Yönetici");
+            ps.setString(1, persona);
+            ps.setString(2, pass);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                String id = rs.getString("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String roleStr = rs.getString("role");
+                String profession = rs.getString("profession");
+
+                BaseUser user;
+
+                if ("ADMIN".equalsIgnoreCase(roleStr)) {
+
+                    user = new Admin(username, id, password);
+
+                } else if ("COUNSELOR".equalsIgnoreCase(roleStr)) {
+
+                    user = new Counselor(
+                            id,
+                            username,
+                            password,
+                            profession);
+
+                } else {
+
+                    user = new StandardUser(
+                            id,
+                            username,
+                            password,
+                            UserRole.CLIENT);
+                }
+
+                DashboardController.setCurrentUser(user);
+
+                if (user.getRole() == UserRole.ADMIN) {
+                    changeScene("/AdminDashboard.fxml", "MindShield — Yönetici");
+                } else {
+                    switchToDashboard();
+                }
+                System.out.println("ID: " + user.getId());
+System.out.println("PERSONA: " + user.getPersona());
             } else {
-                switchToDashboard();
+
+                showError("Persona veya şifre hatalı.");
+                passwordField.clear();
             }
-        } else {
-            showError("Persona veya şifre hatalı. Tekrar dene.");
-            passwordField.clear();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            showError("Veritabanı bağlantı hatası.");
         }
+        
     }
 
     @FXML
@@ -76,6 +141,7 @@ public class LoginController {
             Stage stage = (Stage) personaField.getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.setTitle(title);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,31 +152,33 @@ public class LoginController {
     }
 
     private void playBrandTypingAnimation() {
-        if (textMind == null || textShield == null) return;
-        textMind.setText("");
-        textShield.setText("");
+
+        if (lblAnimatedBrand == null)
+            return;
+
+        lblAnimatedBrand.setText("");
 
         Timeline timeline = new Timeline();
+
         long currentDelay = 0;
-        
-        for (int i = 1; i <= MIND_TEXT.length(); i++) {
+
+        for (int i = 1; i <= BRAND_TEXT.length(); i++) {
+
             final int end = i;
-            currentDelay += 350L;
+
+            if (i <= 4) {
+                currentDelay += 350L;
+            } else {
+                currentDelay += 400L;
+            }
+
             timeline.getKeyFrames().add(
-                    new KeyFrame(Duration.millis(currentDelay),
-                            e -> textMind.setText(MIND_TEXT.substring(0, end)))
-            );
+                    new KeyFrame(
+                            Duration.millis(currentDelay),
+                            e -> lblAnimatedBrand.setText(
+                                    BRAND_TEXT.substring(0, end))));
         }
 
-        for (int i = 1; i <= SHIELD_TEXT.length(); i++) {
-            final int end = i;
-            currentDelay += 400L;
-            timeline.getKeyFrames().add(
-                    new KeyFrame(Duration.millis(currentDelay),
-                            e -> textShield.setText(SHIELD_TEXT.substring(0, end)))
-            );
-        }
-        
         timeline.play();
     }
 }

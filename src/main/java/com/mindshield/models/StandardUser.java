@@ -11,8 +11,8 @@ public class StandardUser extends BaseUser {
     private boolean isAnonymous;
     private List<String> journalingHistory;
 
-    public StandardUser(String persona, String id, String password, UserRole role) {
-        super(persona, password, role);
+    public StandardUser(String id,String persona, String password, UserRole role) {
+        super(id,persona, password, role);
         this.isAnonymous = (role == UserRole.ANONYMOUS);
         this.journalingHistory = new ArrayList<>();
     }

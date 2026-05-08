@@ -8,6 +8,9 @@ import com.mindshield.ui.UserRole;
 public abstract class BaseUser implements Serializable { 
     private static final long serialVersionUID = 1L;
 
+
+
+        private String id;
     private String persona;
     private String password;
     private UserRole role;
@@ -17,13 +20,14 @@ public abstract class BaseUser implements Serializable {
     private java.util.List<String> favoriteBlogIds = new java.util.ArrayList<>();
     private java.util.List<String> favoriteSongTitles = new java.util.ArrayList<>();
 
-    public BaseUser(String persona, String password, UserRole role) {
+     public BaseUser(String id, String persona, String password, UserRole role) {
+        this.id = id;
         this.persona = persona;
         this.password = password;
         this.role = role;
         this.registeredAt = LocalDate.now();
     }
-
+    public String getId() { return id; }
     public java.util.List<String> getFavoriteBlogIds() {
         if (favoriteBlogIds == null) favoriteBlogIds = new java.util.ArrayList<>();
         return favoriteBlogIds;

@@ -1,96 +1,180 @@
 package com.mindshield.services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
+import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Message;
 
-/**
- * MessageService handles all direct messaging logic between clients and counselors.
- * Features persistence to save messages across application restarts.
- */
 public class MessageService {
-    private List<Message> messages;
-    private static final String DATA_FILE = "messages.dat";
 
-    public MessageService() {
-        this.messages = loadMessages();
-    }
-
-    
-    // Sends a direct message from one user to another.
-    
     public Message sendMessage(BaseUser sender, BaseUser receiver, String content) {
+
         if (content == null || content.trim().isEmpty()) {
             throw new IllegalArgumentException("Message content cannot be empty");
         }
-        Message message = new Message(sender, receiver, content);
-        messages.add(message);
-        saveMessages();
-        return message;
-    }
 
-    //Retrieves all messages exchanged between two specific users.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+
+            String conversationId = findOrCreateConversation(conn, sender.getId(), receiver.getId());
+
+            String id = UUID.randomUUID().toString();
+
+            PreparedStatement ps = conn.prepareStatement("""
+                INSERT INTO DMmessages (
+                    id,
+                    conversation_id,
+                    sender_id,
+                    content
+                )
+                VALUES (?, ?, ?, ?)
+            """);
+
+            ps.setString(1, id);
+            ps.setString(2, conversationId);
+            ps.setString(3, sender.getId());
+            ps.setString(4, content);
+
+            ps.executeUpdate();
+
+            return new Message(sender, receiver, content);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Message send failed");
+        }
+    }
 
     public List<Message> getMessagesBetween(BaseUser user1, BaseUser user2) {
-        return messages.stream()
-                .filter(m -> (m.getSender().equals(user1) && m.getReceiver().equals(user2)) ||
-                             (m.getSender().equals(user2) && m.getReceiver().equals(user1)))
-                .collect(Collectors.toList());
-    }
 
-    /** Returns true if at least one message exists between the two users. */
-    public boolean hasChatBetween(BaseUser user1, BaseUser user2) {
-        return messages.stream()
-                .anyMatch(m -> (m.getSender().equals(user1) && m.getReceiver().equals(user2)) ||
-                               (m.getSender().equals(user2) && m.getReceiver().equals(user1)));
-    }
+        List<Message> list = new ArrayList<>();
 
-    /** Hesap kapatılırken ilgili tüm DM kayıtlarını kaldırır. */
-    public void purgeInvolvingPersona(String persona) {
-        if (persona == null || persona.isBlank()) {
-            return;
-        }
-        messages.removeIf(m -> {
-            if (m == null) {
-                return false;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+
+            PreparedStatement ps = conn.prepareStatement("""
+                SELECT m.*, c.user1_id, c.user2_id
+                FROM DMmessages m
+                JOIN conversations c ON m.conversation_id = c.id
+                WHERE (c.user1_id = ? AND c.user2_id = ?)
+                   OR (c.user1_id = ? AND c.user2_id = ?)
+                ORDER BY m.sent_at ASC
+            """);
+
+            ps.setString(1, user1.getId());
+            ps.setString(2, user2.getId());
+            ps.setString(3, user2.getId());
+            ps.setString(4, user1.getId());
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Message(
+                        user1.getId().equals(rs.getString("sender_id")) ? user1 : user2,
+                        user1.getId().equals(rs.getString("sender_id")) ? user2 : user1,
+                        rs.getString("content")
+                ));
             }
-            boolean from = m.getSender() != null && persona.equals(m.getSender().getPersona());
-            boolean to = m.getReceiver() != null && persona.equals(m.getReceiver().getPersona());
-            return from || to;
-        });
-        saveMessages();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
-    //Saves messages to file for persistence.
+    public boolean hasChatBetween(BaseUser user1, BaseUser user2) {
 
-    private void saveMessages() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(messages);
-        } catch (IOException e) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+
+            PreparedStatement ps = conn.prepareStatement("""
+                SELECT 1 FROM conversations
+                WHERE (user1_id = ? AND user2_id = ?)
+                   OR (user1_id = ? AND user2_id = ?)
+                LIMIT 1
+            """);
+
+            ps.setString(1, user1.getId());
+            ps.setString(2, user2.getId());
+            ps.setString(3, user2.getId());
+            ps.setString(4, user1.getId());
+
+            return ps.executeQuery().next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void purgeInvolvingPersona(String userId) {
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+
+            PreparedStatement ps = conn.prepareStatement("""
+                DELETE FROM DMmessages
+                WHERE sender_id = ?
+                   OR conversation_id IN (
+                        SELECT id FROM conversations
+                        WHERE user1_id = ? OR user2_id = ?
+                   )
+            """);
+
+            ps.setString(1, userId);
+            ps.setString(2, userId);
+            ps.setString(3, userId);
+
+            ps.executeUpdate();
+
+            PreparedStatement ps2 = conn.prepareStatement("""
+                DELETE FROM conversations
+                WHERE user1_id = ? OR user2_id = ?
+            """);
+
+            ps2.setString(1, userId);
+            ps2.setString(2, userId);
+
+            ps2.executeUpdate();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //Loads messages from file.
-    @SuppressWarnings("unchecked")
-    private List<Message> loadMessages() {
-        File file = new File(DATA_FILE);
-        if (file.exists()) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                return (List<Message>) ois.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        return new ArrayList<>();
+    private String findOrCreateConversation(Connection conn, String u1, String u2) throws Exception {
+
+        PreparedStatement ps = conn.prepareStatement("""
+            SELECT id FROM conversations
+            WHERE (user1_id = ? AND user2_id = ?)
+               OR (user1_id = ? AND user2_id = ?)
+        """);
+
+        ps.setString(1, u1);
+        ps.setString(2, u2);
+        ps.setString(3, u2);
+        ps.setString(4, u1);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) return rs.getString("id");
+
+        String id = UUID.randomUUID().toString();
+
+        PreparedStatement ins = conn.prepareStatement("""
+            INSERT INTO conversations (id, user1_id, user2_id)
+            VALUES (?, ?, ?)
+        """);
+
+        ins.setString(1, id);
+        ins.setString(2, u1);
+        ins.setString(3, u2);
+
+        ins.executeUpdate();
+
+        return id;
     }
 }

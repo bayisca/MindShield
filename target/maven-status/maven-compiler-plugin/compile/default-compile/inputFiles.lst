@@ -1,58 +1,60 @@
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\ChatRoomDao.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\ChatRoomDaoImpl.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\JournalDao.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\JournalDaoImpl.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\PostDao.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\PostDaoImpl.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\UserDao.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\dao\UserDaoImpl.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\exceptions\PostNotFoundException.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\exceptions\UnauthorizedException.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Admin.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\BaseUser.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\BlogPost.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\ChatMessage.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\ChatRoom.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Comment.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Content.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Counselor.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\CounselorExpertise.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\ForumReply.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\ForumTopic.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\JournalEntry.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\JournalMood.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\MeditationTrack.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Message.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\ModerationReport.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\Report.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\StandardUser.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\models\SystemLog.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\ChatRoomService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\ForumService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\JournalService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\MeditationPlaybackService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\MessageService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\ModerationService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\PostService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\SystemLogService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\services\UserService.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\AdminDashboardController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\AdminLoginController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\BlogController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\BlogDetailController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\BlogWriteController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\CounselorSelectController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\DashboardController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\ForumController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\HomeController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\JourShieldController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\Launcher.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\LoginController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\MainApp.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\MeditationController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\MessagesController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\SettingsController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\SignUpController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\UserRole.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\ui\WelcomeController.java
-C:\Users\Umut Kaan Bori\Desktop\Project\MindShield\src\main\java\com\mindshield\util\PasswordRules.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\ChatRoomDao.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\ChatRoomDaoImpl.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\DatabaseConnection.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\DatabaseInitializer.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\JournalDao.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\JournalDaoImpl.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\PostDao.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\PostDaoImpl.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\UserDao.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\dao\UserDaoImpl.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\exceptions\PostNotFoundException.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\exceptions\UnauthorizedException.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Admin.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\BaseUser.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\BlogPost.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\ChatMessage.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\ChatRoom.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Comment.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Content.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Counselor.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\CounselorExpertise.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\ForumReply.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\ForumTopic.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\JournalEntry.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\JournalMood.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\MeditationTrack.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Message.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\ModerationReport.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\Report.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\StandardUser.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\models\SystemLog.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\ChatRoomService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\ForumService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\JournalService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\MeditationPlaybackService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\MessageService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\ModerationService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\PostService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\SystemLogService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\services\UserService.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\AdminDashboardController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\AdminLoginController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\BlogController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\BlogDetailController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\BlogWriteController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\CounselorSelectController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\DashboardController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\ForumController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\HomeController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\JourShieldController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\Launcher.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\LoginController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\MainApp.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\MeditationController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\MessagesController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\SettingsController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\SignUpController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\UserRole.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\ui\WelcomeController.java
+C:\Users\necoa\OneDrive\Masaüstü\java proje 8 mayıs\MindShield\src\main\java\com\mindshield\util\PasswordRules.java

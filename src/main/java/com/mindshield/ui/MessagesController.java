@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.ChatMessage;
 import com.mindshield.models.ChatRoom;
@@ -21,16 +22,25 @@ import javafx.scene.control.TextInputDialog;
 
 public class MessagesController {
 
-    @FXML private TabPane       mainTabs;
-    @FXML private ListView<String> contactList;
-    @FXML private TextArea      dmChatArea;
-    @FXML private TextField     dmMessageInput;
-    @FXML private Label         lblSelectedContact;
+    @FXML
+    private TabPane mainTabs;
+    @FXML
+    private ListView<String> contactList;
+    @FXML
+    private TextArea dmChatArea;
+    @FXML
+    private TextField dmMessageInput;
+    @FXML
+    private Label lblSelectedContact;
 
-    @FXML private ListView<ChatRoom>      roomListView;
-    @FXML private ListView<ChatMessage>   roomChatListView;
-    @FXML private TextField               roomMessageInput;
-    @FXML private Label                   lblSelectedRoom;
+    @FXML
+    private ListView<ChatRoom> roomListView;
+    @FXML
+    private ListView<ChatMessage> roomChatListView;
+    @FXML
+    private TextField roomMessageInput;
+    @FXML
+    private Label lblSelectedRoom;
 
     private String selectedContactPersona;
     private ChatRoom selectedRoom;
@@ -111,21 +121,35 @@ public class MessagesController {
 
         List<String> list = new ArrayList<>();
 
-        for (BaseUser user : MainApp.userDatabase.values()) {
-            if (user.equals(currentUser)) {
-                continue;
+        try (var conn = DatabaseConnection.getConnection()) {
+
+            var ps = conn.prepareStatement("SELECT * FROM users");
+            var rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                String persona = rs.getString("username");
+
+                if (currentUser.getPersona().equals(persona))
+                    continue;
+
+                BaseUser user = getUserByPersona(persona);
+                if (user == null)
+                    continue;
+
+                boolean show = switch (currentUser.getRole()) {
+                    case CLIENT, ANONYMOUS -> user.getRole() == UserRole.COUNSELOR;
+                    case COUNSELOR -> user.getRole() == UserRole.CLIENT
+                            && MainApp.messageService.hasChatBetween(currentUser, user);
+                    default -> false;
+                };
+
+                if (show)
+                    list.add(persona);
             }
 
-            boolean show = switch (currentUser.getRole()) {
-                case CLIENT, ANONYMOUS -> user.getRole() == UserRole.COUNSELOR;
-                case COUNSELOR -> user.getRole() == UserRole.CLIENT
-                        && MainApp.messageService.hasChatBetween(currentUser, user);
-                default -> false;
-            };
-
-            if (show) {
-                list.add(user.getPersona());
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         contactList.setItems(FXCollections.observableArrayList(list));
@@ -137,12 +161,36 @@ public class MessagesController {
     }
 
     private BaseUser getUserByPersona(String persona) {
-        for (BaseUser user : MainApp.userDatabase.values()) {
-            if (user.getPersona().equals(persona)) {
-                return user;
+        try (var conn = DatabaseConnection.getConnection()) {
+
+            var ps = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
+            ps.setString(1, persona);
+
+            var rs = ps.executeQuery();
+
+            if (!rs.next())
+                return null;
+
+            String role = rs.getString("role");
+
+            if ("COUNSELOR".equals(role)) {
+                return new com.mindshield.models.Counselor(
+                        rs.getString("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("profession"));
             }
+
+            return new com.mindshield.models.StandardUser(
+                    rs.getString("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    com.mindshield.ui.UserRole.CLIENT);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     private void loadDmHistory() {
@@ -156,8 +204,8 @@ public class MessagesController {
             return;
         }
 
-        List<com.mindshield.models.Message> messages =
-                MainApp.messageService.getMessagesBetween(currentUser, contactUser);
+        List<com.mindshield.models.Message> messages = MainApp.messageService.getMessagesBetween(currentUser,
+                contactUser);
 
         StringBuilder sb = new StringBuilder();
         for (com.mindshield.models.Message m : messages) {
@@ -216,8 +264,11 @@ public class MessagesController {
         try {
             ChatRoom fresh = MainApp.chatRoomService.findRoomById(selectedRoom.getId());
             selectedRoom = fresh;
-            roomChatListView.setItems(FXCollections.observableArrayList(new ArrayList<>(fresh.getMessages())));
-            roomChatListView.scrollTo(roomChatListView.getItems().size() - 1);
+roomChatListView.setItems(
+    FXCollections.observableArrayList(
+        //MainApp.chatRoomService.getMessages(fresh.getId())
+    )
+);            roomChatListView.scrollTo(roomChatListView.getItems().size() - 1);
         } catch (Exception e) {
             alert(Alert.AlertType.ERROR, e.getMessage());
         }
