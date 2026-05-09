@@ -77,6 +77,18 @@ public class JournalService {
                 .collect(Collectors.toList());
     }
 
+// public List<JournalEntry> listAllMyEntries(BaseUser user) {
+
+//     System.out.println("CURRENT USER: " + user.getId());
+
+//     return journalDao.findAll().stream()
+//             .peek(e -> System.out.println("DB USER: " + e.getAuthor().getId()))
+//             .filter(e -> e.isAuthor(user))
+//             .sorted(Comparator.comparing(JournalEntry::getCreatedAt).reversed())
+//             .collect(Collectors.toList());
+// }
+
+
     public List<JournalEntry> listAllMyEntries(BaseUser user) {
         enforcePrivateJournalUser(user);
         return journalDao.findAll().stream()

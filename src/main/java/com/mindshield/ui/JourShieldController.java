@@ -37,28 +37,61 @@ public class JourShieldController {
         moodCombo.getSelectionModel().select(JournalMood.NOTR);
 
         entryList.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(JournalEntry entry, boolean empty) {
-                super.updateItem(entry, empty);
-                if (empty || entry == null) {
-                    setText(null);
-                    return;
-                }
-                String dateStr = entry.getCreatedAt() != null ? entry.getCreatedAt().toLocalDate().toString() : "";
-                setText(dateStr + " - " + entry.getMood().getDisplayName());
-            }
-        });
+    @Override
+    protected void updateItem(JournalEntry entry, boolean empty) {
+        super.updateItem(entry, empty);
 
-        entryList.getSelectionModel().selectedItemProperty().addListener((obs, prev, entry) -> { // Listeden bir giriş seçildiğinde detayları gösterir
-            if (entry != null) {
-                titleField.setText(entry.getTitle());
-                bodyField.setText(entry.getBody());
-                moodCombo.getSelectionModel().select(entry.getMood());
-            }
-        });
+        if (empty || entry == null) {
+            setText(null);
+            return;
+        }
+
+        String dateStr = entry.getCreatedAt() != null
+                ? formatTurkishDate(entry.getCreatedAt().toLocalDate())
+                : "";
+
+        setText(dateStr + " - " + entry.getTitle());
+    }
+});
+
+        entryList.getSelectionModel().selectedItemProperty().addListener((obs, prev, entry) -> {
+
+    boolean readOnly = entry != null;
+
+    titleField.setText(entry != null ? entry.getTitle() : "");
+    bodyField.setText(entry != null ? entry.getBody() : "");
+
+    moodCombo.getSelectionModel().select(entry != null ? entry.getMood() : JournalMood.NOTR);
+
+    // READONLY MODE
+    titleField.setEditable(!readOnly);
+    bodyField.setEditable(!readOnly);
+    moodCombo.setDisable(readOnly);
+});
 
         refreshList();
     }
+    private String formatTurkishDate(LocalDate date) {
+
+    int day = date.getDayOfMonth();
+
+    String month = switch (date.getMonth()) {
+        case JANUARY -> "Ocak";
+        case FEBRUARY -> "Şubat";
+        case MARCH -> "Mart";
+        case APRIL -> "Nisan";
+        case MAY -> "Mayıs";
+        case JUNE -> "Haziran";
+        case JULY -> "Temmuz";
+        case AUGUST -> "Ağustos";
+        case SEPTEMBER -> "Eylül";
+        case OCTOBER -> "Ekim";
+        case NOVEMBER -> "Kasım";
+        case DECEMBER -> "Aralık";
+    };
+
+    return day + " " + month;
+}
 
     private BaseUser currentUser() { 
         return DashboardController.getCurrentUser();

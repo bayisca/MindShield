@@ -21,10 +21,24 @@ public abstract class Content implements Serializable {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+    public void setId(String id) {
+    this.id = id;
+}
 
+public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+}
     public String getId() { return id; }
     public BaseUser getAuthor() { return author; }
-    public boolean isAuthor(BaseUser user) { return this.author != null && this.author.equals(user); }
+    public boolean isAuthor(BaseUser user) {
+
+    if (user == null || author == null) {
+        return false;
+    }
+
+    return author.getId().equals(user.getId());
+}
+    // public boolean isAuthor(BaseUser user) { return this.author != null && this.author.equals(user); }
     public String getPersonaName() { return author.getPersona(); }
     public String getTitle() { return title; }
     public String getBody() { return body; }

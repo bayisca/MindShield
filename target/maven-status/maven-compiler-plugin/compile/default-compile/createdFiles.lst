@@ -40,6 +40,7 @@ com\mindshield\dao\DatabaseInitializer.class
 com\mindshield\dao\JournalDaoImpl.class
 com\mindshield\dao\UserDaoImpl.class
 com\mindshield\models\MeditationTrack.class
+com\mindshield\ui\JourShieldController$2.class
 com\mindshield\ui\JourShieldController.class
 com\mindshield\ui\MeditationController.class
 com\mindshield\models\StandardUser.class
@@ -59,6 +60,7 @@ com\mindshield\ui\CounselorSelectController.class
 com\mindshield\dao\ChatRoomDaoImpl.class
 com\mindshield\models\BlogPost.class
 com\mindshield\models\Content.class
+com\mindshield\dao\JournalDaoImpl$1.class
 com\mindshield\ui\AdminDashboardController$1.class
 com\mindshield\ui\AdminDashboardController.class
 com\mindshield\models\JournalMood.class
