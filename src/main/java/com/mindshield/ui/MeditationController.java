@@ -9,9 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class MeditationController {
 
@@ -22,9 +27,9 @@ public class MeditationController {
     @FXML
     private Button btnPlay;
     @FXML
-    private Button btnFavorite;
-    @FXML
     private Slider volumeSlider;
+    @FXML
+    private CheckBox chkShowFavorites;
 
     private final MeditationPlaybackService playback = MeditationPlaybackService.getInstance(); // Singleton olarak playback servisine erişiyoruz
 
@@ -45,34 +50,73 @@ public class MeditationController {
 
         syncListSelection();
 
-        trackList.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
-            updateFavoriteButton(newV);
-        });
+
 
         // Listeden tek tıkla çalmaya çalışır
         trackList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                int idx = trackList.getSelectionModel().getSelectedIndex();
-                if (idx >= 0) {
-                    tryPlayIndex(idx);
+                MeditationTrack track = trackList.getSelectionModel().getSelectedItem();
+                if (track != null) {
+                    int globalIdx = playback.getTracks().indexOf(track);
+                    if (globalIdx >= 0) {
+                        tryPlayIndex(globalIdx);
+                    }
                 }
             }
         });
     }
     
-    private void updateFavoriteButton(MeditationTrack track) {
-        if (track == null || DashboardController.getCurrentUser() == null) {
-            btnFavorite.setText("Favori");
-            return;
-        }
-        boolean isFav = DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
-        btnFavorite.setText(isFav ? "Favoriden cikar" : "Favori yap");
-    }
+
 
     // Meditasyon müziklerini yükler ve listeye ekler
     private void loadLibrary() {
-        ArrayList<MeditationTrack> items = new ArrayList<>(playback.getTracks());
+        boolean showFavs = chkShowFavorites != null && chkShowFavorites.isSelected();
+        ArrayList<MeditationTrack> items = new ArrayList<>();
+        for (MeditationTrack track : playback.getTracks()) {
+            boolean isFav = DashboardController.getCurrentUser() != null && DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+            if (!showFavs || isFav) {
+                items.add(track);
+            }
+        }
         trackList.setItems(FXCollections.observableArrayList(items));
+        
+        trackList.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(MeditationTrack track, boolean empty) {
+                super.updateItem(track, empty);
+                if (empty || track == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    HBox box = new HBox(10);
+                    box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    Label nameLbl = new Label(track.getTitle() + " - " + track.getAuthor());
+                    
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, Priority.ALWAYS);
+                    
+                    Button favBtn = new Button();
+                    favBtn.setStyle("-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand;");
+                    boolean isFav = DashboardController.getCurrentUser() != null && DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+                    favBtn.setText(isFav ? "❤️" : "🤍");
+                    
+                    favBtn.setOnAction(e -> {
+                        if (DashboardController.getCurrentUser() != null) {
+                            DashboardController.getCurrentUser().toggleFavoriteSong(track.getTitle());
+                            boolean updatedFav = DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+                            favBtn.setText(updatedFav ? "❤️" : "🤍");
+                            if (chkShowFavorites != null && chkShowFavorites.isSelected() && !updatedFav) {
+                                loadLibrary(); // Eğer sadece favoriler açıksa ve favoriden çıkarılırsa listeyi yenile
+                            }
+                        }
+                    });
+                    
+                    box.getChildren().addAll(nameLbl, spacer, favBtn);
+                    setText(null);
+                    setGraphic(box);
+                }
+            }
+        });
     }
 
     // Playback servisi tarafından çalınan parçaya göre listede seçimi günceller
@@ -92,14 +136,22 @@ public class MeditationController {
     }
     
     @FXML
+    private void handleToggleFavorites() {
+        loadLibrary();
+    }
+
+    @FXML
     private void handlePlayPause() {
         if (!playback.hasActivePlayer()) {
-            int idx = trackList.getSelectionModel().getSelectedIndex();
-            if (idx < 0) {
+            MeditationTrack track = trackList.getSelectionModel().getSelectedItem();
+            if (track == null) {
                 showAlert("Uyarı", "Lütfen çalmak için listeden bir müzik seçin.");
                 return;
             }
-            tryPlayIndex(idx);
+            int globalIdx = playback.getTracks().indexOf(track);
+            if (globalIdx >= 0) {
+                tryPlayIndex(globalIdx);
+            }
             return;
         }
         playback.togglePauseResume();
@@ -127,19 +179,7 @@ public class MeditationController {
         }
     }
 
-    @FXML
-    private void handleFavorite() {
-        MeditationTrack track = trackList.getSelectionModel().getSelectedItem();
-        if (track == null) {
-            showAlert("Uyarı", "Favoriye eklemek için listeden bir müzik seçin.");
-            return;
-        }
-        com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
-        if (user == null) return;
 
-        user.toggleFavoriteSong(track.getTitle());
-        updateFavoriteButton(track);
-    }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

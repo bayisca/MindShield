@@ -114,14 +114,14 @@ public class SignUpController {
         }
 
         UserRole role = rbCounselor.isSelected()
-                ? UserRole.COUNSELOR
+                ? UserRole.PENDING_COUNSELOR
                 : UserRole.CLIENT;
 
         CounselorExpertise expertise = expertiseCombo != null
                 ? expertiseCombo.getSelectionModel().getSelectedItem()
                 : null;
 
-        if (role == UserRole.COUNSELOR && expertise == null) {
+        if (role == UserRole.PENDING_COUNSELOR && expertise == null) {
 
             showError("Danisman kaydinda uzmanlik alani secmelisiniz.");
             return;
@@ -163,7 +163,7 @@ public class SignUpController {
             insertStmt.setString(3, pass);
             insertStmt.setString(4, role.name());
 
-            if (role == UserRole.COUNSELOR) {
+            if (role == UserRole.PENDING_COUNSELOR) {
                 insertStmt.setString(5, expertise.getDisplayName());
             } else {
                 insertStmt.setNull(5, java.sql.Types.VARCHAR);
@@ -174,14 +174,15 @@ public class SignUpController {
             // uygulama içi obje oluştur
             BaseUser newUser;
 
-            if (role == UserRole.COUNSELOR) {
-
-                newUser = new Counselor(
-                        id,
-                        persona,
-                        pass,
-                        expertise.getDisplayName());
-
+            if (role == UserRole.PENDING_COUNSELOR) {
+                // Danisman basvurusu yapildi, hemen login etme.
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Kayıt Başarılı");
+                alert.setHeaderText(null);
+                alert.setContentText("Danışmanlık başvurunuz alınmıştır. Sistem yöneticisi onayladıktan sonra giriş yapabilirsiniz.");
+                alert.showAndWait();
+                navigateTo("/Login.fxml", "MindShield — Giris");
+                return;
             } else {
 
                 newUser = new StandardUser(

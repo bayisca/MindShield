@@ -21,6 +21,12 @@
                   <Label text="“Sözcüklerin bittiği yerde müzik konuşur.” – Hans Christian Andersen" style="-fx-text-fill: #666; -fx-font-size: 14;" />
                </children>
             </HBox>
+            
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <javafx.scene.control.CheckBox fx:id="chkShowFavorites" text="Sadece Favorileri Göster" onAction="#handleToggleFavorites" />
+               </children>
+            </HBox>
 
             <ListView fx:id="trackList" prefHeight="350.0" prefWidth="580.0" styleClass="card" />
 
@@ -33,7 +39,6 @@
                         <Button mnemonicParsing="false" onAction="#handlePrevious" prefHeight="40.0" prefWidth="100.0" styleClass="button-secondary" text="Onceki" />
                         <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#handlePlayPause" prefHeight="40.0" prefWidth="100.0" styleClass="button" text="Oynat" />
                         <Button mnemonicParsing="false" onAction="#handleNext" prefHeight="40.0" prefWidth="100.0" styleClass="button-secondary" text="Sonraki" />
-                        <Button fx:id="btnFavorite" mnemonicParsing="false" onAction="#handleFavorite" prefHeight="40.0" prefWidth="130.0" styleClass="button-secondary" text="Favori yap" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="Ses:" />
                         <Slider fx:id="volumeSlider" prefWidth="150.0" value="50.0" max="100.0" />

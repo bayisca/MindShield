@@ -145,6 +145,25 @@ public class MessageService {
         }
     }
 
+    public int getHelpedClientsCount(BaseUser counselor) {
+        int count = 0;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("""
+                SELECT COUNT(id) FROM conversations
+                WHERE user1_id = ? OR user2_id = ?
+            """);
+            ps.setString(1, counselor.getId());
+            ps.setString(2, counselor.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     private String findOrCreateConversation(Connection conn, String u1, String u2) throws Exception {
 
         PreparedStatement ps = conn.prepareStatement("""

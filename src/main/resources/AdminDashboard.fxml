@@ -26,42 +26,88 @@
                </children>
             </VBox>
 
-            <VBox HBox.hgrow="ALWAYS" spacing="14.0"
-                  style="-fx-background-color: #F3E3D0;">
-               <padding><Insets top="24.0" bottom="24.0" left="24.0" right="24.0" /></padding>
-               <children>
-                  <Label text="Şikayetler"
-                         style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                  <HBox spacing="14.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox spacing="8.0" prefWidth="320.0">
+            <TabPane HBox.hgrow="ALWAYS" styleClass="tab-pane-modern" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Şikayetler">
+                     <content>
+                        <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
                            <children>
-                              <Label text="Liste" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
-                              <ListView fx:id="reportList" VBox.vgrow="ALWAYS"
-                                        style="-fx-background-color: #EAE0D2;" />
-                           </children>
-                        </VBox>
-                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="Detay" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
-                              <TextArea fx:id="detailArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"
-                                        style="-fx-control-inner-background: #EAE0D2; -fx-text-fill: #2C3E50;" />
-                              <HBox spacing="10.0">
+                              <Label text="Şikayetler" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <HBox spacing="14.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnRemoveUser" onAction="#removeReportedUser"
-                                            styleClass="btn-danger" text="Kullanıcıyı sistemden çıkar" />
-                                    <Button fx:id="btnDeletePost" onAction="#deleteReportedPost"
-                                            styleClass="btn-danger" text="Blog yazısını sil" />
-                                    <Button onAction="#markResolved" styleClass="btn-secondary" text="Şikayeti kapat" />
-                                    <Region HBox.hgrow="ALWAYS" />
+                                    <VBox spacing="8.0" prefWidth="320.0">
+                                       <children>
+                                          <Label text="Liste" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                                          <ListView fx:id="reportList" VBox.vgrow="ALWAYS" style="-fx-background-color: #EAE0D2;" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Detay" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                                          <TextArea fx:id="detailArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" style="-fx-control-inner-background: #EAE0D2; -fx-text-fill: #2C3E50;" />
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Button fx:id="btnRemoveUser" onAction="#removeReportedUser" styleClass="btn-danger" text="Kullanıcıyı sistemden çıkar" />
+                                                <Button fx:id="btnDeletePost" onAction="#deleteReportedPost" styleClass="btn-danger" text="Blog yazısını sil" />
+                                                <Button onAction="#markResolved" styleClass="btn-secondary" text="Şikayeti kapat" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
+                     </content>
+                  </Tab>
+                  
+                  <Tab text="Danışman Onayları">
+                     <content>
+                        <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
+                           <children>
+                              <Label text="Onay Bekleyen Danışmanlar" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <ListView fx:id="pendingCounselorsList" VBox.vgrow="ALWAYS" style="-fx-background-color: #EAE0D2;" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button onAction="#approveCounselor" styleClass="btn-primary" text="Onayla" />
+                                    <Button onAction="#rejectCounselor" styleClass="btn-danger" text="Reddet" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+
+                  <Tab text="Grup Sohbetleri">
+                     <content>
+                        <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
+                           <children>
+                              <Label text="Yeni Grup Sohbeti Oluştur" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <Label text="Grup Adı" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                              <TextField fx:id="txtGroupName" prefHeight="40.0" promptText="Örn: Sınav Kaygısı Desteği" />
+                              <Button onAction="#createGroupChat" prefHeight="40.0" text="Oluştur" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+
+                  <Tab text="Müzik Kütüphanesi">
+                     <content>
+                        <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
+                           <children>
+                              <Label text="SoulShield'e Şarkı Ekle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <Label text="Şarkı Adı" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                              <TextField fx:id="txtSongTitle" prefHeight="40.0" promptText="Şarkının adını girin" />
+                              <Label text="Müzik Linki (Örn: http://... veya dosya adı)" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                              <TextField fx:id="txtSongLink" prefHeight="40.0" promptText="Geçerli bir URL veya dosya adı" />
+                              <Button onAction="#addSong" prefHeight="40.0" text="Sisteme Ekle" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </children>
       </HBox>
    </children>

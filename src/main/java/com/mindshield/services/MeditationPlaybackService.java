@@ -30,6 +30,7 @@ public final class MeditationPlaybackService {
     }
 
     private final List<MeditationTrack> tracks = new ArrayList<>();
+    private final List<MeditationTrack> recentTracks = new ArrayList<>();
     private MediaPlayer mediaPlayer;
     private int currentIndex = -1;
 
@@ -52,8 +53,16 @@ public final class MeditationPlaybackService {
         return Collections.unmodifiableList(tracks);
     }
 
+    public List<MeditationTrack> getRecentTracks() {
+        return Collections.unmodifiableList(recentTracks);
+    }
+
     public int getCurrentIndex() {
         return currentIndex;
+    }
+    
+    public void addTrack(MeditationTrack track) {
+        tracks.add(track);
     }
 
     public DoubleProperty volumeProperty() {
@@ -83,9 +92,15 @@ public final class MeditationPlaybackService {
             return false;
         }
         MeditationTrack track = tracks.get(index);
-        URL resource = MeditationPlaybackService.class.getResource("/audio/" + track.getFilename());
-        if (resource == null) {
-            return false;
+        String sourceUrl;
+        if (track.getFilename().startsWith("http://") || track.getFilename().startsWith("https://")) {
+            sourceUrl = track.getFilename();
+        } else {
+            URL resource = MeditationPlaybackService.class.getResource("/audio/" + track.getFilename());
+            if (resource == null) {
+                return false;
+            }
+            sourceUrl = resource.toExternalForm();
         }
 
         if (mediaPlayer != null) {
@@ -96,7 +111,7 @@ public final class MeditationPlaybackService {
         }
 
         try {
-            Media media = new Media(resource.toExternalForm());
+            Media media = new Media(sourceUrl);
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(volume.get());
             currentIndex = index;
@@ -109,6 +124,14 @@ public final class MeditationPlaybackService {
 
             mediaPlayer.play();
             nowPlayingLine.set("Şu An Çalan: " + track.getTitle());
+            
+            // Son dinlenenlere ekle (maksimum 3 sarki tut)
+            recentTracks.remove(track);
+            recentTracks.add(0, track);
+            if (recentTracks.size() > 3) {
+                recentTracks.remove(3);
+            }
+            
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -471,6 +471,21 @@ public class PostService {
         }
     }
 
+    /** Başkalarının yazılarına yapılan yorumları da kaldırır (hesap silme). */
+    public void deleteAllCommentsForUserId(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "DELETE FROM blog_comments WHERE user_id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // --------------------------------------------------
     // LOAD USER
     // --------------------------------------------------

@@ -224,17 +224,26 @@
 }
 
 .side-button-logout {
-    -fx-background-color: transparent;
-    -fx-text-fill: #E09B9B;
+    -fx-background-color: #658AAB;
+    -fx-text-fill: #FCF9F5;
     -fx-alignment: CENTER_LEFT;
-    -fx-font-size: 13px;
-    -fx-padding: 11 20;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 20;
     -fx-background-radius: 10;
     -fx-cursor: hand;
+    -fx-pref-height: 50px;
+    -fx-effect: dropshadow(gaussian, rgba(101,138,171,0.45), 14, 0, 0, 4);
 }
 
 .side-button-logout:hover {
-    -fx-background-color: rgba(226,149,149,0.15);
+    -fx-background-color: #4A6984;
+    -fx-text-fill: white;
+}
+
+.side-button-logout:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
 }
 
 /* ═══════════════════════════════════════════

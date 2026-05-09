@@ -25,6 +25,7 @@ public class DashboardController {
     @FXML private Button btnNavMessages;
     @FXML private Button btnNavCounselors; // CLIENT / ANONYMOUS only
     @FXML private Button btnJourShield;    // CLIENT / ANONYMOUS / COUNSELOR
+    @FXML private Button btnNavSettings;
 
     // User badge labels
     @FXML private Label lblUserName;
@@ -75,6 +76,7 @@ public class DashboardController {
                 case CLIENT    -> "Danisan";
                 case ANONYMOUS -> "Anonim";
                 case ADMIN     -> "Super Admin";
+                case PENDING_COUNSELOR -> "Onay Bekleyen Danışman";
             };
             lblUserRole.setText(roleLabel);
         }
@@ -171,6 +173,7 @@ public class DashboardController {
     @FXML public void showCounselors() { loadView("/CounselorSelect.fxml"); }
     @FXML public void showMeditation() { loadView("/Meditation.fxml"); }
     @FXML public void showJourShield() { loadView("/JourShield.fxml"); }
+    @FXML public void showSettings()   { loadView("/Settings.fxml"); }
 
     @FXML
     private void handleLogout() {

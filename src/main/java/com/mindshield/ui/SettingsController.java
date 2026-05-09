@@ -1,6 +1,7 @@
 package com.mindshield.ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +32,12 @@ public class SettingsController {
     @FXML private Label         lblJoinedDate;
     @FXML private Label         lblExpertiseTitle;
     @FXML private Label         lblBlogPostCount;
+    @FXML private Label         lblForumCount;
+    @FXML private Label         lblHelpedClientsCount;
+
+    @FXML private VBox          clientSummarySection;
+    @FXML private Label         lblClientJoinedDate;
+    @FXML private Label         lblClientForumCount;
 
     @FXML
     public void initialize() {
@@ -46,9 +53,29 @@ public class SettingsController {
             counselorSummarySection.setVisible(counselor);
             counselorSummarySection.setManaged(counselor);
         }
+        boolean clientProfile =
+                user.getRole() == UserRole.CLIENT || user.getRole() == UserRole.ANONYMOUS;
+        if (clientSummarySection != null) {
+            clientSummarySection.setVisible(clientProfile);
+            clientSummarySection.setManaged(clientProfile);
+        }
+        if (clientProfile) {
+            LocalDate regDb = MainApp.getUserRegistrationDateFromDb(user.getId());
+            if (lblClientJoinedDate != null) {
+                LocalDate shown = regDb != null ? regDb : user.getRegisteredAt();
+                lblClientJoinedDate.setText("Kayıt tarihi: " + shown);
+            }
+            if (lblClientForumCount != null) {
+                long n = MainApp.forumService.getTopicsByAuthor(user).size();
+                lblClientForumCount.setText("Açtığı forum sayısı: " + n);
+            }
+        }
+
         if (counselor && user instanceof Counselor c) {
+            LocalDate regDb = MainApp.getUserRegistrationDateFromDb(user.getId());
             if (lblJoinedDate != null) {
-                lblJoinedDate.setText("Kayıt tarihi: " + user.getRegisteredAt());
+                LocalDate shown = regDb != null ? regDb : user.getRegisteredAt();
+                lblJoinedDate.setText("Kayıt tarihi: " + shown);
             }
             if (lblExpertiseTitle != null) {
                 lblExpertiseTitle.setText("Ünvan: " + c.getExpertiseDisplayTitle());
@@ -59,6 +86,14 @@ public class SettingsController {
                                 && user.getPersona().equals(p.getAuthor().getPersona()))
                         .count();
                 lblBlogPostCount.setText("Blog yazısı sayısı: " + n);
+            }
+            if (lblForumCount != null) {
+                long n = MainApp.forumService.getTopicsByAuthor(user).size();
+                lblForumCount.setText("Açtığı forum sayısı: " + n);
+            }
+            if (lblHelpedClientsCount != null) {
+                long n = MainApp.messageService.getHelpedClientsCount(user);
+                lblHelpedClientsCount.setText("Yardım ettiği danışan sayısı: " + n);
             }
         }
 

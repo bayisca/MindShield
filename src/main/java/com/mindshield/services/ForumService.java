@@ -403,4 +403,32 @@ public class ForumService {
         }
         return topic.isAuthor(actor) || actor.getRole() == UserRole.ADMIN;
     }
+
+    /** Hesap silinirken: kullanıcının tüm forum başlıkları ve yanıtları kaldırılır. */
+    public void purgeAllContentForUserId(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement("""
+                    DELETE FROM forum_replies
+                    WHERE topic_id IN (SELECT id FROM forum_topics WHERE user_id = ?)
+                    """)) {
+                ps.setString(1, userId);
+                ps.executeUpdate();
+            }
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM forum_topics WHERE user_id = ?")) {
+                ps.setString(1, userId);
+                ps.executeUpdate();
+            }
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM forum_replies WHERE user_id = ?")) {
+                ps.setString(1, userId);
+                ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

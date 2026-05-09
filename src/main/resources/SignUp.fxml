@@ -24,9 +24,11 @@
                         <Image url="@logos/logo.png" />
                      </image>
                   </ImageView>
-                  <Label text="MindShield"
-                         style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;
-                                -fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 16, 0, 0, 0);" />
+                  <TextFlow textAlignment="CENTER"
+                            style="-fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 8, 0, 0, 0);">
+                     <Text text="Mind" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-fill: #81A6C6;" />
+                     <Text text="Shield" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-fill: #14B8A6;" />
+                  </TextFlow>
 
                   <VBox spacing="8.0" alignment="CENTER">
                      <children>
@@ -55,7 +57,7 @@
                            <children>
                               <VBox spacing="2.0">
                                  <children>
-                                    <Label text="Danisман Hesabi" styleClass="welcome-feature-label" />
+                                    <Label text="Danisмаn Hesabi" styleClass="welcome-feature-label" />
                                     <Label text="Blog yaz, danisan sorularini yanitla, destek sun."
                                            styleClass="welcome-feature-desc" wrapText="true" />
                                  </children>

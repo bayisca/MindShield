@@ -1,8 +1,14 @@
 package com.mindshield.ui;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.Admin;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Counselor;
@@ -68,11 +74,87 @@ public class MainApp extends Application {
             return;
         }
         String persona = account.getPersona();
+        String userId = account.getId();
         chatRoomService.removeUserFromAllRooms(account);
-        messageService.purgeInvolvingPersona(persona);
-        journalService.purgeEntriesForPersona(persona);
+        messageService.purgeInvolvingPersona(userId);
+        journalService.purgeEntriesForPersona(userId);
+        postService.deleteAllCommentsForUserId(userId);
         postService.deleteAllPostsFor(account);
+        forumService.purgeAllContentForUserId(userId);
+        deleteFavoriteSongsForUser(userId);
+        deleteChatroomSqlRowsForUser(userId);
+        deleteUserRowFromDb(userId);
         userDatabase.remove(persona);
+    }
+
+    private static void deleteFavoriteSongsForUser(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "DELETE FROM favorite_songs WHERE user_id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteChatroomSqlRowsForUser(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM chatroomMessages WHERE sender_id = ?")) {
+                ps.setString(1, userId);
+                ps.executeUpdate();
+            }
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM chatroom_members WHERE user_id = ?")) {
+                ps.setString(1, userId);
+                ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteUserRowFromDb(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** {@code users.created_at} — profil ekranı için; yoksa {@code null}. */
+    public static LocalDate getUserRegistrationDateFromDb(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return null;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "SELECT created_at FROM users WHERE id = ?")) {
+            ps.setString(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Timestamp ts = rs.getTimestamp("created_at");
+                    if (ts != null) {
+                        return ts.toLocalDateTime().toLocalDate();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /** Yönetici: kullanıcıyı sistemden çıkarır (admin hesapları hariç). */

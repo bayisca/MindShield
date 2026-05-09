@@ -41,9 +41,9 @@ public class JournalService {
         }
     }
 
-    /** Hesap silindiğinde çağrılır — yalnızca iç DAO işlemi. */
-    public void purgeEntriesForPersona(String persona) {
-        journalDao.deleteEntriesByAuthorPersona(persona);
+    /** Hesap silindiğinde çağrılır — {@code journals.user_id} ile eşleşen kayıtlar silinir. */
+    public void purgeEntriesForPersona(String userId) {
+        journalDao.deleteEntriesByAuthorPersona(userId);
     }
 
     private void enforceOwner(BaseUser user, JournalEntry entry) {

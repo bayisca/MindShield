@@ -30,6 +30,19 @@
                         <Label fx:id="lblJoinedDate" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
                         <Label fx:id="lblExpertiseTitle" style="-fx-text-fill: #81A6C6; -fx-font-size: 13px;" />
                         <Label fx:id="lblBlogPostCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+                        <Label fx:id="lblForumCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+                        <Label fx:id="lblHelpedClientsCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+
+                  <!-- Danışan özeti -->
+                  <VBox fx:id="clientSummarySection" spacing="10.0" styleClass="card" style="-fx-padding: 24;"
+                        visible="false" managed="false">
+                     <children>
+                        <Label text="Profil özeti"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                        <Label fx:id="lblClientJoinedDate" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
+                        <Label fx:id="lblClientForumCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
                      </children>
                   </VBox>
 
@@ -73,27 +86,18 @@
                      </children>
                   </VBox>
 
-                  <!-- Privacy -->
-                  <VBox spacing="14.0" styleClass="card" style="-fx-padding: 24;">
-                     <children>
-                        <Label text="🔒  Gizlilik ve Güvenlik"
-                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
-                        <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
-                        <CheckBox text="Verilerimi yerel diskte şifrele" />
-                        <CheckBox text="Bildirim tercihlerini yönet" />
-                     </children>
-                  </VBox>
+
 
                   <!-- Danger zone -->
                   <VBox spacing="14.0" styleClass="card"
                         style="-fx-padding: 24; -fx-border-color: rgba(226,149,149,0.3); -fx-border-radius: 14;">
                      <children>
-                        <Label text="⚠️  Tehlike Bölgesi"
+                        <Label text="🥺 Lütfen bizi bırakma!"
                                style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #E09B9B;" />
                         <Label text="Bu işlemler geri alınamaz. Dikkatli ol."
                                style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" />
-                        <Button onAction="#deleteAccount" text="Hesabi Sil" styleClass="btn-danger"
-                                prefHeight="40.0" prefWidth="160.0" />
+                        <Button onAction="#deleteAccount" text="Hesabımı Sil" styleClass="btn-danger"
+                                prefHeight="40.0" prefWidth="200.0" />
                      </children>
                   </VBox>
 

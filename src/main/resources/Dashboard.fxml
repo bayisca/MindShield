@@ -30,8 +30,11 @@
                               <Image url="@logos/logo.png" />
                            </image>
                         </ImageView>
-                        <Label text="MindShield"
-                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
+                        <TextFlow textAlignment="CENTER"
+                                  style="-fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 8, 0, 0, 0);">
+                           <Text text="Mind" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #81A6C6;" />
+                           <Text text="Shield" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #14B8A6;" />
+                        </TextFlow>
                         <Label text="Guvenli &amp; Anonim Danismanlik"
                                style="-fx-font-size: 10px; -fx-text-fill: #8A9CAE;" />
                      </children>
@@ -86,6 +89,13 @@
                       </graphic>
                   </Button>
 
+                  <Button fx:id="btnNavSettings" maxWidth="Infinity" onAction="#showSettings"
+                          styleClass="side-button" text="Profil ve Ayarlar">
+                      <graphic>
+                          <Label text="⚙️" style="-fx-font-size: 18px;" />
+                      </graphic>
+                  </Button>
+
                   <Region VBox.vgrow="ALWAYS" />
 
                   <!-- User badge -->
@@ -104,7 +114,11 @@
                   </VBox>
 
                   <Button maxWidth="Infinity" onAction="#handleLogout"
-                          styleClass="side-button-logout" text="Cikis Yap" />
+                          styleClass="side-button-logout" text="Çıkış Yap">
+                      <graphic>
+                          <Label text="⎋" style="-fx-font-size: 17px; -fx-text-fill: #FCF9F5;" />
+                      </graphic>
+                  </Button>
                </children>
             </VBox>
 

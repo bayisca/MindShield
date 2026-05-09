@@ -31,8 +31,9 @@
             <!-- Shortcuts Grid -->
             <GridPane hgap="20.0" vgap="20.0">
                <columnConstraints>
-                  <ColumnConstraints percentWidth="50.0" />
-                  <ColumnConstraints percentWidth="50.0" />
+                  <ColumnConstraints percentWidth="33.3" />
+                  <ColumnConstraints percentWidth="33.3" />
+                  <ColumnConstraints percentWidth="33.3" />
                </columnConstraints>
                <children>
 
@@ -41,34 +42,52 @@
                      <children>
                         <Label text="FORUM" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label text="Forumlar" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Topluluk basliklarini incele ve konulara katil." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="Topluluk başlıklarını incele." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
-                  <!-- Card 2: Messages -->
+                  <!-- Card 2: Gruplar -->
                   <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#navToMessages">
+                     <children>
+                        <Label text="GRUP" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
+                        <Label text="Gruplar" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Grup sohbetlerine katıl." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Card 3: Danışmanlar -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="2" GridPane.rowIndex="0" onMouseClicked="#navToCounselors">
+                     <children>
+                        <Label text="UZMAN" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
+                        <Label text="Danışmanlar" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Uzmanlardan destek al." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                     </children>
+                  </VBox>
+
+                  <!-- Card 4: Messages -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="1" onMouseClicked="#navToMessages">
                      <children>
                         <Label text="MESAJ" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label text="Mesajlarım" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Anonim ve güvenli olarak uzmanlarla mesajlaş." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="Özel mesajlarını gör." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
-                  <!-- Card 3: Meditation -->
-                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="1" onMouseClicked="#navToMeditation">
+                  <!-- Card 5: Meditation -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#navToMeditation">
                      <children>
-                        <Label text="MUZIK" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
-                        <Label text="SoulShield Meditasyon" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Odaklanma ve rahatlama için ses arşivini dinle." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="MÜZİK" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
+                        <Label text="SoulShield" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Rahatlatıcı sesleri dinle." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
-                  <!-- Card 4: JourShield -->
-                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
+                  <!-- Card 6: JourShield -->
+                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
                      <children>
                         <Label text="JOUR" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
-                        <Label text="JourShield Günlük" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Şifreli bir alanda kendi düşüncelerini ve notlarını tut." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="JourShield" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                        <Label text="Gizli günlük tut." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
@@ -78,7 +97,7 @@
             <!-- Favorites Section -->
             <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
                <children>
-                  <Label text="Favori Sarkilarim / Meditasyonlarim" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+                  <Label text="Son Çalınan Müzikler" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
                   <VBox fx:id="favSongsContainer" spacing="10.0">
                      <!-- Populated from Java -->
                   </VBox>
@@ -103,84 +122,7 @@
                </children>
             </VBox>
 
-            <!-- Profile & Settings Section -->
-            <Label text="Profil ve Ayarlar" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50; -fx-padding: 20 0 0 0;" />
 
-            <!-- Counselor özet -->
-            <VBox fx:id="counselorSummarySection" spacing="10.0" styleClass="card" style="-fx-padding: 24;"
-                  visible="false" managed="false">
-               <children>
-                  <Label text="Hesap özeti"
-                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
-                  <Label fx:id="lblJoinedDate" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
-                  <Label fx:id="lblExpertiseTitle" style="-fx-text-fill: #81A6C6; -fx-font-size: 13px;" />
-                  <Label fx:id="lblBlogPostCount" style="-fx-text-fill: #4A5B6C; -fx-font-size: 13px;" />
-               </children>
-            </VBox>
-
-            <!-- Persona settings card -->
-            <VBox spacing="16.0" styleClass="card" style="-fx-padding: 24;">
-               <children>
-                  <Label text="Persona Bilgileri"
-                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
-
-                  <VBox spacing="6.0">
-                     <children>
-                        <Label text="YENİ PERSONA ADI"
-                               style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
-                        <TextField fx:id="newPersonaName" prefHeight="42.0"
-                                   promptText="Yeni adını gir" maxWidth="Infinity" />
-                     </children>
-                  </VBox>
-
-                  <VBox spacing="6.0">
-                     <children>
-                        <Label text="YENİ ŞİFRE"
-                               style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
-                        <PasswordField fx:id="newPassword" prefHeight="42.0"
-                                       promptText="Yeni şifreni gir" maxWidth="Infinity" />
-                     </children>
-                  </VBox>
-
-                  <Button onAction="#saveSettings" prefHeight="42.0"
-                          text="Değişiklikleri Kaydet" />
-               </children>
-            </VBox>
-
-            <!-- My Blog Posts (counselor) -->
-            <VBox fx:id="myPostsSection" spacing="14.0" styleClass="card" style="-fx-padding: 24;">
-               <children>
-                  <Label text="Blog Yazilarim"
-                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
-                  <VBox fx:id="myPostsContainer" spacing="10.0">
-                     <!-- Java tarafından doldurulacak -->
-                  </VBox>
-               </children>
-            </VBox>
-
-            <!-- Privacy -->
-            <VBox spacing="14.0" styleClass="card" style="-fx-padding: 24;">
-               <children>
-                  <Label text="Gizlilik ve Guvenlik"
-                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
-                  <CheckBox selected="true" text="Anonimlik modunu her zaman aktif tut" />
-                  <CheckBox text="Verilerimi yerel diskte şifrele" />
-                  <CheckBox text="Bildirim tercihlerini yönet" />
-               </children>
-            </VBox>
-
-            <!-- Danger zone -->
-            <VBox spacing="14.0" styleClass="card"
-                  style="-fx-padding: 24; -fx-border-color: rgba(226,149,149,0.3); -fx-border-radius: 14;">
-               <children>
-                  <Label text="Tehlike Bolgesi"
-                         style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #E09B9B;" />
-                  <Label text="Bu işlemler geri alınamaz. Dikkatli ol."
-                         style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" />
-                  <Button onAction="#deleteAccount" text="Hesabı Sil" styleClass="btn-danger"
-                          prefHeight="40.0" prefWidth="160.0" />
-               </children>
-            </VBox>
 
             <!-- Extra Info / Footer -->
             <HBox alignment="CENTER" style="-fx-padding: 40 0 0 0;">

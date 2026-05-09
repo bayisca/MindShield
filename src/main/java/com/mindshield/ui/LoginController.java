@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -35,7 +36,9 @@ public class LoginController {
     @FXML
     private Label lblError;
     @FXML
-    private Label lblAnimatedBrand;
+    private Text textMind;
+    @FXML
+    private Text textShield;
 
     private static final String BRAND_TEXT = "MINDSHIELD";
 
@@ -74,6 +77,11 @@ public class LoginController {
                 String profession = rs.getString("profession");
 
                 BaseUser user;
+
+                if ("PENDING_COUNSELOR".equalsIgnoreCase(roleStr)) {
+                    showError("Hesabınız yönetici onayında. Lütfen daha sonra tekrar deneyiniz.");
+                    return;
+                }
 
                 if ("ADMIN".equalsIgnoreCase(roleStr)) {
 
@@ -153,30 +161,33 @@ System.out.println("PERSONA: " + user.getPersona());
 
     private void playBrandTypingAnimation() {
 
-        if (lblAnimatedBrand == null)
+        if (textMind == null || textShield == null)
             return;
 
-        lblAnimatedBrand.setText("");
+        textMind.setText("");
+        textShield.setText("");
 
         Timeline timeline = new Timeline();
-
         long currentDelay = 0;
 
-        for (int i = 1; i <= BRAND_TEXT.length(); i++) {
-
+        String mindStr = "Mind";
+        for (int i = 1; i <= mindStr.length(); i++) {
             final int end = i;
+            currentDelay += 250L;
+            timeline.getKeyFrames().add(new KeyFrame(
+                    Duration.millis(currentDelay),
+                    e -> textMind.setText(mindStr.substring(0, end))
+            ));
+        }
 
-            if (i <= 4) {
-                currentDelay += 350L;
-            } else {
-                currentDelay += 400L;
-            }
-
-            timeline.getKeyFrames().add(
-                    new KeyFrame(
-                            Duration.millis(currentDelay),
-                            e -> lblAnimatedBrand.setText(
-                                    BRAND_TEXT.substring(0, end))));
+        String shieldStr = "Shield";
+        for (int i = 1; i <= shieldStr.length(); i++) {
+            final int end = i;
+            currentDelay += 250L;
+            timeline.getKeyFrames().add(new KeyFrame(
+                    Duration.millis(currentDelay),
+                    e -> textShield.setText(shieldStr.substring(0, end))
+            ));
         }
 
         timeline.play();

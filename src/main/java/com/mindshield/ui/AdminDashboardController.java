@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AdminDashboardController {
@@ -20,6 +21,11 @@ public class AdminDashboardController {
     @FXML private TextArea detailArea;
     @FXML private Button btnRemoveUser;
     @FXML private Button btnDeletePost;
+    
+    @FXML private ListView<String> pendingCounselorsList;
+    @FXML private TextField txtGroupName;
+    @FXML private TextField txtSongTitle;
+    @FXML private TextField txtSongLink;
 
     private ModerationReport selected;
 
@@ -45,6 +51,7 @@ public class AdminDashboardController {
         }
 
         refreshReports();
+        refreshPendingCounselors();
     }
 
     private void refreshReports() {
@@ -146,6 +153,96 @@ public class AdminDashboardController {
         }
         MainApp.moderationService.markResolved(selected.getId());
         refreshReports();
+    }
+    
+    private void refreshPendingCounselors() {
+        if (pendingCounselorsList == null) return;
+        pendingCounselorsList.getItems().clear();
+        try (java.sql.Connection conn = com.mindshield.dao.DatabaseConnection.getConnection();
+             java.sql.PreparedStatement ps = conn.prepareStatement("SELECT username, profession FROM users WHERE role = 'PENDING_COUNSELOR'")) {
+            java.sql.ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                pendingCounselorsList.getItems().add(rs.getString("username") + " (" + rs.getString("profession") + ")");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void approveCounselor() {
+        String selected = pendingCounselorsList.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+        String username = selected.substring(0, selected.indexOf(" ("));
+        try (java.sql.Connection conn = com.mindshield.dao.DatabaseConnection.getConnection();
+             java.sql.PreparedStatement ps = conn.prepareStatement("UPDATE users SET role = 'COUNSELOR' WHERE username = ?")) {
+            ps.setString(1, username);
+            ps.executeUpdate();
+            alert(Alert.AlertType.INFORMATION, "Danışman onaylandı.");
+            refreshPendingCounselors();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void rejectCounselor() {
+        String selected = pendingCounselorsList.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+        String username = selected.substring(0, selected.indexOf(" ("));
+        try (java.sql.Connection conn = com.mindshield.dao.DatabaseConnection.getConnection();
+             java.sql.PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE username = ?")) {
+            ps.setString(1, username);
+            ps.executeUpdate();
+            alert(Alert.AlertType.INFORMATION, "Danışman reddedildi ve silindi.");
+            refreshPendingCounselors();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void createGroupChat() {
+        if (txtGroupName == null || txtGroupName.getText().isBlank()) return;
+        String name = txtGroupName.getText().trim();
+        try (java.sql.Connection conn = com.mindshield.dao.DatabaseConnection.getConnection();
+             java.sql.PreparedStatement check = conn.prepareStatement("SELECT * FROM chatrooms WHERE room_name = ?");
+             java.sql.PreparedStatement insert = conn.prepareStatement("INSERT INTO chatrooms (id, room_name, is_private) VALUES (?, ?, ?)")) {
+            check.setString(1, name);
+            if (check.executeQuery().next()) {
+                alert(Alert.AlertType.WARNING, "Bu isimde bir grup zaten var.");
+                return;
+            }
+            insert.setString(1, java.util.UUID.randomUUID().toString());
+            insert.setString(2, name);
+            insert.setBoolean(3, false);
+            insert.executeUpdate();
+            alert(Alert.AlertType.INFORMATION, "Grup sohbeti başarıyla oluşturuldu.");
+            txtGroupName.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alert(Alert.AlertType.ERROR, "Hata oluştu.");
+        }
+    }
+
+    @FXML
+    private void addSong() {
+        if (txtSongTitle == null || txtSongLink == null) return;
+        String title = txtSongTitle.getText().trim();
+        String link = txtSongLink.getText().trim();
+        if (title.isBlank() || link.isBlank()) return;
+        
+        com.mindshield.models.MeditationTrack newTrack = new com.mindshield.models.MeditationTrack(
+                java.util.UUID.randomUUID().toString(),
+                title,
+                "", // Sanatçı yok
+                link,
+                "Admin tarafından eklendi"
+        );
+        com.mindshield.services.MeditationPlaybackService.getInstance().addTrack(newTrack);
+        alert(Alert.AlertType.INFORMATION, "Şarkı başarıyla SoulShield kütüphanesine eklendi.");
+        txtSongTitle.clear();
+        txtSongLink.clear();
     }
 
     @FXML
