@@ -3,61 +3,119 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="620.0" prefWidth="760.0" styleClass="main-container" stylesheets="@style.css"
+<AnchorPane prefHeight="620.0" prefWidth="980.0" styleClass="main-container" stylesheets="@style.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.mindshield.ui.ForumController">
    <children>
-      <VBox spacing="14.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-         <padding><Insets top="8.0" right="8.0" bottom="8.0" left="8.0"/></padding>
+      <StackPane fx:id="forumStack" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <VBox spacing="4.0">
+            <VBox fx:id="categoriesView" spacing="16.0">
+               <padding><Insets top="22.0" right="28.0" bottom="22.0" left="28.0"/></padding>
                <children>
-                  <Label text="Forum" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
-                  <Label text="Kullanicilar baslik acabilir, ayni baslik altinda birbirine yanit yazabilir."
-                         style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;"/>
+                  <VBox spacing="4.0">
+                     <children>
+                        <Label text="Forum Kategorileri" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                        <Label text="Konular uzmanlik alanlarina gore ayrildi. Devam etmek icin bir kategori sec."
+                               style="-fx-font-size: 13px; -fx-text-fill: #8A9CAE;"/>
+                     </children>
+                  </VBox>
+                  <ListView fx:id="categoryList" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
 
-            <HBox spacing="12.0" VBox.vgrow="ALWAYS">
+            <VBox fx:id="topicsView" spacing="16.0" visible="false" managed="false">
+               <padding><Insets top="22.0" right="28.0" bottom="22.0" left="28.0"/></padding>
                <children>
-                  <VBox spacing="8.0" prefWidth="260.0" styleClass="card" style="-fx-padding: 12;">
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
                      <children>
-                        <Label text="Basliklar" style="-fx-font-weight: bold; -fx-text-fill: #34495E;"/>
-                        <TextField fx:id="searchField" promptText="Baslik ara..."/>
-                        <ListView fx:id="topicList" VBox.vgrow="ALWAYS"/>
+                        <Button text="Geri" onAction="#backToCategories" styleClass="btn-secondary"/>
+                        <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="topicPageTitle" text="Kategori"
+                                     style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                              <Label fx:id="topicPageDescription" text=""
+                                     style="-fx-font-size: 12px; -fx-text-fill: #8A9CAE;" wrapText="true"/>
+                           </children>
+                        </VBox>
+                        <TextField fx:id="topicSearchField" prefWidth="260.0" promptText="Baslik ara..."/>
+                        <Button text="Konu Olustur" onAction="#showCreateTopicPage"/>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <ListView fx:id="topicList" VBox.vgrow="ALWAYS"/>
+               </children>
+            </VBox>
 
-                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="createTopicView" spacing="16.0" visible="false" managed="false">
+               <padding><Insets top="22.0" right="28.0" bottom="22.0" left="28.0"/></padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
                      <children>
-                        <VBox spacing="8.0" styleClass="card" style="-fx-padding: 12;">
+                        <Button text="Geri" onAction="#backToTopics" styleClass="btn-secondary"/>
+                        <VBox spacing="3.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Yeni Baslik Ac" style="-fx-font-weight: bold; -fx-text-fill: #34495E;"/>
-                              <TextField fx:id="topicTitleField" promptText="Baslik"/>
-                              <TextArea fx:id="topicBodyField" promptText="Konuyu acikla" prefHeight="90.0" wrapText="true"/>
-                              <Button text="Baslik Olustur" onAction="#createTopic"/>
+                              <Label text="Yeni Konu Olustur"
+                                     style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
+                              <Label fx:id="createCategoryLabel" text=""
+                                     style="-fx-font-size: 12px; -fx-text-fill: #658AAB;"/>
                            </children>
                         </VBox>
+                     </children>
+                  </HBox>
 
-                        <VBox spacing="8.0" styleClass="card" style="-fx-padding: 12;" VBox.vgrow="ALWAYS">
+                  <VBox spacing="12.0" styleClass="card" style="-fx-padding: 22;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="Baslik" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #6A7C8F;"/>
+                        <TextField fx:id="topicTitleField" promptText="Konu basligi"/>
+                        <Label text="Icerik" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #6A7C8F;"/>
+                        <TextArea fx:id="topicBodyField" promptText="Konuyu acikla, deneyimini veya sorunu yaz..." wrapText="true" VBox.vgrow="ALWAYS"/>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
-                              <Label fx:id="selectedTopicTitle" text="Baslik seciniz" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;"/>
-                              <Label fx:id="selectedTopicMeta" text="" style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;"/>
-                              <Button fx:id="btnDeleteTopic" text="Basligi Sil" onAction="#deleteSelectedTopic" styleClass="btn-danger" />
-                              <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
-                                 <content>
-                                    <VBox fx:id="repliesContainer" spacing="8.0" style="-fx-padding: 2 2 2 2;"/>
-                                 </content>
-                              </ScrollPane>
-                              <TextArea fx:id="replyBodyField" promptText="Bu basliga yanit yaz..." prefHeight="70.0" wrapText="true"/>
-                              <Button text="Yanit Gonder" onAction="#sendReply"/>
+                              <Button text="Vazgec" onAction="#backToTopics" styleClass="btn-secondary"/>
+                              <Button text="Paylas" onAction="#createTopic"/>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
-            </HBox>
+            </VBox>
+
+            <VBox fx:id="topicDetailView" spacing="14.0" visible="false" managed="false">
+               <padding><Insets top="22.0" right="28.0" bottom="22.0" left="28.0"/></padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
+                     <children>
+                        <Button text="Geri" onAction="#backToTopics" styleClass="btn-secondary"/>
+                        <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="detailTitle" text="Baslik"
+                                     style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" wrapText="true"/>
+                              <Label fx:id="detailMeta" text=""
+                                     style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;"/>
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnDeleteTopic" text="Sil" onAction="#deleteSelectedTopic" styleClass="btn-danger" visible="false" managed="false"/>
+                     </children>
+                  </HBox>
+
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                     <content>
+                        <VBox fx:id="repliesContainer" spacing="10.0" style="-fx-padding: 2 2 2 2;"/>
+                     </content>
+                  </ScrollPane>
+
+                  <VBox spacing="8.0" styleClass="card" style="-fx-padding: 14;">
+                     <children>
+                        <TextArea fx:id="replyBodyField" promptText="Bu konuya yanit yaz..." prefHeight="84.0" wrapText="true"/>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Button text="Yanit Gonder" onAction="#sendReply"/>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </StackPane>
    </children>
 </AnchorPane>

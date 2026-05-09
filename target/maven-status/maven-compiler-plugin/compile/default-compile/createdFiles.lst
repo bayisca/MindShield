@@ -56,9 +56,11 @@ com\mindshield\util\PasswordRules.class
 com\mindshield\models\ForumTopic.class
 com\mindshield\models\ModerationReport.class
 com\mindshield\models\ModerationReport$Kind.class
+com\mindshield\ui\ForumController$2.class
 com\mindshield\ui\CounselorSelectController.class
 com\mindshield\dao\ChatRoomDaoImpl.class
 com\mindshield\models\BlogPost.class
+com\mindshield\models\ForumCategory.class
 com\mindshield\models\Content.class
 com\mindshield\dao\JournalDaoImpl$1.class
 com\mindshield\ui\AdminDashboardController$1.class

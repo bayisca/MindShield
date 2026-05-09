@@ -45,11 +45,6 @@ public class MainApp extends Application {
         demoDoc.setApproved(true);
         userDatabase.put("Dr.Ayse", demoDoc);
 
-        // Seed sample blog posts through postService (so they appear in the blog list)
-        //postService.seedSamplePosts(admin);
-        forumService.createTopic(admin, "Gune nasil daha sakin basliyorsunuz?",
-                "Sabah rutininizde iyi gelen kucuk aliskanliklari paylasir misiniz?");
-
         seedSupportGroupsIfNeeded();
     }
 

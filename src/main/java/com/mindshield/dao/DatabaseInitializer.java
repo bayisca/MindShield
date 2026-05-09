@@ -206,6 +206,17 @@ public class DatabaseInitializer {
                             FOREIGN KEY (user_id) REFERENCES users(id)
                         )
                     """);
+            stmt.execute("""
+                        MERGE INTO forum_categories (id, name, description)
+                        KEY(id)
+                        VALUES
+                        ('cat-kaygi', 'Kaygi Yonetimi', 'Kaygi, panik ve gunluk stresle basa cikma deneyimleri.'),
+                        ('cat-benlik', 'Benlik Algisi', 'Oz sefkat, sinirlar, duygu duzenleme ve kendini tanima.'),
+                        ('cat-sosyal', 'Sosyal Fobi', 'Sosyal kaygi, iletisim ve yalnizlik uzerine paylasimlar.'),
+                        ('cat-kariyer', 'Sinav ve Kariyer', 'Sinav stresi, okul, is ve gelecek kaygilari.'),
+                        ('cat-dayaniklilik', 'Psikolojik Dayaniklilik', 'Zor zamanlarda guc toplama ve aliskanliklar.'),
+                        ('cat-depresyon', 'Depresyon Destegi', 'Dusuk mod, motivasyon ve destek arayisi.')
+                    """);
             // yorumlar
             System.out.println("✅ Tablolar başarıyla oluşturuldu.");
 
