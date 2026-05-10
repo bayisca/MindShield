@@ -21,6 +21,9 @@ public class ChatMessage implements Serializable {
         this.timestamp = LocalDateTime.now();
     }
 
+    public void setId(String id) { this.id = id; }
+    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+
     public String getId()            { return id; }
     public String getRoomId()        { return roomId; }
     public BaseUser getSender()      { return sender; }

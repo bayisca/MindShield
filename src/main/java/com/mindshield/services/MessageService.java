@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Message;
+import com.mindshield.ui.MainApp;
 
 public class MessageService {
 
@@ -162,6 +163,61 @@ public class MessageService {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public BaseUser getLatestConversationPartner(BaseUser user) {
+        if (user == null) return null;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("""
+                SELECT CASE WHEN user1_id = ? THEN user2_id ELSE user1_id END as partner_id
+                FROM conversations c
+                JOIN DMmessages m ON m.conversation_id = c.id
+                WHERE user1_id = ? OR user2_id = ?
+                ORDER BY m.sent_at DESC
+                LIMIT 1
+            """);
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getId());
+            ps.setString(3, user.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String partnerId = rs.getString("partner_id");
+                return new com.mindshield.dao.UserDaoImpl().findById(partnerId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public com.mindshield.models.Counselor getLatestConsultedCounselor(BaseUser user) {
+        if (user == null) return null;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("""
+                SELECT CASE WHEN user1_id = ? THEN user2_id ELSE user1_id END as partner_id
+                FROM conversations c
+                JOIN DMmessages m ON m.conversation_id = c.id
+                JOIN users u ON u.id = (CASE WHEN user1_id = ? THEN user2_id ELSE user1_id END)
+                WHERE (c.user1_id = ? OR c.user2_id = ?) AND u.role = 'COUNSELOR'
+                ORDER BY m.sent_at DESC
+                LIMIT 1
+            """);
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getId());
+            ps.setString(3, user.getId());
+            ps.setString(4, user.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String partnerId = rs.getString("partner_id");
+                var partner = new com.mindshield.dao.UserDaoImpl().findById(partnerId);
+                if (partner instanceof com.mindshield.models.Counselor c) {
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String findOrCreateConversation(Connection conn, String u1, String u2) throws Exception {

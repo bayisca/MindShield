@@ -3,7 +3,7 @@ package com.mindshield.dao;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.JournalEntry;
 import com.mindshield.models.JournalMood;
-import com.mindshield.ui.MainApp;
+import com.mindshield.models.StandardUser;
 import com.mindshield.ui.UserRole;
 
 import java.sql.*;
@@ -11,9 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JournalDaoImpl implements JournalDao {
-
+    private final UserDao userDao;
+ 
     public JournalDaoImpl() {
-        // artık .dat load yok
+        this.userDao = new UserDaoImpl();
+    }
+ 
+    public JournalDaoImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     /**
@@ -249,28 +254,12 @@ System.out.println(entry.getAuthor().getId());
      * ResultSet → JournalEntry dönüşümü
      */
     private JournalEntry mapJournal(ResultSet rs) throws SQLException {
-
-
-        /**
-         * Minimal BaseUser object
-         */
         String userId = rs.getString("user_id");
+        BaseUser author = userDao.findById(userId);
 
-BaseUser author = MainApp.userDatabase.get(userId);
-
-if (author == null) {
-
-    author = new BaseUser(
-            userId,
-            userId,
-            "",
-            UserRole.CLIENT
-    ) {
-        @Override
-        public void login() {
+        if (author == null) {
+            author = new StandardUser(userId, userId, "", UserRole.CLIENT);
         }
-    };
-}
 
         JournalEntry entry = new JournalEntry(
                 author,
@@ -289,4 +278,4 @@ if (author == null) {
 
         return entry;
     }
-}
+}

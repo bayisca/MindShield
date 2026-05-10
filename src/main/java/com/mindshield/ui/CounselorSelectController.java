@@ -1,7 +1,6 @@
 package com.mindshield.ui;
 
 import com.mindshield.dao.DatabaseConnection;
-import com.mindshield.dao.DatabaseInitializer;
 import com.mindshield.models.Counselor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

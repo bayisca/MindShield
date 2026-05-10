@@ -7,9 +7,8 @@ import java.sql.ResultSet;
 
 import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
-import com.mindshield.models.Counselor;
-import com.mindshield.models.CounselorExpertise;
 import com.mindshield.models.StandardUser;
+import com.mindshield.models.CounselorExpertise;
 import com.mindshield.util.PasswordRules;
 
 import javafx.collections.FXCollections;

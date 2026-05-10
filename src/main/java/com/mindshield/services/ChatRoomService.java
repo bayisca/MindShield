@@ -1,5 +1,7 @@
 package com.mindshield.services;
 
+import java.sql.*;
+import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.dao.ChatRoomDao;
 import com.mindshield.dao.ChatRoomDaoImpl;
 import com.mindshield.exceptions.UnauthorizedException;
@@ -188,6 +190,32 @@ public class ChatRoomService {
         }
         return chatRoomDao.findAll().stream()
                 .filter(r -> r != null && r.isActive() && name.equals(r.getName()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public ChatRoom getLatestRoomForUser(BaseUser user) {
+        if (user == null) return null;
+        String sql = """
+            SELECT room_id FROM chatroomMessages 
+            WHERE sender_id = ? 
+            ORDER BY created_at DESC 
+            LIMIT 1
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return chatRoomDao.findById(rs.getString("room_id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Fallback to first joined room
+        return chatRoomDao.findAll().stream()
+                .filter(r -> r != null && r.isActive() && r.isMember(user))
                 .findFirst()
                 .orElse(null);
     }

@@ -431,4 +431,30 @@ public class ForumService {
             e.printStackTrace();
         }
     }
+
+    public ForumTopic getLatestTopicForUser(BaseUser user) {
+        if (user == null) return null;
+        String sql = """
+            SELECT topic_id FROM (
+                SELECT id as topic_id, created_at FROM forum_topics WHERE user_id = ?
+                UNION ALL
+                SELECT topic_id, created_at FROM forum_replies WHERE user_id = ?
+            ) AS combined
+            ORDER BY created_at DESC
+            LIMIT 1
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return findTopicById(rs.getString("topic_id")).orElse(null);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

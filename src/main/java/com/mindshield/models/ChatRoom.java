@@ -27,6 +27,8 @@ public class ChatRoom implements Serializable {
         this.messages  = new ArrayList<>();
     }
 
+    public void setId(String id) { this.id = id; }
+
     // --- Üye İşlemleri ---
 
     public void addMember(BaseUser user) {

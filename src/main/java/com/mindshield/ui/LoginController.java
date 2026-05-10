@@ -1,19 +1,15 @@
 package com.mindshield.ui;
 
 import java.io.IOException;
-import java.sql.ClientInfoStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import org.h2.engine.User;
 
 import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.Admin;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.StandardUser;
 import com.mindshield.models.Counselor;
-import com.mindshield.ui.UserRole;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,8 +35,6 @@ public class LoginController {
     private Text textMind;
     @FXML
     private Text textShield;
-
-    private static final String BRAND_TEXT = "MINDSHIELD";
 
     @FXML
     public void initialize() {

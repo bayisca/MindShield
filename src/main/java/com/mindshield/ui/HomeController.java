@@ -1,25 +1,15 @@
 package com.mindshield.ui;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.BlogPost;
-import com.mindshield.models.Counselor;
 import com.mindshield.models.ForumTopic;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -29,6 +19,13 @@ public class HomeController {
     @FXML private VBox          favSongsContainer;
     @FXML private VBox          favBlogsContainer;
     @FXML private VBox          myForumTopicsContainer;
+
+    @FXML private Label lblLatestForum;
+    @FXML private Label lblLatestGroup;
+    @FXML private Label lblLatestCounselor;
+    @FXML private Label lblLatestMessage;
+    @FXML private Label lblLatestMeditation;
+    @FXML private Label lblLatestJournal;
 
     private final String[] quotes = {
         "Her yeni gün, taze bir başlangıçtır.",
@@ -48,6 +45,7 @@ public class HomeController {
 
             loadFavorites(user);
             loadMyForumTopics(user);
+            updateDynamicShortcuts(user);
 
         } else {
             lblGreeting.setText("Hos Geldin");
@@ -148,6 +146,47 @@ public class HomeController {
     }
 
 
+
+    private void updateDynamicShortcuts(BaseUser user) {
+        // 1. Forum
+        var topic = MainApp.forumService.getLatestTopicForUser(user);
+        if (topic != null) {
+            lblLatestForum.setText(topic.getTitle());
+        } else {
+            var allTopics = MainApp.forumService.getAllTopics();
+            if (!allTopics.isEmpty()) lblLatestForum.setText(allTopics.get(0).getTitle());
+        }
+ 
+        // 2. Groups
+        var room = MainApp.chatRoomService.getLatestRoomForUser(user);
+        if (room != null) {
+            lblLatestGroup.setText(room.getName());
+        }
+
+        // 3. Counselor
+        var counselor = MainApp.messageService.getLatestConsultedCounselor(user);
+        if (counselor != null) {
+            lblLatestCounselor.setText(counselor.getPersona());
+        }
+
+        // 4. Message
+        var partner = MainApp.messageService.getLatestConversationPartner(user);
+        if (partner != null) {
+            lblLatestMessage.setText(partner.getPersona());
+        }
+
+        // 5. Meditation
+        var recentTracks = com.mindshield.services.MeditationPlaybackService.getInstance().getRecentTracks();
+        if (!recentTracks.isEmpty()) {
+            lblLatestMeditation.setText(recentTracks.get(0).getTitle());
+        }
+
+        // 6. Journal
+        var journalEntries = MainApp.journalService.listAllMyEntries(user);
+        if (!journalEntries.isEmpty()) {
+            lblLatestJournal.setText(journalEntries.get(0).getTitle());
+        }
+    }
 
     @FXML
     private void navToBlog() {
