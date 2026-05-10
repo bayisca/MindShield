@@ -41,11 +41,9 @@ public final class MeditationPlaybackService {
     private MeditationPlaybackService() {
         tracks.add(new MeditationTrack("1", "Derin Uyku", "Umut Kaan", "derin_uyku.mp3",
                 "Uykuya dalmayı kolaylaştıran frekanslar."));
-        tracks.add(new MeditationTrack("2", "Sabah Enerjisi", "Zarif Serra", "sabah_enerjisi.mp3",
-                "Güne enerjik başlamak için motivasyon sesi."));
-        tracks.add(new MeditationTrack("3", "Stres Giderme", "", "stres_giderme.mp3",
+        tracks.add(new MeditationTrack("2", "Stres Giderme", "", "stres_giderme.mp3",
                 "Yoğun stres anlarında dinlenmesi gereken meditasyon."));
-        tracks.add(new MeditationTrack("4", "Odaklanma Müzigi", "", "odaklanma.mp3",
+        tracks.add(new MeditationTrack("3", "Odaklanma Müzigi", "", "odaklanma.mp3",
                 "Çalışırken veya ders çalışırken odaklanmayı artırır."));
     }
 
