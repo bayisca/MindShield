@@ -56,12 +56,4 @@ public class Counselor extends BaseUser {
     public void setRating(double rating) {
         this.rating = rating;
     }
-
-    public void publishArticle(String title, String body) {
-        // Danışman makale yayınlama yeteneği
-    }
-
-    public void respondToClient(String clientId, String response) {
-        // Danışman müşteriye yanıt verme yeteneği
-    }
 }
