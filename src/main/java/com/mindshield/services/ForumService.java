@@ -46,8 +46,8 @@ public class ForumService {
         }
         return categories;
     }
-
-    public List<ForumTopic> getAllTopics() {
+    
+    public List<ForumTopic> getAllTopics() { 
         return searchTopics(null, "");
     }
 

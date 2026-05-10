@@ -20,10 +20,8 @@ public class PostService {
 
     private static final int MAX_POST_WORD_LIMIT = 5000;
 
-    // --------------------------------------------------
-    // WORD LIMIT
-    // --------------------------------------------------
-
+    // WORD LIMIT--------------
+    
     public void validateWordLimit(String body) {
 
         if (body == null || body.trim().isEmpty())
@@ -48,9 +46,7 @@ public class PostService {
         return MAX_POST_WORD_LIMIT;
     }
 
-    // --------------------------------------------------
-    // CREATE POST
-    // --------------------------------------------------
+    // CREATE POST------------
 
     public BlogPost createPost(BaseUser author, String title, String body) {
 
@@ -91,10 +87,9 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // UPDATE POST
-    // --------------------------------------------------
-
+   
+    // UPDATE POST---------------------
+  
     public BlogPost updatePost(
             BaseUser author,
             String postId,
@@ -134,9 +129,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // DELETE POST
-    // --------------------------------------------------
+    // DELETE POST---------------------------------  
 
     public BlogPost unpublishPost(BaseUser author, String postId) {
 
@@ -168,9 +161,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // ADMIN DELETE
-    // --------------------------------------------------
+    // ADMIN DELETE---------------------------------
 
     public BlogPost deletePostAsAdmin(
             BaseUser admin,
@@ -185,9 +176,8 @@ public class PostService {
         return unpublishPost(admin, postId);
     }
 
-    // --------------------------------------------------
-    // ADD COMMENT
-    // --------------------------------------------------
+   
+    // ADD COMMENT------------------------------  
 
     public Comment addComment(
             String postId,
@@ -225,9 +215,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // DELETE COMMENT
-    // --------------------------------------------------
+    // DELETE COMMENT-----------------------------------------
 
     public void deleteComment(
             String commentId,
@@ -276,9 +264,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // GET COMMENTS OF POST
-    // --------------------------------------------------
+    // GET COMMENTS OF POST-----------------------------------------
 
     public List<Comment> getCommentsForPost(String postId) {
 
@@ -318,9 +304,7 @@ public class PostService {
         return comments;
     }
 
-    // --------------------------------------------------
-    // SEARCH POSTS
-    // --------------------------------------------------
+    // SEARCH POSTS----------------------------------------
 
     public List<BlogPost> searchPosts(String searchTerm) {
 
@@ -353,11 +337,9 @@ public class PostService {
         return posts;
     }
 
-    // --------------------------------------------------
-    // GET ALL POSTS
-    // --------------------------------------------------
+    // GET ALL POSTS-------------------------------------------
 
-    public List<BlogPost> getAllPosts() {
+    public List<BlogPost> getAllPosts() {  
 
         List<BlogPost> posts = new ArrayList<>();
 
@@ -383,9 +365,7 @@ public class PostService {
         return posts;
     }
 
-    // --------------------------------------------------
-    // FIND POST
-    // --------------------------------------------------
+    // FIND POST-------------------------------------------
 
     public BlogPost findPostById(String postId) {
 
@@ -415,9 +395,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // POSTS BY AUTHOR
-    // --------------------------------------------------
+    // POSTS BY AUTHOR-------------------------------------------
 
     public List<BlogPost> getPostsByAuthor(BaseUser author) {
 
@@ -486,9 +464,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // LOAD USER
-    // --------------------------------------------------
+    // LOAD USER----------------------------------------
 
     private BaseUser loadUserById(String id) {
 
@@ -532,9 +508,7 @@ public class PostService {
         }
     }
 
-    // --------------------------------------------------
-    // BUILD POST
-    // --------------------------------------------------
+    // BUILD POST------------------------------------
 
     private BlogPost buildPostFromResult(ResultSet rs) throws Exception {
 

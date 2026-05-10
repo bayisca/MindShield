@@ -8,8 +8,8 @@ public final class PasswordRules {
     private PasswordRules() {
     }
 
-    /** Boş veya null dönerse şifre geçerlidir; aksi halde kullanıcıya gösterilecek Türkçe hata mesajı. */
-    public static String validate(String password) {
+    // Boş veya null dönerse şifre geçerlidir; aksi halde kullanıcıya gösterilecek Türkçe hata mesajı. 
+    public static String validate(String password) { 
         if (password == null || password.isEmpty()) {
             return "Şifre boş bırakılamaz.";
         }

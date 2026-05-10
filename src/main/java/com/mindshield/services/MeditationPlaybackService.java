@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.mindshield.dao.MediaDao;
+import com.mindshield.dao.MediaDaoImpl;
+import com.mindshield.models.BaseUser;
 import com.mindshield.models.MeditationTrack;
+import com.mindshield.ui.DashboardController;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
@@ -16,10 +20,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import com.mindshield.dao.MediaDao;
-import com.mindshield.dao.MediaDaoImpl;
-import com.mindshield.ui.DashboardController;
-import com.mindshield.models.BaseUser;
 
 /**
  * Sekme değişiminde controller yeniden oluşturulsa bile çalmayı sürdürmek için
@@ -95,9 +95,9 @@ public final class MeditationPlaybackService {
     }
 
     /**
-     * @return false if audio file missing or load error
+     * index geçersizse false döner, aksi halde çalmaya başlar ve true döner.
      */
-    public boolean playTrackAt(int index) {
+    public boolean playTrackAt(int index) { //
         if (index < 0 || index >= tracks.size()) {
             return false;
         }

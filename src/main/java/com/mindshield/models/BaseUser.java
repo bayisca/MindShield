@@ -6,14 +6,12 @@ import com.mindshield.ui.UserRole;
 
 public abstract class BaseUser {
 
-
-
-        private String id;
+    private String id;
     private String persona;
     private String password;
     private UserRole role;
-    /** Hesabın oluşturulduğu tarih (eski kayıtlarda null olabilir). */
-    private LocalDate registeredAt;
+    
+    private LocalDate registeredAt; // Hesap oluşturulma tarihi
 
 
      public BaseUser(String id, String persona, String password, UserRole role) {

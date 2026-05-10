@@ -1,5 +1,7 @@
 package com.mindshield.services;
 
+import java.util.UUID;
+
 import com.mindshield.dao.UserDao;
 import com.mindshield.dao.UserDaoImpl;
 import com.mindshield.models.BaseUser;
@@ -7,8 +9,6 @@ import com.mindshield.models.Counselor;
 import com.mindshield.models.StandardUser;
 import com.mindshield.ui.UserRole;
 import com.mindshield.util.PasswordRules;
-
-import java.util.UUID;
 
 public class UserService {
 
@@ -24,7 +24,7 @@ public class UserService {
 
     public BaseUser registerUser(String persona, String password, UserRole role, String expertise) {
         if (persona == null || persona.trim().isEmpty()) {
-            throw new IllegalArgumentException("Kullanıcı adı veya rumuz boş bırakılamaz.");
+            throw new IllegalArgumentException("Persona boş bırakılamaz.");
         }
         
         if (role == UserRole.COUNSELOR && (expertise == null || expertise.trim().isEmpty())) {
@@ -34,7 +34,7 @@ public class UserService {
         validatePassword(password);
 
         if (userDao.existsByPersona(persona.trim())) {
-            throw new IllegalArgumentException("Bu rumuz daha önce kapılmış, başka bir tane dene.");
+            throw new IllegalArgumentException("Bu persona daha önce kapılmış, başka bir tane dene.");
         }
 
         String id = UUID.randomUUID().toString();

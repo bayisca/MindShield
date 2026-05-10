@@ -1,6 +1,8 @@
 package com.mindshield.services;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +16,7 @@ public class MessageService {
     public Message sendMessage(BaseUser sender, BaseUser receiver, String content) {
 
         if (content == null || content.trim().isEmpty()) {
-            throw new IllegalArgumentException("Message content cannot be empty");
+            throw new IllegalArgumentException("Message içeriği bos olamaz!");
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -44,7 +46,7 @@ public class MessageService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Message send failed");
+            throw new RuntimeException("Mesaj Gönderilemedi");
         }
     }
 
@@ -113,7 +115,7 @@ public class MessageService {
 
     public void purgeInvolvingPersona(String userId) {
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        try (Connection conn = DatabaseConnection.getConnection()) { 
 
             PreparedStatement ps = conn.prepareStatement("""
                 DELETE FROM DMmessages

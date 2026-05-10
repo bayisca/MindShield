@@ -41,7 +41,7 @@ public class JournalService {
         }
     }
 
-    /** Hesap silindiğinde çağrılır — {@code journals.user_id} ile eşleşen kayıtlar silinir. */
+    // Hesap silindiğinde çağrılır — {@code journals.user_id} ile eşleşen kayıtlar silinir. 
     public void purgeEntriesForPersona(String userId) {
         journalDao.deleteEntriesByUserId(userId);
     }
@@ -76,17 +76,6 @@ public class JournalService {
                 .sorted(Comparator.comparing(JournalEntry::getCreatedAt).reversed())
                 .collect(Collectors.toList());
     }
-
-// public List<JournalEntry> listAllMyEntries(BaseUser user) {
-
-//     System.out.println("CURRENT USER: " + user.getId());
-
-//     return journalDao.findAll().stream()
-//             .peek(e -> System.out.println("DB USER: " + e.getAuthor().getId()))
-//             .filter(e -> e.isAuthor(user))
-//             .sorted(Comparator.comparing(JournalEntry::getCreatedAt).reversed())
-//             .collect(Collectors.toList());
-// }
 
 
     public List<JournalEntry> listAllMyEntries(BaseUser user) {
