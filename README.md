@@ -20,14 +20,16 @@ MindShield, anonim ruh sağlığı desteği ve topluluk etkileşimi için geliş
 1. Projeyi bilgisayarınıza indirin veya klonlayın:
    ```bash
    git clone https://github.com/kullaniciadi/mindshield.git
+   
 2.Proje dizinine gidin:
- '''bash
-cd MindShield
-
+ ```bash
+ cd MindShield
+```
 3.Maven bağımlılıklarını yükleyin ve projeyi derleyin:
- '''bash
-mvn clean install
-
+ ```bash
+   mvn clean install
+```
 4.Uygulamayı başlatın:
- '''bash
+ ```bash
 mvn javafx:run
+```
