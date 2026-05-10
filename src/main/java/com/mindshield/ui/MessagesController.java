@@ -75,6 +75,19 @@ public class MessagesController {
             }
         });
 
+        dmChatListView.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(com.mindshield.models.Message msg, boolean empty) {
+                super.updateItem(msg, empty);
+                if (empty || msg == null) {
+                    setText(null);
+                    return;
+                }
+                String who = msg.getSender() != null ? msg.getSender().getPersona() : "?";
+                setText(who + ":  " + msg.getContent());
+            }
+        });
+
         roomChatListView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(ChatMessage msg, boolean empty) {

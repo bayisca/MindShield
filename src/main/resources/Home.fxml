@@ -78,16 +78,16 @@
                      <children>
                         <Label text="MÜZİK" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label fx:id="lblLatestMeditation" text="SoulShield" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Rahatlatıcı sesleri dinle." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="Ruhun için dinle." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
                   <!-- Card 6: JourShield -->
                   <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
                      <children>
-                        <Label text="JOUR" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
+                        <Label text="GÜNLÜK" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label fx:id="lblLatestJournal" text="JourShield" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="Gizli günlük tut." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
+                        <Label text="Kişisel günlük tut." style="-fx-font-size: 12px; -fx-text-fill: #6A7C8F;" wrapText="true" />
                      </children>
                   </VBox>
 
