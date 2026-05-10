@@ -49,6 +49,18 @@ public class DatabaseInitializer {
                             FOREIGN KEY (media_id) REFERENCES media(id)
                         )
                     """);
+            stmt.execute("""
+                        CREATE TABLE IF NOT EXISTS recent_songs (
+                            id VARCHAR(50) PRIMARY KEY,
+                            user_id VARCHAR(50) NOT NULL,
+                            media_id VARCHAR(50) NOT NULL,
+
+                            played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                            FOREIGN KEY (user_id) REFERENCES users(id),
+                            FOREIGN KEY (media_id) REFERENCES media(id)
+                        )
+                    """);
 
             // JOURNALS TABLE
             stmt.execute("""

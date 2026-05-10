@@ -53,9 +53,11 @@ com\mindshield\exceptions\UnauthorizedException.class
 com\mindshield\models\ChatRoom.class
 com\mindshield\services\UserService.class
 com\mindshield\models\BaseUser.class
+com\mindshield\dao\MediaDaoImpl.class
 com\mindshield\models\MeditationTrack.class
 com\mindshield\ui\JourShieldController$2.class
 com\mindshield\ui\JourShieldController.class
+com\mindshield\dao\MediaDao.class
 com\mindshield\models\StandardUser.class
 com\mindshield\models\ForumReply.class
 com\mindshield\services\ForumService.class
@@ -67,6 +69,5 @@ com\mindshield\ui\ForumController$2.class
 com\mindshield\ui\CounselorSelectController.class
 com\mindshield\models\BlogPost.class
 com\mindshield\models\Content.class
-com\mindshield\dao\JournalDaoImpl$1.class
 com\mindshield\ui\AdminDashboardController$1.class
 com\mindshield\services\JournalService.class

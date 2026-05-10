@@ -16,6 +16,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import com.mindshield.dao.MediaDao;
+import com.mindshield.dao.MediaDaoImpl;
+import com.mindshield.ui.DashboardController;
+import com.mindshield.models.BaseUser;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Sekme değişiminde controller yeniden oluşturulsa bile çalmayı sürdürmek için
@@ -38,21 +44,30 @@ public final class MeditationPlaybackService {
     private final StringProperty nowPlayingLine = new SimpleStringProperty("Şu An Çalan: (Seçim Yapılmadı)");
     private final ReadOnlyBooleanWrapper playing = new ReadOnlyBooleanWrapper(false);
 
+    private final MediaDao mediaDao = new MediaDaoImpl();
+
     private MeditationPlaybackService() {
-        tracks.add(new MeditationTrack("1", "Derin Uyku", "Umut Kaan", "derin_uyku.mp3",
-                "Uykuya dalmayı kolaylaştıran frekanslar."));
-        tracks.add(new MeditationTrack("2", "Stres Giderme", "", "stres_giderme.mp3",
-                "Yoğun stres anlarında dinlenmesi gereken meditasyon."));
-        tracks.add(new MeditationTrack("3", "Odaklanma Müzigi", "", "odaklanma.mp3",
-                "Çalışırken veya ders çalışırken odaklanmayı artırır."));
+        tracks.addAll(mediaDao.getAllTracks());
+        if (tracks.isEmpty()) {
+            MeditationTrack track1 = new MeditationTrack("1", "Derin Uyku", "Umut Kaan", "derin_uyku.mp3", "Uykuya dalmayı kolaylaştıran frekanslar.");
+            MeditationTrack track2 = new MeditationTrack("2", "Stres Giderme", "", "stres_giderme.mp3", "Yoğun stres anlarında dinlenmesi gereken meditasyon.");
+            MeditationTrack track3 = new MeditationTrack("3", "Odaklanma Müzigi", "", "odaklanma.mp3", "Çalışırken veya ders çalışırken odaklanmayı artırır.");
+            mediaDao.saveTrack(track1);
+            mediaDao.saveTrack(track2);
+            mediaDao.saveTrack(track3);
+            tracks.add(track1);
+            tracks.add(track2);
+            tracks.add(track3);
+        }
     }
 
     public List<MeditationTrack> getTracks() {
         return Collections.unmodifiableList(tracks);
     }
 
-    public List<MeditationTrack> getRecentTracks() {
-        return Collections.unmodifiableList(recentTracks);
+    public List<MeditationTrack> getRecentTracks(String userId) {
+        if (userId == null) return Collections.emptyList();
+        return mediaDao.getRecentTracks(userId, 3);
     }
 
     public int getCurrentIndex() {
@@ -60,6 +75,7 @@ public final class MeditationPlaybackService {
     }
     
     public void addTrack(MeditationTrack track) {
+        mediaDao.saveTrack(track);
         tracks.add(track);
     }
 
@@ -123,11 +139,9 @@ public final class MeditationPlaybackService {
             mediaPlayer.play();
             nowPlayingLine.set("Şu An Çalan: " + track.getTitle());
             
-            // Son dinlenenlere ekle (maksimum 3 sarki tut)
-            recentTracks.remove(track);
-            recentTracks.add(0, track);
-            if (recentTracks.size() > 3) {
-                recentTracks.remove(3);
+            BaseUser user = DashboardController.getCurrentUser();
+            if (user != null) {
+                mediaDao.addRecentTrack(user.getId(), track.getId());
             }
             
             return true;

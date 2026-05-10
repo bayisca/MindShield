@@ -1,0 +1,6 @@
+2026-05-10 17:09:18.760279+03:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "CATEGORY CHARACTER VARYING(50)": "U&'Yo\\011fun stres anlar\\0131nda dinlenmesi gereken meditasyon.' (52)"; SQL statement:
+MERGE INTO media (id, title, artist, url, category) KEY(id) VALUES (?, ?, ?, ?, ?) [22001-224]
+2026-05-10 17:09:18.765416+03:00 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "CATEGORY CHARACTER VARYING(50)": "U&'\\00c7al\\0131\\015f\\0131rken veya ders \\00e7al\\0131\\015f\\0131rken odaklanmay\\01... (52)"; SQL statement:
+MERGE INTO media (id, title, artist, url, category) KEY(id) VALUES (?, ?, ?, ?, ?) [22001-224]

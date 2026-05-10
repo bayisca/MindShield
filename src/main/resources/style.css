@@ -37,6 +37,7 @@
 ═══════════════════════════════════════════ */
 .main-container {
     -fx-background-color: #F3E3D0;
+    -fx-background-size: cover;
 }
 
 .label {
@@ -454,6 +455,7 @@
 ═══════════════════════════════════════════ */
 .welcome-root {
     -fx-background-color: linear-gradient(to bottom right, #F3E3D0, #EAE0D2 50%, #D2C4B4);
+    -fx-background-size: cover;
 }
 
 .welcome-logo {

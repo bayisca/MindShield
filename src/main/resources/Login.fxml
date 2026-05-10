@@ -11,13 +11,20 @@
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.mindshield.ui.LoginController">
    <children>
-      <HBox prefHeight="620.0" prefWidth="820.0"
+      <GridPane prefHeight="620.0" prefWidth="820.0"
             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints percentWidth="40.0" />
+            <ColumnConstraints percentWidth="60.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" />
+         </rowConstraints>
          <children>
 
             <!-- LEFT: Branding panel -->
-            <VBox prefWidth="400.0" alignment="CENTER" spacing="50.0"
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" alignment="CENTER" spacing="50.0"
                   style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-padding: 15 15 15;">
                <children>
                   <ImageView fitHeight="200.0" fitWidth="200.0" preserveRatio="true" pickOnBounds="true">
@@ -127,7 +134,7 @@
             </VBox>
 
             <!-- RIGHT: Login form -->
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS"
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER"
                   style="-fx-background-color: #F3E3D0; -fx-padding: 60 70;">
                <children>
                   <VBox maxWidth="340.0" spacing="0.0">
@@ -164,6 +171,6 @@
             </VBox>
 
          </children>
-      </HBox>
+      </GridPane>
    </children>
 </AnchorPane>

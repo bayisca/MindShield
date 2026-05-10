@@ -72,8 +72,10 @@ public class MeditationController {
     private void loadLibrary() {
         boolean showFavs = chkShowFavorites != null && chkShowFavorites.isSelected();
         ArrayList<MeditationTrack> items = new ArrayList<>();
+        com.mindshield.dao.MediaDao mediaDao = new com.mindshield.dao.MediaDaoImpl();
+        com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
         for (MeditationTrack track : playback.getTracks()) {
-            boolean isFav = DashboardController.getCurrentUser() != null && DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+            boolean isFav = user != null && mediaDao.isFavorite(user.getId(), track.getId());
             if (!showFavs || isFav) {
                 items.add(track);
             }
@@ -97,13 +99,17 @@ public class MeditationController {
                     
                     Button favBtn = new Button();
                     favBtn.setStyle("-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand;");
-                    boolean isFav = DashboardController.getCurrentUser() != null && DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+                    boolean isFav = user != null && mediaDao.isFavorite(user.getId(), track.getId());
                     favBtn.setText(isFav ? "❤️" : "🤍");
                     
                     favBtn.setOnAction(e -> {
-                        if (DashboardController.getCurrentUser() != null) {
-                            DashboardController.getCurrentUser().toggleFavoriteSong(track.getTitle());
-                            boolean updatedFav = DashboardController.getCurrentUser().isFavoriteSong(track.getTitle());
+                        if (user != null) {
+                            if (mediaDao.isFavorite(user.getId(), track.getId())) {
+                                mediaDao.removeFavorite(user.getId(), track.getId());
+                            } else {
+                                mediaDao.addFavorite(user.getId(), track.getId());
+                            }
+                            boolean updatedFav = mediaDao.isFavorite(user.getId(), track.getId());
                             favBtn.setText(updatedFav ? "❤️" : "🤍");
                             if (chkShowFavorites != null && chkShowFavorites.isSelected() && !updatedFav) {
                                 loadLibrary(); // Eğer sadece favoriler açıksa ve favoriden çıkarılırsa listeyi yenile

@@ -81,7 +81,7 @@ public class HomeController {
     private void loadFavorites(BaseUser user) {
         if (favSongsContainer != null) {
             favSongsContainer.getChildren().clear();
-            var songs = com.mindshield.services.MeditationPlaybackService.getInstance().getRecentTracks();
+            var songs = com.mindshield.services.MeditationPlaybackService.getInstance().getRecentTracks(user.getId());
             
             // Header textini de güncelleyelim (Label hiyerarşide favSongsContainer'in üstünde ama ID'si yok,
             // bunu Home.fxml'de yaptık. Biz sadece container içini dolduralım).
@@ -176,7 +176,7 @@ public class HomeController {
         }
 
         // 5. Meditation
-        var recentTracks = com.mindshield.services.MeditationPlaybackService.getInstance().getRecentTracks();
+        var recentTracks = com.mindshield.services.MeditationPlaybackService.getInstance().getRecentTracks(user.getId());
         if (!recentTracks.isEmpty()) {
             lblLatestMeditation.setText(recentTracks.get(0).getTitle());
         }

@@ -186,7 +186,7 @@ public class MainApp extends Application {
         primaryStage.setMinWidth(860);
         primaryStage.setMinHeight(640);
         primaryStage.setResizable(true);
-        primaryStage.setMaximized(true);
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
