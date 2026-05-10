@@ -30,7 +30,7 @@
 *   **Etkileşim:** Yazılara yorum yapma ve başlık açma özellikleri.
 
 ### 👮 Yönetici Paneli (Moderasyon)
-*   **Danışman Onayı:** Sisteme kayıt olan danışmanların sertifika/yetki onayı.
+*   **Danışman Onayı:** Sisteme kayıt olan danışmanların yetki onayı.
 *   **Sistem Logları:** Uygulama içindeki önemli olayların (hata, giriş vb.) takibi.
 
 ---
