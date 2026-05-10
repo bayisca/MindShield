@@ -183,10 +183,13 @@ public class MainApp extends Application {
         // 3. Window settings
         primaryStage.setTitle("MindShield — Anonim Danışmanlık");
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(860);
-        primaryStage.setMinHeight(640);
+        
+        // Uygulamanın tam pencere (maximized) açılmasını sağlıyoruz
+        primaryStage.setMaximized(true);
+        
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(700);
         primaryStage.setResizable(true);
-        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 

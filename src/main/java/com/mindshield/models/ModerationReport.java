@@ -51,6 +51,10 @@ public class ModerationReport implements Serializable {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Kind getKind() {
         return kind;
     }
@@ -85,6 +89,10 @@ public class ModerationReport implements Serializable {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public boolean isResolved() {

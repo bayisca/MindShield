@@ -20,8 +20,6 @@ import com.mindshield.dao.MediaDao;
 import com.mindshield.dao.MediaDaoImpl;
 import com.mindshield.ui.DashboardController;
 import com.mindshield.models.BaseUser;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  * Sekme değişiminde controller yeniden oluşturulsa bile çalmayı sürdürmek için
@@ -36,7 +34,6 @@ public final class MeditationPlaybackService {
     }
 
     private final List<MeditationTrack> tracks = new ArrayList<>();
-    private final List<MeditationTrack> recentTracks = new ArrayList<>();
     private MediaPlayer mediaPlayer;
     private int currentIndex = -1;
 

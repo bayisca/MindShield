@@ -1,83 +1,143 @@
 package com.mindshield.dao;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.mindshield.models.BaseUser;
+import com.mindshield.models.BlogPost;
+import com.mindshield.models.Comment;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import com.mindshield.models.BlogPost;
 
 public class PostDaoImpl implements PostDao {
-    private List<BlogPost> dbMock;
-    private static final String DATA_FILE = "posts.dat";
+    private final UserDao userDao;
 
     public PostDaoImpl() {
-        this.dbMock = loadPosts();
+        this.userDao = new UserDaoImpl();
     }
 
     @Override
     public void save(BlogPost post) {
-        dbMock.add(post);
-        savePosts();
-    }
-
-    @Override
-    public void deleteById(String id) {
-        if (id == null) return;
-        boolean removed = dbMock.removeIf(p -> p != null && id.equals(p.getId()));
-        if (removed) {
-            savePosts();
-        }
-    }
-
-    public void update() {
-        // Called when an existing post is modified (e.g. comment added, published)
-        savePosts();
-    }
-
-    @Override
-    public BlogPost findById(String id) {
-        return dbMock.stream()
-                .filter(post -> post.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public List<BlogPost> findAll() {
-        return new ArrayList<>(dbMock);
-    }
-
-    @Override
-    public List<BlogPost> searchByTitleOrContent(String searchTerm) {
-        return dbMock.stream()
-                .filter(post -> post.containsInTitle(searchTerm) || post.containsInBody(searchTerm))
-                .collect(Collectors.toList());
-    }
-
-    private void savePosts() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(dbMock);
-        } catch (IOException e) {
+        String sql = "MERGE INTO blog_posts (id, user_id, title, content, created_at) KEY(id) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, post.getId());
+            ps.setString(2, post.getAuthor().getId());
+            ps.setString(3, post.getTitle());
+            ps.setString(4, post.getBody());
+            ps.setTimestamp(5, Timestamp.valueOf(post.getCreatedAt()));
+            ps.executeUpdate();
+            saveComments(post);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private List<BlogPost> loadPosts() {
-        File file = new File(DATA_FILE);
-        if (file.exists()) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                return (List<BlogPost>) ois.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+    private void saveComments(BlogPost post) throws SQLException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Merging comments
+            String sql = "MERGE INTO blog_comments (id, post_id, user_id, content, created_at) KEY(id) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                for (Comment c : post.getComments()) {
+                    ps.setString(1, c.getId());
+                    ps.setString(2, post.getId());
+                    ps.setString(3, c.getAuthor().getId());
+                    ps.setString(4, c.getBody());
+                    ps.setTimestamp(5, Timestamp.valueOf(c.getCreatedAt()));
+                    ps.addBatch();
+                }
+                ps.executeBatch();
             }
         }
-        return new ArrayList<>();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        String sql = "DELETE FROM blog_posts WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BlogPost findById(String id) {
+        String sql = "SELECT * FROM blog_posts WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapPost(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<BlogPost> findAll() {
+        List<BlogPost> posts = new ArrayList<>();
+        String sql = "SELECT * FROM blog_posts ORDER BY created_at DESC";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                posts.add(mapPost(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    @Override
+    public List<BlogPost> searchByTitleOrContent(String searchTerm) {
+        List<BlogPost> posts = new ArrayList<>();
+        String sql = "SELECT * FROM blog_posts WHERE title LIKE ? OR content LIKE ? ORDER BY created_at DESC";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            String term = "%" + searchTerm + "%";
+            ps.setString(1, term);
+            ps.setString(2, term);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    posts.add(mapPost(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    private BlogPost mapPost(ResultSet rs) throws SQLException {
+        String id = rs.getString("id");
+        BaseUser author = userDao.findById(rs.getString("user_id"));
+        BlogPost post = new BlogPost(id, author, rs.getString("title"), rs.getString("content"));
+        post.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+        
+        // Load comments
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM blog_comments WHERE post_id = ? ORDER BY created_at ASC")) {
+            ps.setString(1, id);
+            try (ResultSet crs = ps.executeQuery()) {
+                while (crs.next()) {
+                    BaseUser cAuthor = userDao.findById(crs.getString("user_id"));
+                    Comment comment = new Comment(cAuthor, crs.getString("content"));
+                    comment.setId(crs.getString("id"));
+                    comment.setCreatedAt(crs.getTimestamp("created_at").toLocalDateTime());
+                    post.addComment(comment);
+                }
+            }
+        }
+        return post;
+    }
+    @Override
+    public void update() {
+        // Satisfaction of interface. Specific updates are handled by save (MERGE) or direct SQL in services.
     }
 }

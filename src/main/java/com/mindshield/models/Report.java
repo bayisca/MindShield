@@ -22,6 +22,7 @@ public class Report {
     public String getContentId() { return contentId; }
     public String getReason() { return reason; }
     public LocalDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 
     @Override
     public String toString() {

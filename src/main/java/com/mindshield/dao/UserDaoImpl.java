@@ -125,7 +125,12 @@ public class UserDaoImpl implements UserDao {
         String id = rs.getString("id");
         String username = rs.getString("username");
         String password = rs.getString("password");
-        UserRole role = UserRole.valueOf(rs.getString("role"));
+        UserRole role;
+        try {
+            role = UserRole.valueOf(rs.getString("role"));
+        } catch (Exception e) {
+            role = UserRole.CLIENT;
+        }
         String profession = rs.getString("profession");
 
         if (role == UserRole.COUNSELOR) {

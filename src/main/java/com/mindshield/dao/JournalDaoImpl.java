@@ -209,9 +209,9 @@ System.out.println(entry.getAuthor().getId());
      * Kullanıcının tüm journallarını sil
      */
     @Override
-    public void deleteEntriesByAuthorPersona(String persona) {
+    public void deleteEntriesByUserId(String userId) {
 
-        if (persona == null || persona.isBlank()) {
+        if (userId == null || userId.isBlank()) {
             return;
         }
 
@@ -225,7 +225,7 @@ System.out.println(entry.getAuthor().getId());
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
-            stmt.setString(1, persona);
+            stmt.setString(1, userId);
 
             stmt.executeUpdate();
 

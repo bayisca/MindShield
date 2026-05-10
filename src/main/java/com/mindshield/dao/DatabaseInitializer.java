@@ -229,6 +229,41 @@ public class DatabaseInitializer {
                         ('cat-dayaniklilik', 'Psikolojik Dayaniklilik', 'Zor zamanlarda guc toplama ve aliskanliklar.'),
                         ('cat-depresyon', 'Depresyon Destegi', 'Dusuk mod, motivasyon ve destek arayisi.')
                     """);
+            stmt.execute("""
+                        CREATE TABLE IF NOT EXISTS moderation_reports (
+                            id VARCHAR(50) PRIMARY KEY,
+                            kind VARCHAR(20) NOT NULL,
+                            reporter_persona VARCHAR(50),
+                            reported_persona VARCHAR(50),
+                            post_id VARCHAR(50),
+                            room_id VARCHAR(50),
+                            message_id VARCHAR(50),
+                            message_preview TEXT,
+                            reason TEXT,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            resolved BOOLEAN DEFAULT FALSE
+                        )
+                    """);
+
+            stmt.execute("""
+                        CREATE TABLE IF NOT EXISTS system_logs (
+                            id VARCHAR(50) PRIMARY KEY,
+                            action TEXT NOT NULL,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                    """);
+
+            stmt.execute("""
+                        CREATE TABLE IF NOT EXISTS general_reports (
+                            id VARCHAR(50) PRIMARY KEY,
+                            reporter_id VARCHAR(50),
+                            content_id VARCHAR(50),
+                            reason TEXT,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            FOREIGN KEY (reporter_id) REFERENCES users(id)
+                        )
+                    """);
+
             // yorumlar
             System.out.println("✅ Tablolar başarıyla oluşturuldu.");
 

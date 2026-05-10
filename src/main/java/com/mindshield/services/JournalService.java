@@ -43,7 +43,7 @@ public class JournalService {
 
     /** Hesap silindiğinde çağrılır — {@code journals.user_id} ile eşleşen kayıtlar silinir. */
     public void purgeEntriesForPersona(String userId) {
-        journalDao.deleteEntriesByAuthorPersona(userId);
+        journalDao.deleteEntriesByUserId(userId);
     }
 
     private void enforceOwner(BaseUser user, JournalEntry entry) {
