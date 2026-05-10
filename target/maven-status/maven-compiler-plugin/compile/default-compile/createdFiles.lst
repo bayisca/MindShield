@@ -10,6 +10,7 @@ com\mindshield\ui\DashboardController$1.class
 com\mindshield\ui\DashboardController.class
 com\mindshield\models\Counselor.class
 com\mindshield\models\JournalEntry.class
+com\mindshield\dao\SystemLogDaoImpl.class
 com\mindshield\models\Report.class
 com\mindshield\ui\SettingsController.class
 com\mindshield\ui\ForumController.class
@@ -52,15 +53,18 @@ com\mindshield\ui\Launcher.class
 com\mindshield\exceptions\UnauthorizedException.class
 com\mindshield\models\ChatRoom.class
 com\mindshield\services\UserService.class
+com\mindshield\dao\SystemLogDao.class
 com\mindshield\models\BaseUser.class
 com\mindshield\dao\MediaDaoImpl.class
 com\mindshield\models\MeditationTrack.class
+com\mindshield\dao\ModerationDaoImpl.class
 com\mindshield\ui\JourShieldController$2.class
 com\mindshield\ui\JourShieldController.class
 com\mindshield\dao\MediaDao.class
 com\mindshield\models\StandardUser.class
 com\mindshield\models\ForumReply.class
 com\mindshield\services\ForumService.class
+com\mindshield\dao\ModerationDao.class
 com\mindshield\ui\MessagesController.class
 com\mindshield\models\Admin.class
 com\mindshield\models\ForumTopic.class

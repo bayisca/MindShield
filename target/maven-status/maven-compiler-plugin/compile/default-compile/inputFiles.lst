@@ -6,8 +6,12 @@ C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\JournalDaoImpl.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\MediaDao.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\MediaDaoImpl.java
+C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\ModerationDao.java
+C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\ModerationDaoImpl.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\PostDao.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\PostDaoImpl.java
+C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\SystemLogDao.java
+C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\SystemLogDaoImpl.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\UserDao.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\dao\UserDaoImpl.java
 C:\Users\Umut Kaan Bori\Desktop\project\MindShield\src\main\java\com\mindshield\exceptions\PostNotFoundException.java

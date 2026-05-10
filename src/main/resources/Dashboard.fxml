@@ -55,7 +55,7 @@
                   </Button>
 
                   <Button fx:id="btnNavForum" maxWidth="Infinity" onAction="#showForum"
-                          styleClass="side-button" text="Forum">
+                          styleClass="side-button" text="Forumlar">
                       <graphic>
                           <Label text="🤝" style="-fx-font-size: 18px;" />
                       </graphic>
@@ -76,14 +76,14 @@
                   </Button>
 
                   <Button maxWidth="Infinity" onAction="#showMeditation"
-                          styleClass="side-button" text="SoulShield - Meditasyon">
+                          styleClass="side-button" text="SoulShield">
                       <graphic>
                           <Label text="🎧" style="-fx-font-size: 18px;" />
                       </graphic>
                   </Button>
 
                   <Button fx:id="btnJourShield" maxWidth="Infinity" onAction="#showJourShield"
-                          styleClass="side-button" text="Gunluk (JourShield)">
+                          styleClass="side-button" text="JourShield">
                       <graphic>
                           <Label text="🔒" style="-fx-font-size: 18px;" />
                       </graphic>
