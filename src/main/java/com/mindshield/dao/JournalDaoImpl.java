@@ -79,11 +79,11 @@ System.out.println(entry.getAuthor().getId());
     }
 
     /**
-     * Method ismi aynı bırakıldı.
-     * DB kullandığımız için burada SQL UPDATE çalışıyor.
+     * Günlük girişini güncelle
      */
     @Override
-    public void updateAll() {
+    public void update(JournalEntry entry) {
+        if (entry == null) return;
 
         String sql = """
             UPDATE journals
@@ -95,32 +95,16 @@ System.out.println(entry.getAuthor().getId());
         """;
 
         try (
-                Connection conn = getConnection()
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
+            stmt.setString(1, entry.getTitle());
+            stmt.setString(2, entry.getBody());
+            stmt.setString(3, entry.getMood().name());
+            stmt.setString(4, entry.getId());
 
-            conn.setAutoCommit(false);
-
-            List<JournalEntry> entries = findAll();
-
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-                for (JournalEntry entry : entries) {
-
-                    stmt.setString(1, entry.getTitle());
-
-                    stmt.setString(2, entry.getBody());
-
-                    stmt.setString(3, entry.getMood().name());
-
-                    stmt.setString(4, entry.getId());
-
-                    stmt.addBatch();
-                }
-
-                stmt.executeBatch();
-            }
-
-            conn.commit();
+            stmt.executeUpdate();
+            System.out.println("Journal güncellendi: " + entry.getTitle());
 
         } catch (SQLException e) {
             e.printStackTrace();

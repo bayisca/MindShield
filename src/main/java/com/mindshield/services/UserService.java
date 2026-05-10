@@ -41,9 +41,9 @@ public class UserService {
         BaseUser newUser;
 
         if (role == UserRole.COUNSELOR) {
-            newUser = new Counselor(persona.trim(), id, password, expertise.trim());
+            newUser = new Counselor(id, persona.trim(), password, expertise.trim());
         } else {
-            newUser = new StandardUser(persona.trim(), id, password, role);
+            newUser = new StandardUser(id, persona.trim(), password, role);
         }
 
         userDao.save(newUser);

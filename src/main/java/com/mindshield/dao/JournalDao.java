@@ -7,7 +7,7 @@ import com.mindshield.models.JournalEntry;
 public interface JournalDao {
     void save(JournalEntry entry);
 
-    void updateAll();
+    void update(JournalEntry entry);
 
     void deleteById(String id);
 

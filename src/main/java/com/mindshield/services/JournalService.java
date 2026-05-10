@@ -114,7 +114,7 @@ public class JournalService {
         entry.setTitle(title.trim());
         entry.setBody(body.trim());
         entry.setMood(mood);
-        journalDao.updateAll();
+        journalDao.update(entry);
         return entry;
     }
 

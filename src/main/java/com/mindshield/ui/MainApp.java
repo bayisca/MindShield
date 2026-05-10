@@ -34,7 +34,7 @@ public class MainApp extends Application {
 
     static {
         // Default admin counselor (pre-approved)
-        Counselor admin = new Counselor("admin", "admin-001", "admin123", "Genel Psikoloji");
+        Counselor admin = new Counselor("admin-001", "admin", "admin123", "Genel Psikoloji");
         admin.setApproved(true);
         userDatabase.put("admin", admin);
 
@@ -47,7 +47,7 @@ public class MainApp extends Application {
         userDatabase.put("superadmin", superAdmin);
 
         // Sample counselor for testing
-        Counselor demoDoc = new Counselor("Dr.Ayse", "doc-002", "doc123", "Anksiyete ve Stres");
+        Counselor demoDoc = new Counselor("doc-002", "Dr.Ayse", "doc123", "Anksiyete ve Stres");
         demoDoc.setApproved(true);
         userDatabase.put("Dr.Ayse", demoDoc);
 
