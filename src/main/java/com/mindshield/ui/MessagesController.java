@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 
@@ -27,7 +26,7 @@ public class MessagesController {
     @FXML
     private ListView<String> contactList;
     @FXML
-    private TextArea dmChatArea;
+    private ListView<com.mindshield.models.Message> dmChatListView;
     @FXML
     private TextField dmMessageInput;
     @FXML
@@ -208,14 +207,8 @@ public class MessagesController {
         List<com.mindshield.models.Message> messages = MainApp.messageService.getMessagesBetween(currentUser,
                 contactUser);
 
-        StringBuilder sb = new StringBuilder();
-        for (com.mindshield.models.Message m : messages) {
-            boolean isMe = m.getSender().getPersona().equals(currentUser.getPersona());
-            String label = isMe ? "Sen" : m.getSender().getPersona();
-            sb.append(label).append(":  ").append(m.getContent()).append("\n\n");
-        }
-        dmChatArea.setText(sb.toString());
-        dmChatArea.setScrollTop(Double.MAX_VALUE);
+        dmChatListView.setItems(FXCollections.observableArrayList(messages));
+        dmChatListView.scrollTo(dmChatListView.getItems().size() - 1);
     }
 
     @FXML
@@ -238,6 +231,28 @@ public class MessagesController {
 
         dmMessageInput.clear();
         loadDmHistory();
+    }
+
+    @FXML
+    private void reportDmMessage() {
+        BaseUser currentUser = DashboardController.getCurrentUser();
+        com.mindshield.models.Message msg = dmChatListView.getSelectionModel().getSelectedItem();
+        if (currentUser == null) {
+            return;
+        }
+        if (msg == null) {
+            alert(Alert.AlertType.INFORMATION, "Once listeden bir mesaj secin.");
+            return;
+        }
+        if (msg.getSender() != null && msg.getSender().equals(currentUser)) {
+            alert(Alert.AlertType.INFORMATION, "Kendi mesajinizi sikayet edemezsiniz.");
+            return;
+        }
+        Optional<String> reason = promptReason();
+        reason.ifPresent(r -> {
+            MainApp.moderationService.reportDirectMessage(currentUser, msg, r);
+            alert(Alert.AlertType.INFORMATION, "Sikayetiniz yoneticiye iletildi.");
+        });
     }
 
     @FXML

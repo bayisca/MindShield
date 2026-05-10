@@ -54,6 +54,22 @@ public class ModerationService {
         moderationDao.save(r);
     }
 
+    public synchronized void reportDirectMessage(BaseUser reporter, com.mindshield.models.Message message, String reason) {
+        if (reporter == null || message == null || message.getSender() == null) {
+            return;
+        }
+        ModerationReport r = new ModerationReport(
+                ModerationReport.Kind.DIRECT_MESSAGE,
+                reporter.getPersona(),
+                message.getSender().getPersona(),
+                message.getId(),
+                null,
+                message.getId(),
+                truncate(message.getContent(), 200),
+                reason);
+        moderationDao.save(r);
+    }
+
     public synchronized void reportDirectUser(BaseUser reporter, String reportedPersona, String reason) {
         if (reporter == null || reportedPersona == null || reportedPersona.isBlank()) {
             return;

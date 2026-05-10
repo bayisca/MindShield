@@ -4,8 +4,7 @@ package com.mindshield.models;
  * Özel günlük girişi: Blog yazılarından farklı olarak asla yayınlanamaz ({@code isPublished} yoktur)
  * ve yalnızca yazarı tarafından okunabilir.
  */
-public class JournalEntry extends Content {
-    private static final long serialVersionUID = 1L; 
+public class JournalEntry extends Content { 
 
     private JournalMood mood;
 

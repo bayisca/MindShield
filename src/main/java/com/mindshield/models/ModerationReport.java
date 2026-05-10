@@ -8,6 +8,7 @@ public class ModerationReport {
     public enum Kind {
         BLOG_POST,
         ROOM_MESSAGE,
+        DIRECT_MESSAGE,
         DIRECT_USER
     }
 
@@ -106,6 +107,7 @@ public class ModerationReport {
         String head = switch (kind) {
             case BLOG_POST -> "[Blog] ";
             case ROOM_MESSAGE -> "[Grup] ";
+            case DIRECT_MESSAGE -> "[DM Mesaj] ";
             case DIRECT_USER -> "[DM] ";
         };
         return head + "@" + reportedPersona + " — " + (reason.length() > 48 ? reason.substring(0, 45) + "…" : reason);

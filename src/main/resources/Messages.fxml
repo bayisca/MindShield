@@ -41,15 +41,16 @@
                                                  style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" />
                                        </children>
                                     </VBox>
-                                    <Button onAction="#reportDmContact" styleClass="btn-secondary" text="Sikayet et" />
+                                    <Button onAction="#reportDmMessage" styleClass="btn-secondary" text="Mesaji sikayet et" />
+                                    <Button onAction="#reportDmContact" styleClass="btn-secondary" text="Kullanici sikayet et" />
                                  </children>
                               </HBox>
                               <Separator />
                               <VBox styleClass="card" VBox.vgrow="ALWAYS"
                                     style="-fx-padding: 14; -fx-background-radius: 12; -fx-border-radius: 12;">
                                  <children>
-                                    <TextArea fx:id="dmChatArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"
-                                              style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-text-fill: #4A5B6C; -fx-font-size: 13; -fx-border-color: transparent;" />
+                                    <ListView fx:id="dmChatListView" VBox.vgrow="ALWAYS"
+                                        style="-fx-background-color: #EAE0D2; -fx-border-radius: 10;" />
                                  </children>
                               </VBox>
                               <HBox spacing="10.0">
