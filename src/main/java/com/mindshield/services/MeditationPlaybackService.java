@@ -45,17 +45,6 @@ public final class MeditationPlaybackService {
 
     private MeditationPlaybackService() {
         tracks.addAll(mediaDao.getAllTracks());
-        if (tracks.isEmpty()) {
-            MeditationTrack track1 = new MeditationTrack("1", "Derin Uyku", "Umut Kaan", "derin_uyku.mp3", "Uykuya dalmayı kolaylaştıran frekanslar.");
-            MeditationTrack track2 = new MeditationTrack("2", "Stres Giderme", "", "stres_giderme.mp3", "Yoğun stres anlarında dinlenmesi gereken meditasyon.");
-            MeditationTrack track3 = new MeditationTrack("3", "Odaklanma Müzigi", "", "odaklanma.mp3", "Çalışırken veya ders çalışırken odaklanmayı artırır.");
-            mediaDao.saveTrack(track1);
-            mediaDao.saveTrack(track2);
-            mediaDao.saveTrack(track3);
-            tracks.add(track1);
-            tracks.add(track2);
-            tracks.add(track3);
-        }
     }
 
     public List<MeditationTrack> getTracks() {

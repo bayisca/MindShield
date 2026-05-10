@@ -1,11 +1,9 @@
 package com.mindshield.models;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class ChatMessage implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ChatMessage {
 
     private String id;
     private String roomId;

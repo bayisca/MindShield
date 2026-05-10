@@ -235,8 +235,7 @@ public class AdminDashboardController {
         com.mindshield.models.MeditationTrack newTrack = new com.mindshield.models.MeditationTrack(
                 java.util.UUID.randomUUID().toString(),
                 title,
-                "", // Sanatçı yok
-                link,
+                link,   // URL veya yerel dosya adı — playback servisi http(s):// ile başlıyorsa URL, başlamıyorsa /audio/ klasöründen okur
                 "Admin tarafından eklendi"
         );
         com.mindshield.services.MeditationPlaybackService.getInstance().addTrack(newTrack);

@@ -92,7 +92,7 @@ public class MeditationController {
                 } else {
                     HBox box = new HBox(10);
                     box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-                    Label nameLbl = new Label(track.getTitle() + " - " + track.getAuthor());
+                    Label nameLbl = new Label(track.getTitle());
                     
                     Region spacer = new Region();
                     HBox.setHgrow(spacer, Priority.ALWAYS);

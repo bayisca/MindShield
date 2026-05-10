@@ -1,12 +1,10 @@
 package com.mindshield.models;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.mindshield.ui.UserRole;
 
-public abstract class BaseUser implements Serializable { 
-    private static final long serialVersionUID = 1L;
+public abstract class BaseUser {
 
 
 
@@ -17,8 +15,6 @@ public abstract class BaseUser implements Serializable {
     /** Hesabın oluşturulduğu tarih (eski kayıtlarda null olabilir). */
     private LocalDate registeredAt;
 
-    private java.util.List<String> favoriteBlogIds = new java.util.ArrayList<>();
-    private java.util.List<String> favoriteSongTitles = new java.util.ArrayList<>();
 
      public BaseUser(String id, String persona, String password, UserRole role) {
         this.id = id;
@@ -28,49 +24,6 @@ public abstract class BaseUser implements Serializable {
         this.registeredAt = LocalDate.now();
     }
     public String getId() { return id; }
-    public java.util.List<String> getFavoriteBlogIds() {
-        if (favoriteBlogIds == null) favoriteBlogIds = new java.util.ArrayList<>();
-        return favoriteBlogIds;
-    }
-
-    public java.util.List<String> getFavoriteSongTitles() {
-        if (favoriteSongTitles == null) favoriteSongTitles = new java.util.ArrayList<>();
-        return favoriteSongTitles;
-    }
-
-    public boolean isFavoriteBlog(String postId) {
-        return postId != null && getFavoriteBlogIds().contains(postId);
-    }
-
-    public boolean toggleFavoriteBlog(String postId) {
-        if (postId == null || postId.isBlank()) {
-            return false;
-        }
-        java.util.List<String> favorites = getFavoriteBlogIds();
-        if (favorites.contains(postId)) {
-            favorites.remove(postId);
-            return false;
-        }
-        favorites.add(postId);
-        return true;
-    }
-
-    public boolean isFavoriteSong(String songTitle) {
-        return songTitle != null && getFavoriteSongTitles().contains(songTitle);
-    }
-
-    public boolean toggleFavoriteSong(String songTitle) {
-        if (songTitle == null || songTitle.isBlank()) {
-            return false;
-        }
-        java.util.List<String> favorites = getFavoriteSongTitles();
-        if (favorites.contains(songTitle)) {
-            favorites.remove(songTitle);
-            return false;
-        }
-        favorites.add(songTitle);
-        return true;
-    }
 
     public String getPersona() { return persona; }
     public String getPassword() { return password; }

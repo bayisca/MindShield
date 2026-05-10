@@ -15,8 +15,8 @@
             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints percentWidth="40.0" />
-            <ColumnConstraints percentWidth="60.0" />
+            <ColumnConstraints percentWidth="32.0" />
+            <ColumnConstraints percentWidth="68.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints vgrow="ALWAYS" />
@@ -24,114 +24,118 @@
          <children>
 
             <!-- LEFT: Branding panel -->
-            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" alignment="CENTER" spacing="50.0"
-                  style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-padding: 15 15 15;">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" preserveRatio="true" pickOnBounds="true">
-                     <image>
-                        <Image url="@logos/logo.png" />
-                     </image>
-                  </ImageView>
-
-                  <TextFlow fx:id="textFlowBrand" textAlignment="CENTER"
-                            style="-fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 8, 0, 0, 0);">
-                     <Text fx:id="textMind" text="Mind" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-fill: #81A6C6;" />
-                     <Text fx:id="textShield" text="Shield" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-fill: #14B8A6;" />
-                  </TextFlow>
-
-                  <VBox spacing="15.0" alignment="CENTER">
+            <ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="0" fitToWidth="true" hbarPolicy="NEVER"
+                        style="-fx-background: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-border-color: transparent;">
+               <content>
+                  <VBox alignment="CENTER" spacing="30.0"
+                        style="-fx-background-color: linear-gradient(to bottom, #EAE0D2, #D2C4B4); -fx-padding: 20 12 20 12;">
                      <children>
-                        <Label text="Guvenli &amp; Anonim Danismanlik"
-                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
-                        <Label text="&quot;Kimligini degil, duygularini paylas.&quot;"
-                               style="-fx-font-size: 16px; -fx-text-fill: #288ec9f5;"
-                               wrapText="true" textAlignment="CENTER" alignment="CENTER" maxWidth="300.0"/>
+                        <ImageView fitHeight="160.0" fitWidth="160.0" preserveRatio="true" pickOnBounds="true">
+                           <image>
+                              <Image url="@logos/logo.png" />
+                           </image>
+                        </ImageView>
+
+                        <TextFlow fx:id="textFlowBrand" textAlignment="CENTER"
+                                  style="-fx-effect: dropshadow(gaussian, rgba(20,184,166,0.5), 8, 0, 0, 0);">
+                           <Text fx:id="textMind" text="Mind" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #81A6C6;" />
+                           <Text fx:id="textShield" text="Shield" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #14B8A6;" />
+                        </TextFlow>
+
+                        <VBox spacing="10.0" alignment="CENTER">
+                           <children>
+                              <Label text="Guvenli &amp; Anonim Danismanlik"
+                                     style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <Label text="&quot;Kimligini degil, duygularini paylas.&quot;"
+                                     style="-fx-font-size: 13px; -fx-text-fill: #288ec9f5;"
+                                     wrapText="true" textAlignment="CENTER" alignment="CENTER" maxWidth="240.0"/>
+                           </children>
+                        </VBox>
+
+                        <!-- Feature list -->
+                        <VBox spacing="12.0" style="-fx-padding: 10 0 0 0;">
+                           <children>
+                              <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logos/personal-security_18254941.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="Tam Anonimlik" styleClass="welcome-feature-label" />
+                                          <Label text="Gercek kimligin asla paylasilmaz." styleClass="welcome-feature-desc" wrapText="true" maxWidth="180.0"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logos/certificate_7231488.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="Uzman Danismanlar" styleClass="welcome-feature-label" />
+                                          <Label text="Ruh sagligi profesyonelleri senin icin burada." styleClass="welcome-feature-desc" wrapText="true" maxWidth="180.0"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logos/forum.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="Forum Destegi" styleClass="welcome-feature-label" />
+                                          <Label text="Ortak gruplarda yasadiginiz sorunlari digerleriyle paylasip destek alabilirsiniz." styleClass="welcome-feature-desc" wrapText="true" maxWidth="180.0"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logos/listen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="SoulShield" styleClass="welcome-feature-label" />
+                                          <Label text="Zihninizi dinlendiren melodiler kesfedin." styleClass="welcome-feature-desc" wrapText="true" maxWidth="180.0"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logos/journal.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="JourShield" styleClass="welcome-feature-label" />
+                                          <Label text="Dusuncelerinizi gunluge yazabilir, ruh halinizi takip edebilirsiniz." styleClass="welcome-feature-desc" wrapText="true" maxWidth="180.0"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
-
-                  <!-- Feature list -->
-                  <VBox spacing="20.0" style="-fx-padding: 25 0 0 0;">
-                     <children>
-                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@logos/personal-security_18254941.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label text="Tam Anonimlik" styleClass="welcome-feature-label" />
-                                    <Label text="Gercek kimligin asla paylaşılmaz." styleClass="welcome-feature-desc" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@logos/certificate_7231488.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label text="Uzman Danismanlar" styleClass="welcome-feature-label" />
-                                    <Label text="Ruh sagligi profesyonelleri senin için burada." styleClass="welcome-feature-desc" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@logos/forum.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label text="Forum Destegi" styleClass="welcome-feature-label" />
-                                    <Label text="Ortak gruplarda yasadiginiz sorunlari digerleriyle paylasip destek alabilirsiniz." styleClass="welcome-feature-desc" wrapText="true" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@logos/listen.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label text="SoulShield" styleClass="welcome-feature-label" />
-                                    <Label text="Zihninizi dinlendiren melodiler keşfedebilirsiniz." styleClass="welcome-feature-desc" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="welcome-feature-card">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@logos/journal.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label text="JourShield" styleClass="welcome-feature-label" />
-                                    <Label text="JourShield ile dusuncelerinizi gunluge yazabilir, ruh halinizi takip edebilirsiniz. "
-                                           styleClass="welcome-feature-desc" wrapText="true" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
+               </content>
+            </ScrollPane>
 
             <!-- RIGHT: Login form -->
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER"

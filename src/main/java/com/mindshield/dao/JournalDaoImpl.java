@@ -69,9 +69,6 @@ public class JournalDaoImpl implements JournalDao {
             );
 
             stmt.executeUpdate();
-            System.out.println("Journal kaydediliyor...");
-System.out.println(entry.getTitle());
-System.out.println(entry.getAuthor().getId());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +101,6 @@ System.out.println(entry.getAuthor().getId());
             stmt.setString(4, entry.getId());
 
             stmt.executeUpdate();
-            System.out.println("Journal güncellendi: " + entry.getTitle());
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -3,7 +3,6 @@ package com.mindshield.models;
 import com.mindshield.ui.UserRole;
 
 public class Counselor extends BaseUser {
-    private static final long serialVersionUID = 1L;
     
     private String specialization;
     private boolean isApproved;

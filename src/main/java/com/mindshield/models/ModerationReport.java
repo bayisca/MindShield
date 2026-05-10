@@ -1,11 +1,9 @@
 package com.mindshield.models;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class ModerationReport implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ModerationReport {
 
     public enum Kind {
         BLOG_POST,

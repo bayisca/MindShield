@@ -32,11 +32,18 @@ public class DatabaseInitializer {
                         CREATE TABLE IF NOT EXISTS media (
                             id VARCHAR(50) PRIMARY KEY,
                             title VARCHAR(100),
-                            artist VARCHAR(100),
-                            url VARCHAR(255),
-                            category VARCHAR(50)
+                            filename VARCHAR(255),
+                            description TEXT
                         )
                     """);
+            // Migrate existing DB: rename/add columns if old schema exists
+            try { stmt.execute("ALTER TABLE media ADD COLUMN IF NOT EXISTS filename VARCHAR(255)"); } catch (Exception ignored) {}
+            try { stmt.execute("ALTER TABLE media ADD COLUMN IF NOT EXISTS description TEXT"); } catch (Exception ignored) {}
+            try { stmt.execute("UPDATE media SET filename = url WHERE filename IS NULL AND url IS NOT NULL"); } catch (Exception ignored) {}
+            try { stmt.execute("UPDATE media SET description = category WHERE description IS NULL AND category IS NOT NULL"); } catch (Exception ignored) {}
+            try { stmt.execute("ALTER TABLE media DROP COLUMN IF EXISTS artist"); } catch (Exception ignored) {}
+            try { stmt.execute("ALTER TABLE media DROP COLUMN IF EXISTS url"); } catch (Exception ignored) {}
+            try { stmt.execute("ALTER TABLE media DROP COLUMN IF EXISTS category"); } catch (Exception ignored) {}
             stmt.execute("""
                         CREATE TABLE IF NOT EXISTS favorite_songs (
                             id VARCHAR(50) PRIMARY KEY,
@@ -217,6 +224,18 @@ public class DatabaseInitializer {
                             FOREIGN KEY (topic_id) REFERENCES forum_topics(id),
                             FOREIGN KEY (user_id) REFERENCES users(id)
                         )
+                    """);
+            stmt.execute("""
+                        MERGE INTO media (id, title, filename, description)
+                        KEY(id)
+                        VALUES
+                        ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),
+                        ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),
+                        ('track-gravity',       'Gravity\'s Breaking Point','Gravity\'s_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
+                        ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),
+                        ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),
+                        ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),
+                        ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')
                     """);
             stmt.execute("""
                         MERGE INTO forum_categories (id, name, description)

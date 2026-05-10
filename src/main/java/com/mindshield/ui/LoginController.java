@@ -105,8 +105,6 @@ public class LoginController {
                 } else {
                     switchToDashboard();
                 }
-                System.out.println("ID: " + user.getId());
-System.out.println("PERSONA: " + user.getPersona());
             } else {
 
                 showError("Persona veya şifre hatalı.");

@@ -171,6 +171,21 @@ public class SettingsController {
                 a.showAndWait();
                 return;
             }
+            // DB'ye kaydet
+            try (java.sql.Connection conn = com.mindshield.dao.DatabaseConnection.getConnection();
+                 java.sql.PreparedStatement ps = conn.prepareStatement("UPDATE users SET password = ? WHERE id = ?")) {
+                ps.setString(1, newPass);
+                ps.setString(2, user.getId());
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert err = new Alert(Alert.AlertType.ERROR);
+                err.setHeaderText(null);
+                err.setContentText("Şifre güncellenirken hata oluştu.");
+                err.showAndWait();
+                return;
+            }
+            // In-memory nesneyi de güncelle
             user.setPassword(newPass);
             newPassword.clear();
             Alert ok = new Alert(Alert.AlertType.INFORMATION);

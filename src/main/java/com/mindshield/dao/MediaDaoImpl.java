@@ -15,14 +15,13 @@ public class MediaDaoImpl implements MediaDao {
 
     @Override
     public void saveTrack(MeditationTrack track) {
-        String sql = "MERGE INTO media (id, title, artist, url, category) KEY(id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "MERGE INTO media (id, title, filename, description) KEY(id) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, track.getId());
             ps.setString(2, track.getTitle());
-            ps.setString(3, track.getAuthor());
-            ps.setString(4, track.getFilename());
-            ps.setString(5, track.getDescription());
+            ps.setString(3, track.getFilename());
+            ps.setString(4, track.getDescription());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,9 +151,8 @@ public class MediaDaoImpl implements MediaDao {
         return new MeditationTrack(
                 rs.getString("id"),
                 rs.getString("title"),
-                rs.getString("artist"),
-                rs.getString("url"),
-                rs.getString("category")
+                rs.getString("filename"),
+                rs.getString("description")
         );
     }
 }

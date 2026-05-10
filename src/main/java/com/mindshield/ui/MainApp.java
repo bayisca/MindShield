@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     public static Map<String, BaseUser> userDatabase = new HashMap<>();
-    public static Map<String, String> chatDatabase = new HashMap<>();
     public static com.mindshield.services.PostService postService = new com.mindshield.services.PostService();
     public static com.mindshield.services.MessageService messageService = new com.mindshield.services.MessageService();
     public static com.mindshield.services.JournalService journalService = new com.mindshield.services.JournalService();
@@ -194,7 +193,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println("asdasd");
+
         DatabaseInitializer.init();
         launch(args);
     }

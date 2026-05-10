@@ -1,13 +1,11 @@
 package com.mindshield.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class ChatRoom implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ChatRoom {
 
     private String id;
     private String name;

@@ -265,11 +265,10 @@ public class MessagesController {
         try {
             ChatRoom fresh = MainApp.chatRoomService.findRoomById(selectedRoom.getId());
             selectedRoom = fresh;
-roomChatListView.setItems(
-    FXCollections.observableArrayList(
-        //MainApp.chatRoomService.getMessages(fresh.getId())
-    )
-);            roomChatListView.scrollTo(roomChatListView.getItems().size() - 1);
+            roomChatListView.setItems(
+                FXCollections.observableArrayList(fresh.getMessages())
+            );
+            roomChatListView.scrollTo(roomChatListView.getItems().size() - 1);
         } catch (Exception e) {
             alert(Alert.AlertType.ERROR, e.getMessage());
         }
