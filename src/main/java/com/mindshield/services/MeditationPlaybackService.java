@@ -34,6 +34,7 @@ public final class MeditationPlaybackService {
     }
 
     private final List<MeditationTrack> tracks = new ArrayList<>();
+    private boolean tracksLoaded = false;
     private MediaPlayer mediaPlayer;
     private int currentIndex = -1;
 
@@ -44,10 +45,18 @@ public final class MeditationPlaybackService {
     private final MediaDao mediaDao = new MediaDaoImpl();
 
     private MeditationPlaybackService() {
-        tracks.addAll(mediaDao.getAllTracks());
+        // Track yüklemesi lazy olarak getTracks() içinde yapılır
+    }
+
+    private void ensureTracksLoaded() {
+        if (!tracksLoaded) {
+            tracks.addAll(mediaDao.getAllTracks());
+            tracksLoaded = true;
+        }
     }
 
     public List<MeditationTrack> getTracks() {
+        ensureTracksLoaded();
         return Collections.unmodifiableList(tracks);
     }
 
@@ -61,6 +70,7 @@ public final class MeditationPlaybackService {
     }
     
     public void addTrack(MeditationTrack track) {
+        ensureTracksLoaded();
         mediaDao.saveTrack(track);
         tracks.add(track);
     }

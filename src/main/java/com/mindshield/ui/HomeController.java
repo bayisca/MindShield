@@ -77,9 +77,21 @@ public class HomeController {
 
         if (favBlogsContainer != null) {
             favBlogsContainer.getChildren().clear();
-            Label empty = new Label("Henüz favori blogunuz yok.");
-            empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 13px;");
-            favBlogsContainer.getChildren().add(empty);
+            var postDao = new com.mindshield.dao.PostDaoImpl();
+            var favBlogs = postDao.getFavoriteBlogs(user.getId());
+            if (favBlogs.isEmpty()) {
+                Label empty = new Label("Henüz favori blogunuz yok.");
+                empty.setStyle("-fx-text-fill: #8A9CAE; -fx-font-size: 13px;");
+                favBlogsContainer.getChildren().add(empty);
+            } else {
+                for (var blog : favBlogs) {
+                    Label lbl = new Label("Blog: " + blog.getTitle());
+                    lbl.setStyle("-fx-padding: 8; -fx-background-color: #FAFAF5; -fx-background-radius: 6; -fx-border-color: #D2C4B4; -fx-border-radius: 6; -fx-text-fill: #34495E; -fx-cursor: hand;");
+                    lbl.setMaxWidth(Double.MAX_VALUE);
+                    lbl.setOnMouseClicked(e -> DashboardController.getInstance().showBlog());
+                    favBlogsContainer.getChildren().add(lbl);
+                }
+            }
         }
     }
 

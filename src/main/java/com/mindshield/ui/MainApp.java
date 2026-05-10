@@ -32,6 +32,8 @@ public class MainApp extends Application {
     public static com.mindshield.services.ForumService forumService = new com.mindshield.services.ForumService();
 
     static {
+        // Veritabanı tablolarını ve seed verilerini önce oluştur
+        DatabaseInitializer.init();
         // Default admin counselor (pre-approved)
         Counselor admin = new Counselor("admin-001", "admin", "admin123", "Genel Psikoloji");
         admin.setApproved(true);
@@ -81,6 +83,7 @@ public class MainApp extends Application {
         postService.deleteAllPostsFor(account);
         forumService.purgeAllContentForUserId(userId);
         deleteFavoriteSongsForUser(userId);
+        deleteFavoriteBlogsForUser(userId);
         deleteChatroomSqlRowsForUser(userId);
         deleteUserRowFromDb(userId);
         userDatabase.remove(persona);
@@ -93,6 +96,20 @@ public class MainApp extends Application {
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(
                         "DELETE FROM favorite_songs WHERE user_id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteFavoriteBlogsForUser(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "DELETE FROM favorite_blogs WHERE user_id = ?")) {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -193,8 +210,6 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-
-        DatabaseInitializer.init();
         launch(args);
     }
 }

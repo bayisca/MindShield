@@ -10,4 +10,11 @@ public interface PostDao {
     BlogPost findById(String id);
     List<BlogPost> findAll();
     List<BlogPost> searchByTitleOrContent(String searchTerm);
+
+    // Favori blog işlemleri
+    boolean isFavoriteBlog(String userId, String postId);
+    void addFavoriteBlog(String userId, String postId);
+    void removeFavoriteBlog(String userId, String postId);
+    List<BlogPost> getFavoriteBlogs(String userId);
+    void deleteAllFavoriteBlogsForUser(String userId);
 }

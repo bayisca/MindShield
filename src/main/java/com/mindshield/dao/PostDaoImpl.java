@@ -140,4 +140,80 @@ public class PostDaoImpl implements PostDao {
     public void update() {
         // Satisfaction of interface. Specific updates are handled by save (MERGE) or direct SQL in services.
     }
+
+    // ── Favori Blog İşlemleri ──────────────────────────────────
+
+    @Override
+    public boolean isFavoriteBlog(String userId, String postId) {
+        String sql = "SELECT 1 FROM favorite_blogs WHERE user_id = ? AND post_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            ps.setString(2, postId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void addFavoriteBlog(String userId, String postId) {
+        if (isFavoriteBlog(userId, postId)) return;
+        String sql = "INSERT INTO favorite_blogs (id, user_id, post_id) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, java.util.UUID.randomUUID().toString());
+            ps.setString(2, userId);
+            ps.setString(3, postId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeFavoriteBlog(String userId, String postId) {
+        String sql = "DELETE FROM favorite_blogs WHERE user_id = ? AND post_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            ps.setString(2, postId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<BlogPost> getFavoriteBlogs(String userId) {
+        List<BlogPost> posts = new ArrayList<>();
+        String sql = "SELECT b.* FROM blog_posts b JOIN favorite_blogs f ON b.id = f.post_id WHERE f.user_id = ? ORDER BY f.added_at DESC";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    posts.add(mapPost(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    @Override
+    public void deleteAllFavoriteBlogsForUser(String userId) {
+        String sql = "DELETE FROM favorite_blogs WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

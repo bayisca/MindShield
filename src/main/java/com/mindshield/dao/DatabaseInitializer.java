@@ -151,6 +151,20 @@ public class DatabaseInitializer {
                         )
                     """);
 
+            stmt.execute("""
+                        CREATE TABLE IF NOT EXISTS favorite_blogs (
+                            id VARCHAR(50) PRIMARY KEY,
+                            user_id VARCHAR(50) NOT NULL,
+                            post_id VARCHAR(50) NOT NULL,
+
+                            added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                            FOREIGN KEY (user_id) REFERENCES users(id),
+                            FOREIGN KEY (post_id) REFERENCES blog_posts(id)
+                                ON DELETE CASCADE
+                        )
+                    """);
+
             // özel dm konusmaları
             stmt.execute("""
                         CREATE TABLE IF NOT EXISTS conversations (
@@ -231,7 +245,7 @@ public class DatabaseInitializer {
                         VALUES
                         ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),
                         ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),
-                        ('track-gravity',       'Gravity\'s Breaking Point','Gravity\'s_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
+                        ('track-gravity',       'Gravity''s Breaking Point','Gravity''s_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
                         ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),
                         ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),
                         ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),

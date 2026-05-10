@@ -4,3 +4,177 @@ MERGE INTO media (id, title, artist, url, category) KEY(id) VALUES (?, ?, ?, ?, 
 2026-05-10 17:09:18.765416+03:00 jdbc[7]: exception
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "CATEGORY CHARACTER VARYING(50)": "U&'\\00c7al\\0131\\015f\\0131rken veya ders \\00e7al\\0131\\015f\\0131rken odaklanmay\\01... (52)"; SQL statement:
 MERGE INTO media (id, title, artist, url, category) KEY(id) VALUES (?, ?, ?, ?, ?) [22001-224]
+2026-05-10 20:18:35.847161+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "    MERGE INTO media (id, title, filename, description)\000a    KEY(id)\000a    VALUES\000a    ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),\000a    ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),\000a    ('track-gravity',       'Gravity'[*]s Breaking Point','Gravity's_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),\000a    ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),\000a    ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),\000a    ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),\000a    ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')\000a"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+    MERGE INTO media (id, title, filename, description)
+    KEY(id)
+    VALUES
+    ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),
+    ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),
+    ('track-gravity',       'Gravity's Breaking Point','Gravity's_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
+    ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),
+    ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),
+    ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),
+    ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')
+ [42001-224]
+2026-05-10 20:24:07.931070+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "URL" not found; SQL statement:
+UPDATE media SET filename = url WHERE filename IS NULL AND url IS NOT NULL [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.SimplePredicate.optimize(SimplePredicate.java:43)
+	at org.h2.expression.condition.NullPredicate.optimize(NullPredicate.java:48)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.mindshield.dao.DatabaseInitializer.init(DatabaseInitializer.java:42)
+	at com.mindshield.ui.MainApp.<clinit>(MainApp.java:36)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:578)
+	at java.base/java.lang.Class.forName(Class.java:557)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.loadClass(LauncherImpl.java:383)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.lambda$launchApplicationWithArgs$3(LauncherImpl.java:421)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2026-05-10 20:24:07.936593+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CATEGORY" not found; SQL statement:
+UPDATE media SET description = category WHERE description IS NULL AND category IS NOT NULL [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.SimplePredicate.optimize(SimplePredicate.java:43)
+	at org.h2.expression.condition.NullPredicate.optimize(NullPredicate.java:48)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.mindshield.dao.DatabaseInitializer.init(DatabaseInitializer.java:43)
+	at com.mindshield.ui.MainApp.<clinit>(MainApp.java:36)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:578)
+	at java.base/java.lang.Class.forName(Class.java:557)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.loadClass(LauncherImpl.java:383)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.lambda$launchApplicationWithArgs$3(LauncherImpl.java:421)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2026-05-10 20:24:07.944954+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "    MERGE INTO media (id, title, filename, description)\000a    KEY(id)\000a    VALUES\000a    ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),\000a    ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),\000a    ('track-gravity',       'Gravity'[*]s Breaking Point','Gravity's_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),\000a    ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),\000a    ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),\000a    ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),\000a    ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')\000a"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+    MERGE INTO media (id, title, filename, description)
+    KEY(id)
+    VALUES
+    ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),
+    ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),
+    ('track-gravity',       'Gravity's Breaking Point','Gravity's_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
+    ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),
+    ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),
+    ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),
+    ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')
+ [42001-224]
+2026-05-10 20:25:59.695343+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "URL" not found; SQL statement:
+UPDATE media SET filename = url WHERE filename IS NULL AND url IS NOT NULL [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.SimplePredicate.optimize(SimplePredicate.java:43)
+	at org.h2.expression.condition.NullPredicate.optimize(NullPredicate.java:48)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.mindshield.dao.DatabaseInitializer.init(DatabaseInitializer.java:42)
+	at com.mindshield.ui.MainApp.<clinit>(MainApp.java:36)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:578)
+	at java.base/java.lang.Class.forName(Class.java:557)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.loadClass(LauncherImpl.java:383)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.lambda$launchApplicationWithArgs$3(LauncherImpl.java:421)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2026-05-10 20:25:59.700876+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CATEGORY" not found; SQL statement:
+UPDATE media SET description = category WHERE description IS NULL AND category IS NOT NULL [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.SimplePredicate.optimize(SimplePredicate.java:43)
+	at org.h2.expression.condition.NullPredicate.optimize(NullPredicate.java:48)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.mindshield.dao.DatabaseInitializer.init(DatabaseInitializer.java:43)
+	at com.mindshield.ui.MainApp.<clinit>(MainApp.java:36)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:578)
+	at java.base/java.lang.Class.forName(Class.java:557)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.loadClass(LauncherImpl.java:383)
+	at javafx.graphics@21/com.sun.javafx.application.LauncherImpl.lambda$launchApplicationWithArgs$3(LauncherImpl.java:421)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1575)

@@ -44,6 +44,7 @@ public class BlogDetailController {
     private Button btnReport;
 
     private BlogPost currentPost;
+    private final com.mindshield.dao.PostDao postDao = new com.mindshield.dao.PostDaoImpl();
 
     public void setPost(BlogPost post) {
         this.currentPost = post;
@@ -74,8 +75,9 @@ public class BlogDetailController {
     }
 
     private void updateFavoriteButton() {
-        if (currentPost == null || DashboardController.getCurrentUser() == null || btnFavoriteBlog == null) return;
-        boolean isFav = DashboardController.getCurrentUser().isFavoriteBlog(currentPost.getId());
+        if (btnFavoriteBlog == null || currentPost == null || DashboardController.getCurrentUser() == null) return;
+        boolean isFav = postDao.isFavoriteBlog(
+                DashboardController.getCurrentUser().getId(), currentPost.getId());
         btnFavoriteBlog.setText(isFav ? "Favoriden cikar" : "Favorilere ekle");
     }
 
@@ -94,8 +96,13 @@ public class BlogDetailController {
     @FXML
     private void handleFavorite() {
         if (currentPost == null || DashboardController.getCurrentUser() == null) return;
-        com.mindshield.models.BaseUser user = DashboardController.getCurrentUser();
-        user.toggleFavoriteBlog(currentPost.getId());
+        String userId = DashboardController.getCurrentUser().getId();
+        String postId = currentPost.getId();
+        if (postDao.isFavoriteBlog(userId, postId)) {
+            postDao.removeFavoriteBlog(userId, postId);
+        } else {
+            postDao.addFavoriteBlog(userId, postId);
+        }
         updateFavoriteButton();
     }
 
