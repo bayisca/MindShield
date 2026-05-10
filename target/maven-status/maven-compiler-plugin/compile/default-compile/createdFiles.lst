@@ -67,6 +67,7 @@ com\mindshield\services\ForumService.class
 com\mindshield\dao\ModerationDao.class
 com\mindshield\ui\MessagesController.class
 com\mindshield\models\Admin.class
+com\mindshield\ui\MessagesController$3.class
 com\mindshield\models\ForumTopic.class
 com\mindshield\models\ModerationReport$Kind.class
 com\mindshield\ui\ForumController$2.class
