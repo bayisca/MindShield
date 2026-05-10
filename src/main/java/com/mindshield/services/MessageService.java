@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Message;
-import com.mindshield.ui.MainApp;
 
 public class MessageService {
 
