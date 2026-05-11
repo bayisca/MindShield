@@ -65,7 +65,7 @@ public class CounselorSelectController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
 
             Label error = new Label("Danışmanlar yüklenemedi.");
             error.setStyle("-fx-text-fill: red;");

@@ -11,9 +11,9 @@ import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.Message;
 
-public class MessageService {
+public class MessageService { 
 
-    public Message sendMessage(BaseUser sender, BaseUser receiver, String content) {
+    public Message sendMessage(BaseUser sender, BaseUser receiver, String content) { 
 
         if (content == null || content.trim().isEmpty()) {
             throw new IllegalArgumentException("Message içeriği bos olamaz!");
@@ -45,12 +45,12 @@ public class MessageService {
             return new Message(sender, receiver, content);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new RuntimeException("Mesaj Gönderilemedi");
         }
     }
 
-    public List<Message> getMessagesBetween(BaseUser user1, BaseUser user2) {
+    public List<Message> getMessagesBetween(BaseUser user1, BaseUser user2) { // Kullanıcılar arasında geçen tüm mesajları getirir, sıralı olarak.
 
         List<Message> list = new ArrayList<>();
 
@@ -82,13 +82,13 @@ public class MessageService {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return list;
     }
 
-    public boolean hasChatBetween(BaseUser user1, BaseUser user2) {
+    public boolean hasChatBetween(BaseUser user1, BaseUser user2) { // İki kullanıcı arasında herhangi bir mesajlaşma geçmişi var mı? (var ise true, yok ise false döner)
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
@@ -107,13 +107,13 @@ public class MessageService {
             return ps.executeQuery().next();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return false;
     }
 
-    public void purgeInvolvingPersona(String userId) {
+    public void purgeInvolvingPersona(String userId) {  // Bir kullanıcı silindiğinde, o kullanıcıyla ilgili tüm mesajlaşma geçmişini de siler. 
 
         try (Connection conn = DatabaseConnection.getConnection()) { 
 
@@ -143,11 +143,11 @@ public class MessageService {
             ps2.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
-    public int getHelpedClientsCount(BaseUser counselor) {
+    public int getHelpedClientsCount(BaseUser counselor) { // kaç kişiye yardım etmiş olduğunu gösterir
         int count = 0;
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("""
@@ -161,12 +161,12 @@ public class MessageService {
                 count = rs.getInt(1);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return count;
     }
 
-    public BaseUser getLatestConversationPartner(BaseUser user) {
+    public BaseUser getLatestConversationPartner(BaseUser user) {     // En son kiminle mesajlaştığını gösterir 
         if (user == null) return null;
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("""
@@ -186,12 +186,12 @@ public class MessageService {
                 return new com.mindshield.dao.UserDaoImpl().findById(partnerId);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
 
-    public com.mindshield.models.Counselor getLatestConsultedCounselor(BaseUser user) {
+    public com.mindshield.models.Counselor getLatestConsultedCounselor(BaseUser user) {       // En son hangi danışmanla mesajlaştığını gösterir
         if (user == null) return null;
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("""
@@ -216,12 +216,12 @@ public class MessageService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
 
-    private String findOrCreateConversation(Connection conn, String u1, String u2) throws Exception {
+    private String findOrCreateConversation(Connection conn, String u1, String u2) throws Exception { 
 
         PreparedStatement ps = conn.prepareStatement("""
             SELECT id FROM conversations

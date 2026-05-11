@@ -42,7 +42,7 @@ public class ForumService {
                         rs.getInt("topic_count")));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return categories;
     }
@@ -80,7 +80,7 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return topics;
     }
@@ -94,7 +94,7 @@ public class ForumService {
         validateText(body, "Icerik");
 
         String topicId = UUID.randomUUID().toString();
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection(); 
                 PreparedStatement ps = conn.prepareStatement("""
                         INSERT INTO forum_topics (id, category_id, user_id, title, content)
                         VALUES (?, ?, ?, ?, ?)
@@ -107,7 +107,7 @@ public class ForumService {
             ps.executeUpdate();
             return findTopicById(topicId).orElseThrow(() -> new IllegalArgumentException("Baslik olusturulamadi."));
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new IllegalArgumentException("Baslik veritabanina kaydedilemedi.");
         }
     }
@@ -143,7 +143,7 @@ public class ForumService {
             ps.executeUpdate();
             return findReplyById(replyId).orElseThrow(() -> new IllegalArgumentException("Yanit olusturulamadi."));
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new IllegalArgumentException("Yanit veritabanina kaydedilemedi.");
         }
     }
@@ -164,7 +164,7 @@ public class ForumService {
                 topicDelete.executeUpdate();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new IllegalArgumentException("Baslik silinemedi.");
         }
     }
@@ -190,7 +190,7 @@ public class ForumService {
             ps.executeUpdate();
             return findReplyById(replyId).orElse(reply);
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new IllegalArgumentException("Yanit guncellenemedi.");
         }
     }
@@ -209,7 +209,7 @@ public class ForumService {
             ps.setString(1, replyId);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new IllegalArgumentException("Yanit silinemedi.");
         }
     }
@@ -233,7 +233,7 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return Optional.empty();
     }
@@ -265,7 +265,7 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return topics;
     }
@@ -285,19 +285,21 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return Optional.empty();
     }
 
     private ForumTopic buildTopic(ResultSet rs, boolean includeReplies) throws Exception {
-        BaseUser author = loadUserById(rs.getString("user_id"));
+        String userId = rs.getString("user_id");
+        BaseUser author = loadUserById(userId);
         ForumTopic topic = new ForumTopic(
                 author,
                 rs.getString("title"),
                 rs.getString("content"),
                 rs.getString("category_id"),
                 rs.getString("category_name"));
+        topic.setPersistedAuthorUserId(userId);
         topic.setId(rs.getString("id"));
         topic.setCreatedAt(toLocalDateTime(rs.getTimestamp("created_at")));
         topic.setReplyCount(rs.getInt("reply_count"));
@@ -329,16 +331,18 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return replies;
     }
 
     private ForumReply buildReply(ResultSet rs) throws Exception {
+        String userId = rs.getString("user_id");
         ForumReply reply = new ForumReply(
-                loadUserById(rs.getString("user_id")),
+                loadUserById(userId),
                 rs.getString("content"),
                 rs.getString("topic_id"));
+        reply.setPersistedAuthorUserId(userId);
         reply.setId(rs.getString("id"));
         reply.setCreatedAt(toLocalDateTime(rs.getTimestamp("created_at")));
         return reply;
@@ -372,7 +376,7 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return MainApp.userDatabase.values().stream()
                 .filter(user -> id.equals(user.getId()))
@@ -428,7 +432,7 @@ public class ForumService {
                 ps.executeUpdate();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -453,7 +457,7 @@ public class ForumService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }

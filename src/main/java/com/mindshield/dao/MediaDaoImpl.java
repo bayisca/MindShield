@@ -24,7 +24,7 @@ public class MediaDaoImpl implements MediaDao {
             ps.setString(4, track.getDescription());
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -39,7 +39,7 @@ public class MediaDaoImpl implements MediaDao {
                 tracks.add(mapTrack(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return tracks;
     }
@@ -55,7 +55,7 @@ public class MediaDaoImpl implements MediaDao {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return false;
     }
@@ -71,7 +71,7 @@ public class MediaDaoImpl implements MediaDao {
             ps.setString(3, trackId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -84,7 +84,7 @@ public class MediaDaoImpl implements MediaDao {
             ps.setString(2, trackId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -101,7 +101,7 @@ public class MediaDaoImpl implements MediaDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return tracks;
     }
@@ -124,7 +124,7 @@ public class MediaDaoImpl implements MediaDao {
                 insertPs.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -142,7 +142,7 @@ public class MediaDaoImpl implements MediaDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return tracks;
     }

@@ -1,6 +1,7 @@
 package com.mindshield.services;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,16 +29,23 @@ public class JournalService {
         this.journalDao = journalDao;
     }
 
-    private void enforcePrivateJournalUser(BaseUser user) {
+    /** Günlük verisi olan roller: danışan, anonim, danışman. */
+    public boolean canUseJournal(BaseUser user) {
+        if (user == null) {
+            return false;
+        }
+        UserRole r = user.getRole();
+        return r == UserRole.CLIENT || r == UserRole.ANONYMOUS || r == UserRole.COUNSELOR;
+    }
+
+    /** Günlük oluşturma / silme / güncelleme öncesi — yetkisiz rolde anlaşılır mesaj. */
+    private void requireJournalActor(BaseUser user) {
         if (user == null) {
             throw new UnauthorizedException("Günlük için giriş yapmalısınız.");
         }
-        UserRole role = user.getRole();
-        if (role == UserRole.ADMIN) {
-            throw new UnauthorizedException("Yöneticiler günlük tutamaz.");
-        }
-        if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS && role != UserRole.COUNSELOR) {
-            throw new UnauthorizedException("Bu özellik hesabınız için kullanılamıyor.");
+        if (!canUseJournal(user)) {
+            throw new UnauthorizedException(
+                    "Günlük yalnızca danışan ve danışman hesapları içindir.");
         }
     }
 
@@ -56,7 +64,7 @@ public class JournalService {
     }
 
     public JournalEntry createEntry(BaseUser author, String title, String body, JournalMood mood) {
-        enforcePrivateJournalUser(author);
+        requireJournalActor(author);
         if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
             throw new IllegalArgumentException("Başlık ve içerik boş olamaz.");
         }
@@ -66,7 +74,9 @@ public class JournalService {
     }
 
     public List<JournalEntry> listMyEntriesForDate(BaseUser user, LocalDate date) {
-        enforcePrivateJournalUser(user);
+        if (!canUseJournal(user)) {
+            return Collections.emptyList();
+        }
         if (date == null) {
             throw new IllegalArgumentException("Tarih seçilmelidir.");
         }
@@ -79,7 +89,9 @@ public class JournalService {
 
 
     public List<JournalEntry> listAllMyEntries(BaseUser user) {
-        enforcePrivateJournalUser(user);
+        if (!canUseJournal(user)) {
+            return Collections.emptyList();
+        }
         return journalDao.findAll().stream()
                 .filter(e -> e.isAuthor(user))
                 .sorted(Comparator.comparing(JournalEntry::getCreatedAt).reversed())
@@ -87,14 +99,14 @@ public class JournalService {
     }
 
     public JournalEntry findMineById(BaseUser user, String id) {
-        enforcePrivateJournalUser(user);
+        requireJournalActor(user);
         JournalEntry entry = journalDao.findById(id);
         enforceOwner(user, entry);
         return entry;
     }
 
     public JournalEntry updateEntry(BaseUser user, String id, String title, String body, JournalMood mood) {
-        enforcePrivateJournalUser(user);
+        requireJournalActor(user);
         if (title == null || title.trim().isEmpty() || body == null || body.trim().isEmpty()) {
             throw new IllegalArgumentException("Başlık ve içerik boş olamaz.");
         }
@@ -108,7 +120,7 @@ public class JournalService {
     }
 
     public void deleteEntry(BaseUser user, String id) {
-        enforcePrivateJournalUser(user);
+        requireJournalActor(user);
         JournalEntry entry = journalDao.findById(id);
         enforceOwner(user, entry);
         journalDao.deleteById(id);

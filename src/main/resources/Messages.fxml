@@ -41,6 +41,7 @@
                                                  style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" />
                                        </children>
                                     </VBox>
+                                    <Button onAction="#refreshDmChat" styleClass="btn-secondary" text="Yenile" />
                                     <Button onAction="#reportDmMessage" styleClass="btn-secondary" text="Mesaji sikayet et" />
                                     <Button onAction="#reportDmContact" styleClass="btn-secondary" text="Kullanici sikayet et" />
                                  </children>
@@ -94,6 +95,7 @@
                                                  style="-fx-font-size: 11px; -fx-text-fill: #8A9CAE;" />
                                        </children>
                                     </VBox>
+                                    <Button onAction="#refreshRoomChat" styleClass="btn-secondary" text="Yenile" />
                                     <Button onAction="#reportSelectedRoomMessage" styleClass="btn-secondary"
                                             text="Mesaji sikayet et" />
                                  </children>

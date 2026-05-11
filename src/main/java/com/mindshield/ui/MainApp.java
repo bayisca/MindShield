@@ -84,6 +84,8 @@ public class MainApp extends Application {
         forumService.purgeAllContentForUserId(userId);
         deleteFavoriteSongsForUser(userId);
         deleteFavoriteBlogsForUser(userId);
+        deleteRecentSongsForUser(userId);
+        deleteGeneralReportsForUser(userId);
         deleteChatroomSqlRowsForUser(userId);
         deleteUserRowFromDb(userId);
         userDatabase.remove(persona);
@@ -99,7 +101,7 @@ public class MainApp extends Application {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -113,7 +115,35 @@ public class MainApp extends Application {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
+        }
+    }
+
+    private static void deleteRecentSongsForUser(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "DELETE FROM recent_songs WHERE user_id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            com.mindshield.util.AppLog.severe(e);
+        }
+    }
+
+    private static void deleteGeneralReportsForUser(String userId) {
+        if (userId == null || userId.isBlank()) {
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                        "DELETE FROM general_reports WHERE reporter_id = ?")) {
+            ps.setString(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -133,7 +163,7 @@ public class MainApp extends Application {
                 ps.executeUpdate();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -146,7 +176,7 @@ public class MainApp extends Application {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -168,7 +198,7 @@ public class MainApp extends Application {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -178,7 +208,14 @@ public class MainApp extends Application {
         if (admin == null || admin.getRole() != UserRole.ADMIN) {
             return false;
         }
-        BaseUser target = userDatabase.get(persona);
+        if (persona == null || persona.isBlank()) {
+            return false;
+        }
+        String key = persona.trim();
+        BaseUser target = userDatabase.get(key);
+        if (target == null) {
+            target = userService.findByPersona(key);
+        }
         if (target == null || target.getRole() == UserRole.ADMIN) {
             return false;
         }

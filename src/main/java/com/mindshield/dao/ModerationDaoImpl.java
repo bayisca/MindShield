@@ -25,7 +25,7 @@ public class ModerationDaoImpl implements ModerationDao {
             ps.setBoolean(11, report.isResolved());
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -38,7 +38,7 @@ public class ModerationDaoImpl implements ModerationDao {
             ps.setString(2, report.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -54,7 +54,7 @@ public class ModerationDaoImpl implements ModerationDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -70,7 +70,7 @@ public class ModerationDaoImpl implements ModerationDao {
                 reports.add(mapReport(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return reports;
     }

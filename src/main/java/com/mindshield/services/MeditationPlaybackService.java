@@ -103,10 +103,10 @@ public final class MeditationPlaybackService {
         }
         MeditationTrack track = tracks.get(index);
         String sourceUrl;
-        if (track.getFilename().startsWith("http://") || track.getFilename().startsWith("https://")) {
+        if (track.getFilename().startsWith("http://") || track.getFilename().startsWith("https://")) { 
             sourceUrl = track.getFilename();
         } else {
-            URL resource = MeditationPlaybackService.class.getResource("/audio/" + track.getFilename());
+            URL resource = MeditationPlaybackService.class.getResource("/audio/" + track.getFilename()); 
             if (resource == null) {
                 return false;
             }
@@ -142,7 +142,7 @@ public final class MeditationPlaybackService {
             
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             currentIndex = -1;
             nowPlayingLine.set("Şu An Çalan: (Seçim Yapılmadı)");
             playing.set(false);

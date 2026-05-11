@@ -82,8 +82,8 @@
                      </children>
                   </VBox>
 
-                  <!-- Card 6: JourShield -->
-                  <VBox styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
+                  <!-- Card 6: JourShield (yalnızca günlük destekleyen rollerde görünür) -->
+                  <VBox fx:id="journalShortcutCard" styleClass="card, card-clickable" style="-fx-padding: 24; -fx-cursor: hand;" spacing="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1" onMouseClicked="#navToJourShield">
                      <children>
                         <Label text="GÜNLÜK" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #81A6C6;" />
                         <Label fx:id="lblLatestJournal" text="JourShield" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />

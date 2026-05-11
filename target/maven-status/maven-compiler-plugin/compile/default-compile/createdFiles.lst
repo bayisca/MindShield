@@ -2,6 +2,7 @@ com\mindshield\services\ChatRoomService.class
 com\mindshield\ui\BlogWriteController.class
 com\mindshield\models\Comment.class
 com\mindshield\ui\BlogDetailController.class
+com\mindshield\util\AppLog.class
 com\mindshield\dao\PostDao.class
 com\mindshield\dao\JournalDao.class
 com\mindshield\ui\HomeController.class

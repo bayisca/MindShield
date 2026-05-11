@@ -105,7 +105,10 @@ public class BlogController {
     }
 
     private void handleNewPost() {
-        DashboardController.getInstance().showBlogWrite();
+        var u = DashboardController.getCurrentUser();
+        if (u != null && MainApp.postService.canPublishBlogPosts(u)) {
+            DashboardController.getInstance().showBlogWrite();
+        }
     }
 
     public void hideWriteButton() {

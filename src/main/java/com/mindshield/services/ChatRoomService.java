@@ -45,7 +45,8 @@ public class ChatRoomService {
         }
         UserRole role = user.getRole();
         if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS && role != UserRole.COUNSELOR) {
-            throw new UnauthorizedException("Bu özellik hesabınız için kullanılamıyor.");
+            throw new UnauthorizedException(
+                    "Grup sohbetleri yalnızca danışan ve danışman hesapları içindir.");
         }
     }
 
@@ -211,7 +212,7 @@ public class ChatRoomService {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         // Fallback to first joined room
         return chatRoomDao.findAll().stream()

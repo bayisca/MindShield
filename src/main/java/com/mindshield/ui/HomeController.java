@@ -24,6 +24,7 @@ public class HomeController {
     @FXML private Label lblLatestMessage;
     @FXML private Label lblLatestMeditation;
     @FXML private Label lblLatestJournal;
+    @FXML private VBox journalShortcutCard;
 
     private final String[] quotes = {
         "Her yeni gün, taze bir başlangıçtır.",
@@ -38,8 +39,12 @@ public class HomeController {
         BaseUser user = DashboardController.getCurrentUser();
         if (user != null) {
             lblGreeting.setText("Hos Geldin, " + user.getPersona());
-            
 
+            if (journalShortcutCard != null) {
+                boolean showJournal = MainApp.journalService.canUseJournal(user);
+                journalShortcutCard.setVisible(showJournal);
+                journalShortcutCard.setManaged(showJournal);
+            }
 
             loadFavorites(user);
             loadMyForumTopics(user);
@@ -158,10 +163,12 @@ public class HomeController {
             lblLatestMeditation.setText(recentTracks.get(0).getTitle());
         }
 
-        // 6. Journal
-        var journalEntries = MainApp.journalService.listAllMyEntries(user);
-        if (!journalEntries.isEmpty()) {
-            lblLatestJournal.setText(journalEntries.get(0).getTitle());
+        // 6. Journal (yalnızca günlük destekleyen roller)
+        if (MainApp.journalService.canUseJournal(user)) {
+            var journalEntries = MainApp.journalService.listAllMyEntries(user);
+            if (!journalEntries.isEmpty()) {
+                lblLatestJournal.setText(journalEntries.get(0).getTitle());
+            }
         }
     }
 
@@ -187,6 +194,10 @@ public class HomeController {
 
     @FXML
     private void navToJourShield() {
+        BaseUser u = DashboardController.getCurrentUser();
+        if (u == null || !MainApp.journalService.canUseJournal(u)) {
+            return;
+        }
         DashboardController.getInstance().showJourShield();
     }
 

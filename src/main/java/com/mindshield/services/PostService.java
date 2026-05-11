@@ -30,7 +30,8 @@ public class PostService {
         String[] words = body.trim().split("\\s+");
 
         if (words.length > MAX_POST_WORD_LIMIT) {
-            throw new IllegalArgumentException("Post body exceeds limit.");
+            throw new IllegalArgumentException(
+                    "İçerik en fazla " + MAX_POST_WORD_LIMIT + " kelime olabilir.");
         }
     }
 
@@ -46,13 +47,18 @@ public class PostService {
         return MAX_POST_WORD_LIMIT;
     }
 
+    /** Yeni blog yazısı oluşturma (UI / yönlendirme için). */
+    public boolean canPublishBlogPosts(BaseUser user) {
+        return user != null && user.getRole() == UserRole.COUNSELOR;
+    }
+
     // CREATE POST------------
 
     public BlogPost createPost(BaseUser author, String title, String body) {
 
         if (author.getRole() != UserRole.COUNSELOR) {
             throw new UnauthorizedException(
-                    "Only counselors can create posts.");
+                    "Blog yazısı yalnızca danışman hesaplarıyla oluşturulabilir.");
         }
 
         validateWordLimit(body);
@@ -82,7 +88,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new RuntimeException("Create post failed");
         }
     }
@@ -103,7 +109,7 @@ public class PostService {
         if (!post.isAuthor(author)
                 && author.getRole() != UserRole.ADMIN) {
 
-            throw new UnauthorizedException("Not allowed.");
+            throw new UnauthorizedException("Bu yazıyı düzenlemek için yetkiniz yok.");
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -124,21 +130,21 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new RuntimeException("Update failed");
         }
     }
 
     // DELETE POST---------------------------------  
 
-    public BlogPost unpublishPost(BaseUser author, String postId) {
+    public BlogPost unpublishPost(BaseUser author, String postId) { // Yazarın kendi yazısını silmesi 
 
         BlogPost post = findPostById(postId);
 
         if (!post.isAuthor(author)
                 && author.getRole() != UserRole.ADMIN) {
 
-            throw new UnauthorizedException("Not allowed.");
+            throw new UnauthorizedException("Bu yazıyı silmek için yetkiniz yok.");
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -156,21 +162,21 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new RuntimeException("Delete failed");
         }
     }
 
     // ADMIN DELETE---------------------------------
 
-    public BlogPost deletePostAsAdmin(
+    public BlogPost deletePostAsAdmin( // Adminin başkasının yazısını silmesi
             BaseUser admin,
             String postId) {
 
         if (admin == null
                 || admin.getRole() != UserRole.ADMIN) {
 
-            throw new UnauthorizedException("Only admin.");
+            throw new UnauthorizedException("Bu işlem yalnızca yöneticilere açıktır.");
         }
 
         return unpublishPost(admin, postId);
@@ -179,7 +185,7 @@ public class PostService {
    
     // ADD COMMENT------------------------------  
 
-    public Comment addComment(
+    public Comment addComment(    // Yorum ekler, herhangi bir kullanıcı yapabilir 
             String postId,
             BaseUser author,
             String body) {
@@ -210,14 +216,14 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             throw new RuntimeException("Comment add failed");
         }
     }
 
     // DELETE COMMENT-----------------------------------------
 
-    public void deleteComment(
+    public void deleteComment(  // sadece yorumun sahibi veya admin yapabilir
             String commentId,
             BaseUser actor) {
 
@@ -245,8 +251,7 @@ public class PostService {
             if (!ownComment
                     && actor.getRole() != UserRole.ADMIN) {
 
-                throw new UnauthorizedException(
-                        "Not allowed.");
+                throw new UnauthorizedException("Bu yorumu silmek için yetkiniz yok.");
             }
 
             PreparedStatement delete = conn.prepareStatement("""
@@ -260,13 +265,13 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
     // GET COMMENTS OF POST-----------------------------------------
 
-    public List<Comment> getCommentsForPost(String postId) {
+    public List<Comment> getCommentsForPost(String postId) { 
 
         List<Comment> comments = new ArrayList<>();
 
@@ -298,7 +303,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return comments;
@@ -306,7 +311,7 @@ public class PostService {
 
     // SEARCH POSTS----------------------------------------
 
-    public List<BlogPost> searchPosts(String searchTerm) {
+    public List<BlogPost> searchPosts(String searchTerm) { // Başlık veya içerikte arama yapar, sonuçları tarih sırasına göre döner.
 
         List<BlogPost> posts = new ArrayList<>();
 
@@ -331,7 +336,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return posts;
@@ -359,7 +364,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return posts;
@@ -367,7 +372,7 @@ public class PostService {
 
     // FIND POST-------------------------------------------
 
-    public BlogPost findPostById(String postId) {
+    public BlogPost findPostById(String postId) {     
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
@@ -420,7 +425,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return posts;
@@ -430,7 +435,7 @@ public class PostService {
     // DELETE ALL POSTS OF USER
     // --------------------------------------------------
 
-    public void deleteAllPostsFor(BaseUser author) {
+    public void deleteAllPostsFor(BaseUser author) { // Hesap silme durumunda, kullanıcının tüm yazıları kaldırılır.
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
@@ -445,7 +450,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -460,13 +465,13 @@ public class PostService {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
     // LOAD USER----------------------------------------
 
-    private BaseUser loadUserById(String id) {
+    private BaseUser loadUserById(String id) { 
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
@@ -503,7 +508,7 @@ public class PostService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             return null;
         }
     }

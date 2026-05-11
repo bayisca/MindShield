@@ -6,6 +6,8 @@ import java.util.UUID;
 public abstract class Content {
     private String id;
     private BaseUser author;
+    /** forum_topics / forum_replies satırındaki {@code user_id} — yazar nesnesi tutarsız olsa da yetki için. */
+    private String persistedAuthorUserId;
     private String title;
     private String body;
     private LocalDateTime createdAt;
@@ -28,14 +30,28 @@ public void setCreatedAt(LocalDateTime createdAt) {
 }
     public String getId() { return id; }
     public BaseUser getAuthor() { return author; }
-    public boolean isAuthor(BaseUser user) {
 
-    if (user == null || author == null) {
-        return false;
+    public void setPersistedAuthorUserId(String userId) {
+        this.persistedAuthorUserId = userId;
     }
 
-    return author.getId().equals(user.getId());
-}
+    public String getPersistedAuthorUserId() {
+        return persistedAuthorUserId;
+    }
+
+    public boolean isAuthor(BaseUser user) {
+        if (user == null) {
+            return false;
+        }
+        if (persistedAuthorUserId != null && !persistedAuthorUserId.isBlank()
+                && persistedAuthorUserId.equals(user.getId())) {
+            return true;
+        }
+        if (author == null) {
+            return false;
+        }
+        return author.getId().equals(user.getId());
+    }
     public String getPersonaName() { return author.getPersona(); }
     public String getTitle() { return title; }
     public String getBody() { return body; }

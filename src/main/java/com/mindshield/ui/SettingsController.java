@@ -20,6 +20,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import com.mindshield.services.MeditationPlaybackService;
 
 public class SettingsController {
 
@@ -178,7 +181,7 @@ public class SettingsController {
                 ps.setString(2, user.getId());
                 ps.executeUpdate();
             } catch (Exception e) {
-                e.printStackTrace();
+                com.mindshield.util.AppLog.severe(e);
                 Alert err = new Alert(Alert.AlertType.ERROR);
                 err.setHeaderText(null);
                 err.setContentText("Şifre güncellenirken hata oluştu.");
@@ -201,8 +204,13 @@ public class SettingsController {
         if (user == null) {
             return;
         }
+        Window owner = newPersonaName != null && newPersonaName.getScene() != null
+                ? newPersonaName.getScene().getWindow()
+                : null;
+
         if (user.getRole() == UserRole.ADMIN) {
             Alert a = new Alert(Alert.AlertType.WARNING);
+            a.initOwner(owner);
             a.setHeaderText(null);
             a.setContentText("Yönetici hesabı bu ekrandan silinemez.");
             a.showAndWait();
@@ -210,13 +218,15 @@ public class SettingsController {
         }
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.initOwner(owner);
         confirm.setHeaderText(null);
         confirm.setContentText("Hesabınız kalıcı olarak silinecek. Emin misiniz?");
         Optional<ButtonType> r = confirm.showAndWait();
-        if (r.isEmpty() || r.get() != ButtonType.OK) {
+        if (r.isEmpty() || r.get().getButtonData().isCancelButton()) {
             return;
         }
 
+        MeditationPlaybackService.getInstance().stopPlayback();
         MainApp.deleteAccountAndCleanup(user);
         DashboardController.setCurrentUser(null);
 
@@ -226,7 +236,12 @@ public class SettingsController {
             stage.getScene().setRoot(root);
             stage.setTitle("MindShield — Giriş");
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.initOwner(owner);
+            err.setHeaderText(null);
+            err.setContentText("Giriş ekranına dönülürken hata oluştu. Uygulamayı yeniden başlatın.");
+            err.showAndWait();
         }
     }
 }

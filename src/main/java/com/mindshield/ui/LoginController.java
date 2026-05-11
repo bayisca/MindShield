@@ -113,7 +113,7 @@ public class LoginController {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             showError("Veritabanı bağlantı hatası.");
         }
         
@@ -143,7 +143,7 @@ public class LoginController {
             stage.setTitle(title);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 

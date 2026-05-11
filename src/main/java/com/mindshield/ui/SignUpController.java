@@ -199,7 +199,7 @@ public class SignUpController {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             showError("Veritabani kayit hatasi.");
         }
     }
@@ -231,7 +231,7 @@ public class SignUpController {
         } catch (IOException e) {
 
             System.err.println("Sahne gecis hatasi: " + fxml);
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

@@ -30,7 +30,7 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
             ps.executeUpdate();
             updateMembers(room);
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -46,7 +46,7 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
             updateMembers(room);
             updateMessages(room);
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
                 ps3.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -121,7 +121,7 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -137,7 +137,7 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
                 rooms.add(mapRoom(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return rooms;
     }

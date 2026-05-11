@@ -1,5 +1,6 @@
 package com.mindshield.ui;
 
+import com.mindshield.exceptions.UnauthorizedException;
 import com.mindshield.models.BlogPost;
 import com.mindshield.models.Comment;
 import javafx.fxml.FXML;
@@ -136,9 +137,18 @@ public class BlogDetailController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             var user = DashboardController.getCurrentUser();
-            if (user == null) user = MainApp.userDatabase.get("admin");
-            MainApp.postService.unpublishPost(user, currentPost.getId());
-            DashboardController.getInstance().showBlog();
+            if (user == null) {
+                return;
+            }
+            try {
+                MainApp.postService.unpublishPost(user, currentPost.getId());
+                DashboardController.getInstance().showBlog();
+            } catch (UnauthorizedException ex) {
+                Alert err = new Alert(Alert.AlertType.WARNING);
+                err.setHeaderText(null);
+                err.setContentText(ex.getMessage());
+                err.showAndWait();
+            }
         }
     }
 
@@ -167,15 +177,24 @@ public class BlogDetailController {
     @FXML
     private void addComment() {
         String body = commentInput.getText();
-        if (body != null && !body.isEmpty()) {
-            var user = DashboardController.getCurrentUser();
-            if (user == null)
-                user = MainApp.userDatabase.get("admin");
-
-            MainApp.postService.addComment(currentPost.getId(), user, body);
-
+        if (body == null || body.isBlank() || currentPost == null) {
+            return;
+        }
+        var user = DashboardController.getCurrentUser();
+        if (user == null) {
+            return;
+        }
+        try {
+            MainApp.postService.addComment(currentPost.getId(), user, body.trim());
             commentInput.clear();
             refreshComments();
+        } catch (RuntimeException ex) {
+            com.mindshield.util.AppLog.severe(ex);
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setHeaderText(null);
+            err.setContentText("Yorum eklenirken bir hata oluştu. Lütfen tekrar deneyin.");
+            err.showAndWait();
         }
     }
 }
+

@@ -27,7 +27,7 @@ public class PostDaoImpl implements PostDao {
             ps.executeUpdate();
             saveComments(post);
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -57,7 +57,7 @@ public class PostDaoImpl implements PostDao {
             ps.setString(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -73,7 +73,7 @@ public class PostDaoImpl implements PostDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class PostDaoImpl implements PostDao {
                 posts.add(mapPost(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return posts;
     }
@@ -109,7 +109,7 @@ public class PostDaoImpl implements PostDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return posts;
     }
@@ -154,7 +154,7 @@ public class PostDaoImpl implements PostDao {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return false;
     }
@@ -170,7 +170,7 @@ public class PostDaoImpl implements PostDao {
             ps.setString(3, postId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -183,7 +183,7 @@ public class PostDaoImpl implements PostDao {
             ps.setString(2, postId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -200,7 +200,7 @@ public class PostDaoImpl implements PostDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return posts;
     }
@@ -213,7 +213,7 @@ public class PostDaoImpl implements PostDao {
             ps.setString(1, userId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

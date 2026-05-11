@@ -8,7 +8,7 @@ public class JournalEntry extends Content {
 
     private JournalMood mood;
 
-    public JournalEntry(BaseUser author, String title, String body, JournalMood mood) {
+    public JournalEntry(BaseUser author, String title, String body, JournalMood mood) { 
         super(author, title, body);
         this.mood = mood != null ? mood : JournalMood.NOTR;
     }

@@ -71,7 +71,7 @@ public class JournalDaoImpl implements JournalDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -103,7 +103,7 @@ public class JournalDaoImpl implements JournalDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -130,7 +130,7 @@ public class JournalDaoImpl implements JournalDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -163,7 +163,7 @@ public class JournalDaoImpl implements JournalDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return null;
@@ -195,7 +195,7 @@ public class JournalDaoImpl implements JournalDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         return entries;
@@ -226,7 +226,7 @@ public class JournalDaoImpl implements JournalDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 

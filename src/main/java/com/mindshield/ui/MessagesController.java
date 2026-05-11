@@ -162,7 +162,7 @@ public class MessagesController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
 
         contactList.setItems(FXCollections.observableArrayList(list));
@@ -201,7 +201,7 @@ public class MessagesController {
                     com.mindshield.ui.UserRole.CLIENT);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             return null;
         }
     }
@@ -222,6 +222,52 @@ public class MessagesController {
 
         dmChatListView.setItems(FXCollections.observableArrayList(messages));
         dmChatListView.scrollTo(dmChatListView.getItems().size() - 1);
+    }
+
+    @FXML
+    private void refreshDmChat() {
+        String persona = selectedContactPersona;
+        loadContacts();
+        if (persona != null && contactList.getItems().contains(persona)) {
+            contactList.getSelectionModel().select(persona);
+        } else {
+            selectedContactPersona = null;
+            if (lblSelectedContact != null) {
+                lblSelectedContact.setText("Bir kisi secin");
+            }
+            dmChatListView.getItems().clear();
+        }
+    }
+
+    @FXML
+    private void refreshRoomChat() {
+        String roomId = selectedRoom != null ? selectedRoom.getId() : null;
+        loadRoomList();
+        if (roomId == null) {
+            selectedRoom = null;
+            roomListView.getSelectionModel().clearSelection();
+            refreshRoomMessages();
+            if (lblSelectedRoom != null) {
+                lblSelectedRoom.setText("Bir grup secin");
+            }
+            return;
+        }
+        boolean found = false;
+        for (ChatRoom r : roomListView.getItems()) {
+            if (roomId.equals(r.getId())) {
+                roomListView.getSelectionModel().select(r);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            selectedRoom = null;
+            roomListView.getSelectionModel().clearSelection();
+            refreshRoomMessages();
+            if (lblSelectedRoom != null) {
+                lblSelectedRoom.setText("Bir grup secin");
+            }
+        }
     }
 
     @FXML

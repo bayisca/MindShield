@@ -54,6 +54,16 @@ public class AdminDashboardController {
         refreshPendingCounselors();
     }
 
+    @FXML
+    private void refreshComplaintsTab() {
+        refreshReports();
+    }
+
+    @FXML
+    private void refreshPendingCounselorsTab() {
+        refreshPendingCounselors();
+    }
+
     private void refreshReports() {
         if (reportList == null) {
             return;
@@ -165,7 +175,7 @@ public class AdminDashboardController {
                 pendingCounselorsList.getItems().add(rs.getString("username") + " (" + rs.getString("profession") + ")");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -181,7 +191,7 @@ public class AdminDashboardController {
             alert(Alert.AlertType.INFORMATION, "Danışman onaylandı.");
             refreshPendingCounselors();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -197,7 +207,7 @@ public class AdminDashboardController {
             alert(Alert.AlertType.INFORMATION, "Danışman reddedildi ve silindi.");
             refreshPendingCounselors();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -220,7 +230,7 @@ public class AdminDashboardController {
             alert(Alert.AlertType.INFORMATION, "Grup sohbeti başarıyla oluşturuldu.");
             txtGroupName.clear();
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
             alert(Alert.AlertType.ERROR, "Hata oluştu.");
         }
     }
@@ -253,7 +263,7 @@ public class AdminDashboardController {
             stage.getScene().setRoot(root);
             stage.setTitle("MindShield — Giriş");
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 

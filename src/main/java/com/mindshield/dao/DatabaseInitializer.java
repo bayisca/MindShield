@@ -301,7 +301,7 @@ public class DatabaseInitializer {
             System.out.println("✅ Tablolar başarıyla oluşturuldu.");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

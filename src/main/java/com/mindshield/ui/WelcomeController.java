@@ -69,7 +69,7 @@ public class WelcomeController {
             stage.getScene().setRoot(root);
             stage.setTitle("MindShield — Dashboard");
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

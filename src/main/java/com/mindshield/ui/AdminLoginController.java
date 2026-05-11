@@ -63,7 +63,7 @@ public class AdminLoginController {
             stage.getScene().setRoot(root);
             stage.setTitle(title);
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -74,7 +74,7 @@ public class AdminLoginController {
             stage.getScene().setRoot(root);
             stage.setTitle("MindShield — Yönetici");
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

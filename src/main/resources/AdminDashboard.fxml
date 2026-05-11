@@ -32,7 +32,13 @@
                      <content>
                         <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
                            <children>
-                              <Label text="Şikayetler" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                 <children>
+                                    <Label text="Şikayetler" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button onAction="#refreshComplaintsTab" styleClass="btn-secondary" text="Yenile" />
+                                 </children>
+                              </HBox>
                               <HBox spacing="14.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <VBox spacing="8.0" prefWidth="320.0">
@@ -66,7 +72,13 @@
                      <content>
                         <VBox spacing="14.0" style="-fx-background-color: #F3E3D0; -fx-padding: 24;">
                            <children>
-                              <Label text="Onay Bekleyen Danışmanlar" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                 <children>
+                                    <Label text="Onay Bekleyen Danışmanlar" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button onAction="#refreshPendingCounselorsTab" styleClass="btn-secondary" text="Yenile" />
+                                 </children>
+                              </HBox>
                               <ListView fx:id="pendingCounselorsList" VBox.vgrow="ALWAYS" style="-fx-background-color: #EAE0D2;" />
                               <HBox spacing="10.0">
                                  <children>

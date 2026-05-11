@@ -22,6 +22,14 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    /** Önbellek veya veritabanından persona ile kullanıcı (giriş yapmış kullanıcılar dahil). */
+    public BaseUser findByPersona(String persona) {
+        if (persona == null || persona.isBlank()) {
+            return null;
+        }
+        return userDao.findByPersona(persona.trim());
+    }
+
     public BaseUser registerUser(String persona, String password, UserRole role, String expertise) {
         if (persona == null || persona.trim().isEmpty()) {
             throw new IllegalArgumentException("Persona boş bırakılamaz.");

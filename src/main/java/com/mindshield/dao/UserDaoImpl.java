@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
             ps.executeUpdate();
             MainApp.userDatabase.put(user.getPersona(), user);
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -72,7 +72,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return null;
     }
@@ -87,7 +87,7 @@ public class UserDaoImpl implements UserDao {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return false;
     }
@@ -103,7 +103,7 @@ public class UserDaoImpl implements UserDao {
                 users.add(mapUser(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return users;
     }
@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
             ps.executeUpdate();
             MainApp.userDatabase.remove(persona);
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -135,6 +135,11 @@ public class UserDaoImpl implements UserDao {
 
         if (role == UserRole.COUNSELOR) {
             return new Counselor(id, username, password, profession);
+        } else if (role == UserRole.PENDING_COUNSELOR) {
+            Counselor pending = new Counselor(id, username, password,
+                    profession != null ? profession : "");
+            pending.setApproved(false);
+            return pending;
         } else if (role == UserRole.ADMIN) {
             return new com.mindshield.models.Admin(username, id, password);
         } else {

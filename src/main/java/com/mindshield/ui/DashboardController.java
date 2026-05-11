@@ -114,7 +114,7 @@ public class DashboardController {
 
             contentArea.getChildren().setAll(view);
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -128,11 +128,14 @@ public class DashboardController {
             ctrl.setPost(post);
             contentArea.getChildren().setAll(view);
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
     public void showBlogEdit(com.mindshield.models.BlogPost post) {
+        if (currentUser == null || !MainApp.postService.canPublishBlogPosts(currentUser)) {
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/BlogWrite.fxml"));
             Parent view = loader.load();
@@ -140,11 +143,14 @@ public class DashboardController {
             ctrl.setEditPost(post);
             contentArea.getChildren().setAll(view);
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
     public void showBlogWrite() {
+        if (currentUser == null || !MainApp.postService.canPublishBlogPosts(currentUser)) {
+            return;
+        }
         loadView("/BlogWrite.fxml");
     }
 
@@ -160,7 +166,7 @@ public class DashboardController {
             ctrl.selectContact(contactPersona);
             contentArea.getChildren().setAll(view);
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -172,7 +178,12 @@ public class DashboardController {
     @FXML public void showMessages()   { loadView("/Messages.fxml"); }
     @FXML public void showCounselors() { loadView("/CounselorSelect.fxml"); }
     @FXML public void showMeditation() { loadView("/Meditation.fxml"); }
-    @FXML public void showJourShield() { loadView("/JourShield.fxml"); }
+    @FXML public void showJourShield() {
+        if (currentUser != null && !MainApp.journalService.canUseJournal(currentUser)) {
+            return;
+        }
+        loadView("/JourShield.fxml");
+    }
     @FXML public void showSettings()   { loadView("/Settings.fxml"); }
 
     @FXML
@@ -185,7 +196,7 @@ public class DashboardController {
             stage.getScene().setRoot(loginView);
             stage.setTitle("MindShield — Giriş");
         } catch (IOException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 }

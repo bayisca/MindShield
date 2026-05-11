@@ -159,7 +159,7 @@ public class ForumController {
         confirm.setHeaderText(null);
         confirm.setContentText("Bu baslik ve tum yanitlar silinsin mi?");
         Optional<ButtonType> choice = confirm.showAndWait();
-        if (choice.isEmpty() || choice.get() != ButtonType.OK) {
+        if (choice.isEmpty() || choice.get().getButtonData().isCancelButton()) {
             return;
         }
         try {
@@ -377,7 +377,7 @@ public class ForumController {
         confirm.setHeaderText(null);
         confirm.setContentText("Bu yanit silinsin mi?");
         Optional<ButtonType> choice = confirm.showAndWait();
-        if (choice.isEmpty() || choice.get() != ButtonType.OK) {
+        if (choice.isEmpty() || choice.get().getButtonData().isCancelButton()) {
             return;
         }
         try {

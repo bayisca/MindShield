@@ -24,7 +24,7 @@ public class SystemLogDaoImpl implements SystemLogDao {
             ps.setTimestamp(3, Timestamp.valueOf(log.getTimestamp()));
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -41,7 +41,7 @@ public class SystemLogDaoImpl implements SystemLogDao {
                 logs.add(log);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return logs;
     }
@@ -58,7 +58,7 @@ public class SystemLogDaoImpl implements SystemLogDao {
             ps.setTimestamp(5, Timestamp.valueOf(report.getTimestamp()));
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
     }
 
@@ -76,7 +76,7 @@ public class SystemLogDaoImpl implements SystemLogDao {
                 reports.add(report);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            com.mindshield.util.AppLog.severe(e);
         }
         return reports;
     }
