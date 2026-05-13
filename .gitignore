@@ -1,6 +1,8 @@
 bin/
 *.class
 .vscode/
+.idea/
 .settings/
 .project
 target/
+data/*
