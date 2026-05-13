@@ -80,11 +80,12 @@ Bu proje akademik seviyede temiz kod ve OOP prensiplerine uygun olarak geliştir
 ## ⚙️ Kurulum ve Çalıştırma
 
 1.  **JDK Kurulumu:** Bilgisayarınızda Java 21 veya üzeri kurulu olmalıdır.
-2.  **Derleme:**
+2.  **Apache Maven:** Proje bağımlılıklarını yönetmek ve uygulamayı çalıştırmak için gereklidir.
+3.  **Derleme:**
     ```bash
     mvn clean install
     ```
-3.  **Çalıştırma:**
+4.  **Çalıştırma:**
     ```bash
     mvn javafx:run
     ```
