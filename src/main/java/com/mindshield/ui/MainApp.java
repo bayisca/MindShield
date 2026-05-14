@@ -11,7 +11,6 @@ import java.util.Map;
 import com.mindshield.dao.DatabaseConnection;
 import com.mindshield.models.Admin;
 import com.mindshield.models.BaseUser;
-import com.mindshield.models.Counselor;
 import com.mindshield.models.CounselorExpertise;
 import com.mindshield.dao.DatabaseInitializer;
 import javafx.application.Application;
@@ -34,23 +33,14 @@ public class MainApp extends Application {
     static {
         // Veritabanı tablolarını ve seed verilerini önce oluştur
         DatabaseInitializer.init();
-        // Default admin counselor (pre-approved)
-        Counselor admin = new Counselor("admin-001", "admin", "admin123", "Genel Psikoloji");
-        admin.setApproved(true);
-        userDatabase.put("admin", admin);
 
-        // SuperAdmin
+        // Yönetici girişi (AdminLogin) + destek grubu tohumlaması için; danışan girişi SQL users üzerinden.
         BaseUser superAdmin = new com.mindshield.models.Admin(
                 "superadmin",
                 "sa-001",
                 "sa123"
         );
         userDatabase.put("superadmin", superAdmin);
-
-        // Sample counselor for testing
-        Counselor demoDoc = new Counselor("doc-002", "Dr.Ayse", "doc123", "Anksiyete ve Stres");
-        demoDoc.setApproved(true);
-        userDatabase.put("Dr.Ayse", demoDoc);
 
         seedSupportGroupsIfNeeded();
     }

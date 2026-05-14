@@ -85,15 +85,25 @@ public class SystemLogDaoImpl implements SystemLogDao {
         String id = rs.getString("reporter_id");
         String username = rs.getString("username");
         String password = rs.getString("password");
-        UserRole role = UserRole.valueOf(rs.getString("role"));
+        UserRole role;
+        try {
+            role = UserRole.valueOf(rs.getString("role"));
+        } catch (Exception e) {
+            role = UserRole.CLIENT;
+        }
         String profession = rs.getString("profession");
 
         if (role == UserRole.COUNSELOR) {
             return new Counselor(id, username, password, profession);
+        } else if (role == UserRole.PENDING_COUNSELOR) {
+            Counselor pending = new Counselor(id, username, password,
+                    profession != null ? profession : "");
+            pending.setApproved(false);
+            return pending;
         } else if (role == UserRole.ADMIN) {
             return new Admin(username, id, password);
         } else {
-            return new StandardUser(id, username, password, role);
+            return new StandardUser(id, username, password, UserRole.CLIENT);
         }
     }
 }

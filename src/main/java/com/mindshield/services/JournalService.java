@@ -35,7 +35,7 @@ public class JournalService {
             return false;
         }
         UserRole r = user.getRole();
-        return r == UserRole.CLIENT || r == UserRole.ANONYMOUS || r == UserRole.COUNSELOR;
+        return r == UserRole.CLIENT || r == UserRole.COUNSELOR;
     }
 
     /** Günlük oluşturma / silme / güncelleme öncesi — yetkisiz rolde anlaşılır mesaj. */

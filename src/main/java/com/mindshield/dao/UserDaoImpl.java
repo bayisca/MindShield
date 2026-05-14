@@ -143,8 +143,7 @@ public class UserDaoImpl implements UserDao {
         } else if (role == UserRole.ADMIN) {
             return new com.mindshield.models.Admin(username, id, password);
         } else {
-            // Correct order: id, persona, password, role
-            return new StandardUser(id, username, password, role);
+            return new StandardUser(id, username, password, UserRole.CLIENT);
         }
     }
 }

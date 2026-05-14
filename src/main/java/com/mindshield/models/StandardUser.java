@@ -4,18 +4,11 @@ import com.mindshield.ui.UserRole;
 
 public class StandardUser extends BaseUser {
 
-    private boolean isAnonymous;
-
     public StandardUser(String id,String persona, String password, UserRole role) {
-        super(id,persona, password, role);
-        if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS) {
-            throw new IllegalArgumentException("StandardUser yalnızca CLIENT veya ANONYMOUS rolü alabilir.");
+    super(id,persona, password, role);
+        if (role != UserRole.CLIENT) {
+            throw new IllegalArgumentException("StandardUser yalnızca CLIENT rolü alabilir.");
         }
-        this.isAnonymous = (role == UserRole.ANONYMOUS);
-    }
-
-    public boolean isAnonymous() {
-        return isAnonymous;
     }
 
     @Override

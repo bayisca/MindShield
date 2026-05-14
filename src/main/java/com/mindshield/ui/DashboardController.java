@@ -23,8 +23,8 @@ public class DashboardController {
     @FXML private Button btnNavBlog;
     @FXML private Button btnNavForum;
     @FXML private Button btnNavMessages;
-    @FXML private Button btnNavCounselors; // CLIENT / ANONYMOUS only
-    @FXML private Button btnJourShield;    // CLIENT / ANONYMOUS / COUNSELOR
+    @FXML private Button btnNavCounselors; // CLIENT only
+    @FXML private Button btnJourShield;    // CLIENT / COUNSELOR
     @FXML private Button btnNavSettings;
 
     // User badge labels
@@ -59,7 +59,7 @@ public class DashboardController {
         if (currentUser == null) return;
 
         UserRole role = currentUser.getRole();
-        boolean isClient    = role == UserRole.CLIENT || role == UserRole.ANONYMOUS;
+        boolean isClient    = role == UserRole.CLIENT;
         boolean isCounselor = role == UserRole.COUNSELOR;
 
         // Counselor-select panel — only clients need it
@@ -74,7 +74,6 @@ public class DashboardController {
             String roleLabel = switch (role) {
                 case COUNSELOR -> "Danisman";
                 case CLIENT    -> "Danisan";
-                case ANONYMOUS -> "Anonim";
                 case ADMIN     -> "Super Admin";
                 case PENDING_COUNSELOR -> "Onay Bekleyen Danışman";
             };

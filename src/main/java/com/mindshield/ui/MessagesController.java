@@ -150,7 +150,7 @@ public class MessagesController {
                     continue;
 
                 boolean show = switch (currentUser.getRole()) {
-                    case CLIENT, ANONYMOUS -> user.getRole() == UserRole.COUNSELOR 
+                    case CLIENT -> user.getRole() == UserRole.COUNSELOR
                             && MainApp.messageService.hasChatBetween(currentUser, user);
                     case COUNSELOR -> user.getRole() == UserRole.CLIENT
                             && MainApp.messageService.hasChatBetween(currentUser, user);

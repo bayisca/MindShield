@@ -57,7 +57,7 @@ public class SettingsController {
             counselorSummarySection.setManaged(counselor);
         }
         boolean clientProfile =
-                user.getRole() == UserRole.CLIENT || user.getRole() == UserRole.ANONYMOUS;
+                user.getRole() == UserRole.CLIENT;
         if (clientSummarySection != null) {
             clientSummarySection.setVisible(clientProfile);
             clientSummarySection.setManaged(clientProfile);

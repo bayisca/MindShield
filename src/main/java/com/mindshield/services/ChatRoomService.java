@@ -44,7 +44,7 @@ public class ChatRoomService {
             throw new UnauthorizedException("Odaya katılmak için giriş yapmalısınız.");
         }
         UserRole role = user.getRole();
-        if (role != UserRole.CLIENT && role != UserRole.ANONYMOUS && role != UserRole.COUNSELOR) {
+        if (role != UserRole.CLIENT && role != UserRole.COUNSELOR) {
             throw new UnauthorizedException(
                     "Grup sohbetleri yalnızca danışan ve danışman hesapları içindir.");
         }
