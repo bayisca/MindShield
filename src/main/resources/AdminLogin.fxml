@@ -23,7 +23,7 @@
                <children>
                   <Label text="YÖNETİCİ PERSONA ADI"
                          style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
-                  <TextField fx:id="personaField" prefHeight="44.0" promptText="Örn. superadmin" />
+                  <TextField fx:id="personaField" prefHeight="44.0" promptText="Örn. admin" />
                   <Label text="ŞİFRE"
                          style="-fx-font-size: 11px; -fx-text-fill: #6A7C8F;" />
                   <PasswordField fx:id="passwordField" prefHeight="44.0" promptText="Şifre" />

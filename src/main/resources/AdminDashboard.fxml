@@ -111,8 +111,8 @@
                               <Label text="SoulShield'e Şarkı Ekle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
                               <Label text="Şarkı Adı" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
                               <TextField fx:id="txtSongTitle" prefHeight="40.0" promptText="Şarkının adını girin" />
-                              <Label text="Müzik Linki (Örn: http://... veya dosya adı)" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
-                              <TextField fx:id="txtSongLink" prefHeight="40.0" promptText="Geçerli bir URL veya dosya adı" />
+                              <Label text="Müzik Linki (Örn: .mp3)" style="-fx-text-fill: #6A7C8F; -fx-font-size: 12px;" />
+                              <TextField fx:id="txtSongLink" prefHeight="40.0" promptText="Önce audio içine ekleyin sonra dosya adı" />
                               <Button onAction="#addSong" prefHeight="40.0" text="Sisteme Ekle" />
                            </children>
                         </VBox>

@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mindshield.dao.DatabaseConnection;
+import com.mindshield.dao.DatabaseInitializer;
 import com.mindshield.models.Admin;
 import com.mindshield.models.BaseUser;
 import com.mindshield.models.CounselorExpertise;
-import com.mindshield.dao.DatabaseInitializer;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    public static Map<String, BaseUser> userDatabase = new HashMap<>();
+    public static final Map<String, BaseUser> userDatabase = new HashMap<>();
     public static com.mindshield.services.PostService postService = new com.mindshield.services.PostService();
     public static com.mindshield.services.MessageService messageService = new com.mindshield.services.MessageService();
     public static com.mindshield.services.JournalService journalService = new com.mindshield.services.JournalService();
@@ -35,19 +36,19 @@ public class MainApp extends Application {
         DatabaseInitializer.init();
 
         // Yönetici girişi (AdminLogin) + destek grubu tohumlaması için; danışan girişi SQL users üzerinden.
-        BaseUser superAdmin = new com.mindshield.models.Admin(
-                "superadmin",
+        BaseUser Admin = new com.mindshield.models.Admin(
+                "admin",
                 "sa-001",
-                "sa123"
+                "123a"
         );
-        userDatabase.put("superadmin", superAdmin);
+        userDatabase.put("admin", Admin);
 
         seedSupportGroupsIfNeeded();
     }
 
     /** Hazır destek grupları (oda sohbetleri) — dosyada yoksa oluşturulur. */
     private static void seedSupportGroupsIfNeeded() {
-        BaseUser sa = userDatabase.get("superadmin");
+        BaseUser sa = userDatabase.get("admin");
         if (!(sa instanceof Admin admin)) {
             return;
         }
