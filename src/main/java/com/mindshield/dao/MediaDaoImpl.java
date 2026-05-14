@@ -1,7 +1,5 @@
 package com.mindshield.dao;
 
-import com.mindshield.models.MeditationTrack;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.mindshield.models.MeditationTrack;
+
 public class MediaDaoImpl implements MediaDao {
 
     @Override
     public void saveTrack(MeditationTrack track) {
-        String sql = "MERGE INTO media (id, title, filename, description) KEY(id) VALUES (?, ?, ?, ?)";
+        String sql = "MERGE INTO media (id, title, filename) KEY(id) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, track.getId());
             ps.setString(2, track.getTitle());
             ps.setString(3, track.getFilename());
-            ps.setString(4, track.getDescription());
             ps.executeUpdate();
         } catch (SQLException e) {
             com.mindshield.util.AppLog.severe(e);
@@ -151,8 +150,7 @@ public class MediaDaoImpl implements MediaDao {
         return new MeditationTrack(
                 rs.getString("id"),
                 rs.getString("title"),
-                rs.getString("filename"),
-                rs.getString("description")
+                rs.getString("filename")
         );
     }
 }

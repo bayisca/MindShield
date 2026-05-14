@@ -74,7 +74,7 @@ public class DashboardController {
             String roleLabel = switch (role) {
                 case COUNSELOR -> "Danisman";
                 case CLIENT    -> "Danisan";
-                case ADMIN     -> "Super Admin";
+                case ADMIN     -> "Sistem Yöneticisi";
                 case PENDING_COUNSELOR -> "Onay Bekleyen Danışman";
             };
             lblUserRole.setText(roleLabel);

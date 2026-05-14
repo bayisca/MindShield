@@ -32,13 +32,12 @@ public class DatabaseInitializer {
                         CREATE TABLE IF NOT EXISTS media (
                             id VARCHAR(50) PRIMARY KEY,
                             title VARCHAR(100),
-                            filename VARCHAR(255),
-                            description TEXT
+                            filename VARCHAR(255)
                         )
                     """);
             // Migrate existing DB: rename/add columns if old schema exists
             try { stmt.execute("ALTER TABLE media ADD COLUMN IF NOT EXISTS filename VARCHAR(255)"); } catch (Exception ignored) {}
-            try { stmt.execute("ALTER TABLE media ADD COLUMN IF NOT EXISTS description TEXT"); } catch (Exception ignored) {}
+            try { stmt.execute("ALTER TABLE media DROP COLUMN IF EXISTS description"); } catch (Exception ignored) {}
             try { stmt.execute("UPDATE media SET filename = url WHERE filename IS NULL AND url IS NOT NULL"); } catch (Exception ignored) {}
             try { stmt.execute("UPDATE media SET description = category WHERE description IS NULL AND category IS NOT NULL"); } catch (Exception ignored) {}
             try { stmt.execute("ALTER TABLE media DROP COLUMN IF EXISTS artist"); } catch (Exception ignored) {}
@@ -240,16 +239,16 @@ public class DatabaseInitializer {
                         )
                     """);
             stmt.execute("""
-                        MERGE INTO media (id, title, filename, description)
+                        MERGE INTO media (id, title, filename)
                         KEY(id)
                         VALUES
-                        ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3',              'Uykuya dalmayı kolaylaştıran derin meditasyon frekansları. Zihinsel rahatlama sağlar.'),
-                        ('track-stres',         'Stres Giderme',           'stres_giderme.mp3',           'Yoğun stres anlarında dinlenmesi gereken sakinleştirici meditasyon müziği.'),
-                        ('track-gravity',       'Gravity''s Breaking Point','Gravity''s_Breaking_Point.mp3','Ağırlığı bırakıp nefes almayı öğreten, özgürleştirici bir ses yolculuğu.'),
-                        ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3',    'Güneşli bir sığınaktaki huzur hissini veren ambient meditasyon müziği.'),
-                        ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3',   'Yağmur seslerini andıran, zihinsel berraklık için tasarlanmış kısa meditasyon.'),
-                        ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3',            'Ruhsal güç ve motivasyon için ilham veren güçlü bir marş melodisi.'),
-                        ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3',             'Umut ve kararlılık duygularını uyandıran enerjik bir ödüllendirme marşı.')
+                        ('track-derin-uyku',    'Derin Uyku',              'derin_uyku.mp3'),
+                        ('track-stres',         'Stres Giderme',           'stres_giderme.mp3'),
+                        ('track-gravity',       'Gravity''s Breaking Point','Gravity''s_Breaking_Point.mp3'),
+                        ('track-sunlit',        'The Sunlit Sanctuary',    'The_Sunlit_Sanctuary.mp3'),
+                        ('track-window',        'Under the Window Pane',   'Under_the_Window_Pane.mp3'),
+                        ('track-ceddin',        'Ceddin Deden',            'Ceddin Deden.mp3'),
+                        ('track-izmir',         'İzmir Marşı',             'İzmir Marşı.mp3')
                     """);
             stmt.execute("""
                         MERGE INTO forum_categories (id, name, description)
