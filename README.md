@@ -90,6 +90,8 @@ Bu proje akademik seviyede temiz kod ve OOP prensiplerine uygun olarak geliştir
     mvn javafx:run
     ```
     *Not: Veritabanı ilk çalıştırmada otomatik olarak oluşturulur (`DatabaseInitializer` sınıfı sayesinde).*
+5. Yönetici girişi; persona: admin
+                    şifre: 123a
 
 ---
 
